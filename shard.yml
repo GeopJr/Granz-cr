@@ -1,0 +1,12 @@
+name: Granz
+version: 1.0
+
+authors:
+  - GeopJr <geopjr@geopjr.xyz>
+
+dependencies:
+  discordcr:
+    github: meew0/discordcr
+    branch: master
+    
+license: MIT
