@@ -5,7 +5,32 @@ require "http/client"
 client = Discord::Client.new(token: "Bot token", client_id: 443053627419000833_u64)
 
 PREFIX = ["--", "<@443053627419000833>", "<@443053627419000833> "]
-VERSION = "1.0"
+VERSION = "1.3"
+UPTIMER = Time.utc_now
+
+#uptime
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "uptime") || (payload.content.starts_with? PREFIX[1] + "uptime") || (payload.content.starts_with? PREFIX[2] + "uptime")
+      begin
+        timee = Time.now - UPTIMER
+  embed = Discord::Embed.new(
+   timestamp: Time.now,
+   colour: 0xffff00,
+	title: "I've been up for:",
+	description: "#{timee.hours} Hours, #{timee.minutes} Minutes, #{timee.seconds} Seconds"
+)
+client.create_message(payload.channel_id, "", embed)
+  rescue
+    embed = Discord::Embed.new(
+      colour: 0xffff00,
+        title: "Error",
+        url: "https://granz.geopjr.xyz"
+      )
+      client.create_message(payload.channel_id, "", embed)
+        end
+  end
+end
 # Help
 client.on_message_create do |payload|
   next if payload.author.bot
