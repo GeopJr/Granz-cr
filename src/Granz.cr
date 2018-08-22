@@ -349,6 +349,7 @@ client.on_message_create do |payload|
       begin
       response = HTTP::Client.get "http://ratings.tankionline.com/get_stat/profile/?user=#{argss}&lang=en"
       value = JSON.parse(response.body)
+     if value["response"]["hasPremium"] == false
       if value["response"]["rank"] == 1
         rank = "Recruit"
         rimg = "https://i.imgur.com/ZcBNexc.png"
@@ -446,6 +447,106 @@ client.on_message_create do |payload|
       else value["response"]["rank"] == 31
         rank = "Legend"
         rimg = "https://i.imgur.com/NahcZQ9.png"         end
+elsif value["response"]["hasPremium"] == true
+        if value["response"]["rank"] == 1
+        rank = "Recruit"
+   rimg = "https://i.imgur.com/ZcBNexc.png"
+elsif value["response"]["rank"] == 2
+   rank = "Private"
+   rimg = "https://i.imgur.com/Jaar0MF.png"
+elsif value["response"]["rank"] == 3
+   rank = "Gefreiter"
+   rimg = "https://i.imgur.com/j2DfBdW.png"
+elsif value["response"]["rank"] == 4
+   rank = "Corporal"
+   rimg = "https://i.imgur.com/7Pn4X88.png"
+elsif value["response"]["rank"] == 5
+   rank = "Master Corporal"
+   rimg = "https://i.imgur.com/WKZ0sVp.png"
+elsif value["response"]["rank"] == 6
+   rank = "Sergeant"
+   rimg = "https://i.imgur.com/O2WuJAJ.png"
+elsif value["response"]["rank"] == 7
+   rank = "Staff Sergeant"
+   rimg = "https://i.imgur.com/bTQLm9h.png"
+elsif value["response"]["rank"] == 8
+   rank = "Master Sergeant"
+   rimg = "https://i.imgur.com/VvivZg0.png"
+elsif value["response"]["rank"] == 9
+   rank = "First Sergeant"
+   rimg = "https://i.imgur.com/rCkln3K.png"
+elsif value["response"]["rank"] == 10
+   rank = "Sergeant-Major"
+   rimg = "https://i.imgur.com/uOXqDLo.png"
+elsif value["response"]["rank"] == 11
+   rank = "Warrant Officer 1"
+   rimg = "https://i.imgur.com/sEzBbLQ.png"
+elsif value["response"]["rank"] == 12
+   rank = "Warrant Officer 2"
+   rimg = "https://i.imgur.com/EZJslol.png"
+elsif value["response"]["rank"] == 13
+   rank = "Warrant Officer 3"
+   rimg = "https://i.imgur.com/xMboj6l.png"
+elsif value["response"]["rank"] == 14
+   rank = "Warrant Officer 4"
+   rimg = "https://i.imgur.com/qLzwet8.png"
+elsif value["response"]["rank"] == 15
+   rank = "Warrant Officer 5"
+   rimg = "https://i.imgur.com/0hKtwX2.png"
+elsif value["response"]["rank"] == 16
+   rank = "Third Lieutenant"
+   rimg = "https://i.imgur.com/Miz0wqt.png"
+elsif value["response"]["rank"] == 17
+   rank = "Second Lieutenant"
+   rimg = "https://i.imgur.com/qkTXhJR.png"
+elsif value["response"]["rank"] == 18
+   rank = "First Lieutenant"
+   rimg = "https://i.imgur.com/VeA0ugN.png"
+elsif value["response"]["rank"] == 19
+   rank = "Captain"
+   rimg = "https://i.imgur.com/INKmQMy.png"
+elsif value["response"]["rank"] == 20
+   rank = "Major"
+   rimg = "https://i.imgur.com/hJL5fqH.png"
+elsif value["response"]["rank"] == 21
+   rank = "Lieutenant Colonel"
+   rimg = "https://i.imgur.com/QpggknT.png"
+elsif value["response"]["rank"] == 22
+   rank = "Colonel"
+   rimg = "https://i.imgur.com/9dg1YYq.png"
+elsif value["response"]["rank"] == 23
+   rank = "Brigadier"
+   rimg = "https://i.imgur.com/Af6FJjE.png"
+elsif value["response"]["rank"] == 24
+   rank = "Major General"
+   rimg = "https://i.imgur.com/SYIelDs.png"
+elsif value["response"]["rank"] == 25
+   rank = "Lieutenant General"
+   rimg = "https://i.imgur.com/J7ob7co.png"
+elsif value["response"]["rank"] == 26
+   rank = "General"
+   rimg = "https://i.imgur.com/laq0luJ.png"
+elsif value["response"]["rank"] == 27
+   rank = "Marshal"
+   rimg = "https://i.imgur.com/4QzfKbh.png"
+elsif value["response"]["rank"] == 28
+   rank = "Field Marshal"
+   rimg = "https://i.imgur.com/LVcFtIW.png"
+elsif value["response"]["rank"] == 29
+   rank = "Commander"
+   rimg = "https://i.imgur.com/YLKv7Qy.png"
+elsif value["response"]["rank"] == 30
+   rank = "Generalissimo"
+   rimg = "https://i.imgur.com/i8lKuZh.png"
+
+        elsif value["response"]["rank"].as_i > 31
+          numrank = value["response"]["rank"].as_i - 30
+          rank = "Legend #{numrank}"
+          rimg = "https://i.imgur.com/qK6onnG.png"
+        else value["response"]["rank"] == 31
+          rank = "Legend"
+          rimg = "https://i.imgur.com/qK6onnG.png"         end
+      end
 
         exp = value["response"]["score"]
         expc = value["response"]["scoreNext"]
