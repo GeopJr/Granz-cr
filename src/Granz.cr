@@ -5,7 +5,7 @@ require "http/client"
 client = Discord::Client.new(token: "Bot token", client_id: 443053627419000833_u64)
 
 PREFIX = ["--", "<@443053627419000833>", "<@443053627419000833> "]
-VERSION = "1.3"
+VERSION = "1.5"
 UPTIMER = Time.utc_now
 
 #uptime
@@ -347,7 +347,7 @@ client.on_message_create do |payload|
     elsif argscount.size > 1
       argss = pres.gsub("tanki ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
       begin
-      response = HTTP::Client.get "http://ratings.tankionline.com/get_stat/profile/?user=#{argss}&lang=en"
+      response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{argss}&lang=en"
       value = JSON.parse(response.body)
      if value["response"]["hasPremium"] == false
       if value["response"]["rank"] == 1
