@@ -602,11 +602,11 @@ elsif value["response"]["rank"] == 30
         end
 
         mines = value["response"]["suppliesUsage"][3]["usages"]
-        repair = value["response"]["suppliesUsage"][2]["usages"]
-        golbo = value["response"]["suppliesUsage"][4]["usages"]
-        darm = value["response"]["suppliesUsage"][5]["usages"]
-        spebo = value["response"]["suppliesUsage"][0]["usages"]
-        ddu = value["response"]["suppliesUsage"][1]["usages"]
+        repair = value["response"]["suppliesUsage"][4]["usages"]
+        golbo = value["response"]["suppliesUsage"][1]["usages"]
+        darm = value["response"]["suppliesUsage"][0]["usages"]
+        spebo = value["response"]["suppliesUsage"][2]["usages"]
+        ddu = value["response"]["suppliesUsage"][5]["usages"]
         bu = value["response"]["suppliesUsage"][6]["usages"]
 
   embed = Discord::Embed.new(
