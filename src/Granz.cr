@@ -10,6 +10,82 @@ UPTIMER = Time.utc_now
 cachee = Discord::Cache.new(client)
 client.cache = cachee
 
+# # cmd_count
+# client.on_message_create do |payload|
+#   next if payload.author.bot
+#   begin
+#     if (payload.content.starts_with? PREFIX[1]) || (payload.content.starts_with? PREFIX[2]) || (payload.content.starts_with? PREFIX[3]) || (payload.content.starts_with? PREFIX[4])
+#       response = HTTP::Client.get "-get_cmd_count_from_ur_json-"
+#       value = JSON.parse(response.body)
+#       ehh = value["cmd"].as_i + 1 #add 1 to your counter
+#       headerss = HTTP::Headers{"Content-Type" => "application/json"}
+#       bodyy = {"cmd" => ehh}.to_json
+#       HTTP::Client.put("-post_to_the_same_json-", headers: headerss, body: bodyy) do |res|
+#         statuss = res.status_code
+#         if statuss != 200
+#           puts "2Uh oh! Stats update responded with status #{statuss}!"
+#         elsif statuss == 204
+#           # nothing
+#         end
+#       end
+#       end
+#   rescue
+#     # :P
+#   end
+# end
+
+# #  stats
+# client.on_message_create do |payload|
+#   next if payload.author.bot
+#   begin
+#     if (payload.content.starts_with? PREFIX[0] + "stats") || (payload.content.starts_with? PREFIX[1] + "stats") || (payload.content.starts_with? PREFIX[2] + "stats") || (payload.content.starts_with? PREFIX[3] + "stats") || (payload.content.starts_with? PREFIX[4] + "stats")
+#       response = HTTP::Client.get "-get_server_count_from_your_json-"
+#       value = JSON.parse(response.body)
+#       response = HTTP::Client.get "-get_cmd_count_from_ur_json-"
+#       valuee = JSON.parse(response.body)
+#       timee = Time.now - UPTIMER
+#       embed = Discord::Embed.new(
+#         title: "Here's some stats about me!!!",
+#         fields: [Discord::EmbedField.new(
+#           name: "__Servers:__",
+#           value: "#{valuee["server_count"]}",
+#           inline: true
+#         ),
+#                  Discord::EmbedField.new(
+#                    name: "__Commands Used:__",
+#                    value: "#{value["cmd"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+#                    inline: true
+#                  ),
+#                  Discord::EmbedField.new(
+#                    name: "__Uptime:__",
+#                    value: "#{timee.hours} Hours, #{timee.minutes} Minutes, #{timee.seconds} Seconds",
+#                    inline: true
+#                  ),
+#         ],
+#         timestamp: Time.now,
+#         colour: 0xffff00,
+#         footer: Discord::EmbedFooter.new(
+#           text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",
+#           icon_url: "https://cdn.discordapp.com/avatars/216156825978929152/c7eaee00bbe99b16304429fb9b9116ea.png"
+#         ),
+#         author: Discord::EmbedAuthor.new(
+#           name: "Granz#8561",
+#           icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
+#         ),
+#         url: "https://granz.geopjr.xyz"
+#       )
+#       client.create_message(payload.channel_id, "", embed)
+#     end
+#   rescue
+#     embed = Discord::Embed.new(
+#       title: "Error",
+#       url: "https://granz.geopjr.xyz"
+#     )
+#     client.create_message(payload.channel_id, "", embed)
+#   end
+# 
+# end
+
 # uptime
 client.on_message_create do |payload|
   next if payload.author.bot
