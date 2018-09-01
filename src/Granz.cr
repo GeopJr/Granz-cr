@@ -4,14 +4,16 @@ require "http/client"
 
 client = Discord::Client.new(token: "Bot token", client_id: 443053627419000833_u64)
 
-PREFIX  = ["--", "<@443053627419000833>", "<@443053627419000833> "]
-VERSION = "1.5"
+PREFIX  = ["--", "<@443053627419000833>", "<@443053627419000833> ", "<@!443053627419000833>", "<@!443053627419000833> "]
+VERSION = "2.0"
 UPTIMER = Time.utc_now
+cachee = Discord::Cache.new(client)
+client.cache = cachee
 
 # uptime
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "uptime") || (payload.content.starts_with? PREFIX[1] + "uptime") || (payload.content.starts_with? PREFIX[2] + "uptime")
+  if (payload.content.starts_with? PREFIX[0] + "uptime") || (payload.content.starts_with? PREFIX[1] + "uptime") || (payload.content.starts_with? PREFIX[2] + "uptime") || (payload.content.starts_with? PREFIX[3] + "uptime") || (payload.content.starts_with? PREFIX[4] + "uptime")
     begin
       timee = Time.now - UPTIMER
       embed = Discord::Embed.new(
@@ -35,7 +37,7 @@ end
 client.on_message_create do |payload|
   next if payload.author.bot
   begin
-    if (payload.content.starts_with? PREFIX[0] + "help") || (payload.content.starts_with? PREFIX[1] + "help") || (payload.content.starts_with? PREFIX[2] + "help") || (payload.content == PREFIX[1]) || (payload.content == PREFIX[2])
+    if (payload.content.starts_with? PREFIX[0] + "help") || (payload.content.starts_with? PREFIX[1] + "help") || (payload.content.starts_with? PREFIX[2] + "help") || (payload.content == PREFIX[1]) || (payload.content == PREFIX[2]) || (payload.content.starts_with? PREFIX[3] + "help") || (payload.content.starts_with? PREFIX[4] + "help") || (payload.content == PREFIX[3]) || (payload.content == PREFIX[4])
       embed = Discord::Embed.new(
         title: "You called for help , here I am !!!",
         description: "\n__[Command List !](https://granz.geopjr.xyz/commands)__\n\n__Type --info for some info__\n\n__Found a bug? Add me \xE3\x80\x8EGeop\xE3\x80\x8F#4066__\n\n__[Support Server](https://discordbots.org/servers/404294934041067522)__",
@@ -47,7 +49,7 @@ client.on_message_create do |payload|
         ),
         author: Discord::EmbedAuthor.new(
           name: "Granz#8561",
-          icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/0da891379e4d9d7af31b27ec67c49a3b.png"
+          icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
         ),
         url: "https://granz.geopjr.xyz"
       )
@@ -65,7 +67,7 @@ end
 client.on_message_create do |payload|
   next if payload.author.bot
   begin
-    if (payload.content.starts_with? PREFIX[0] + "info") || (payload.content.starts_with? PREFIX[1] + "info") || (payload.content.starts_with? PREFIX[2] + "info")
+    if (payload.content.starts_with? PREFIX[0] + "info") || (payload.content.starts_with? PREFIX[1] + "info") || (payload.content.starts_with? PREFIX[2] + "info") || (payload.content.starts_with? PREFIX[3] + "info") || (payload.content.starts_with? PREFIX[4] + "info")
       embed = Discord::Embed.new(
         title: "Some Info",
         timestamp: Time.now,
@@ -76,7 +78,7 @@ client.on_message_create do |payload|
         ),
         author: Discord::EmbedAuthor.new(
           name: "Granz#8561",
-          icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/0da891379e4d9d7af31b27ec67c49a3b.png"
+          icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
         ),
         url: "https://granz.geopjr.xyz",
         fields: [Discord::EmbedField.new(
@@ -125,7 +127,7 @@ end
 # Bara
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "bara") || (payload.content.starts_with? PREFIX[1] + "bara") || (payload.content.starts_with? PREFIX[2] + "bara")
+  if (payload.content.starts_with? PREFIX[0] + "bara") || (payload.content.starts_with? PREFIX[1] + "bara") || (payload.content.starts_with? PREFIX[2] + "bara") || (payload.content.starts_with? PREFIX[3] + "bara") || (payload.content.starts_with? PREFIX[4] + "bara")
     channel = client.get_channel(payload.channel_id)
     embeded = Discord::Embed.new(
       colour: 0xffff00,
@@ -139,7 +141,6 @@ client.on_message_create do |payload|
       response = HTTP::Client.get "https://barapi.000webhostapp.com/api/random.php"
       value = JSON.parse(response.body)
       embed = Discord::Embed.new(
-        timestamp: Time.now,
         colour: 0xffff00,
         image: Discord::EmbedImage.new(
           url: "#{value[0].as_s}"
@@ -162,8 +163,8 @@ end
 # DDG
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "ddg") || (payload.content.starts_with? PREFIX[1] + "ddg") || (payload.content.starts_with? PREFIX[2] + "ddg")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "ddg") || (payload.content.starts_with? PREFIX[1] + "ddg") || (payload.content.starts_with? PREFIX[2] + "ddg") || (payload.content.starts_with? PREFIX[3] + "ddg") || (payload.content.starts_with? PREFIX[4] + "ddg")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
       argss = pres.gsub("ddg", "").split(" ")
@@ -197,8 +198,8 @@ end
 # google
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "google") || (payload.content.starts_with? PREFIX[1] + "google") || (payload.content.starts_with? PREFIX[2] + "google")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "google") || (payload.content.starts_with? PREFIX[1] + "google") || (payload.content.starts_with? PREFIX[2] + "google") || (payload.content.starts_with? PREFIX[3] + "google") || (payload.content.starts_with? PREFIX[4] + "google")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
       argss = pres.gsub("google", "").split(" ")
@@ -233,8 +234,8 @@ end
 # LMGTFY
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "lmgtfy") || (payload.content.starts_with? PREFIX[1] + "lmgtfy") || (payload.content.starts_with? PREFIX[2] + "lmgtfy")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "lmgtfy") || (payload.content.starts_with? PREFIX[1] + "lmgtfy") || (payload.content.starts_with? PREFIX[2] + "lmgtfy") || (payload.content.starts_with? PREFIX[3] + "lmgtfy") || (payload.content.starts_with? PREFIX[4] + "lmgtfy")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
       argss = pres.gsub("lmgtfy", "").split(" ")
@@ -269,8 +270,8 @@ end
 # Avatar
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "avatar") || (payload.content.starts_with? PREFIX[1] + "avatar") || (payload.content.starts_with? PREFIX[2] + "avatar")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "avatar") || (payload.content.starts_with? PREFIX[1] + "avatar") || (payload.content.starts_with? PREFIX[2] + "avatar") || (payload.content.starts_with? PREFIX[3] + "avatar") || (payload.content.starts_with? PREFIX[4] + "avatar")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -335,8 +336,8 @@ end
 # tanki
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "tanki") || (payload.content.starts_with? PREFIX[1] + "tanki") || (payload.content.starts_with? PREFIX[2] + "tanki")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "tanki") || (payload.content.starts_with? PREFIX[1] + "tanki") || (payload.content.starts_with? PREFIX[2] + "tanki") || (payload.content.starts_with? PREFIX[3] + "tanki") || (payload.content.starts_with? PREFIX[4] + "tanki")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -345,7 +346,7 @@ client.on_message_create do |payload|
       )
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 1
-      argss = pres.gsub("tanki ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("tanki ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{argss}&lang=en"
         value = JSON.parse(response.body)
@@ -606,13 +607,23 @@ client.on_message_create do |payload|
           cryvalu = value["response"]["rating"]["crystals"]["value"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
         end
 
-        mines = value["response"]["suppliesUsage"][3]["usages"]
-        repair = value["response"]["suppliesUsage"][4]["usages"]
-        golbo = value["response"]["suppliesUsage"][1]["usages"]
-        darm = value["response"]["suppliesUsage"][0]["usages"]
-        spebo = value["response"]["suppliesUsage"][2]["usages"]
+        mines = value["response"]["suppliesUsage"][0]["usages"]
+        repair = value["response"]["suppliesUsage"][1]["usages"]
+        golbo = value["response"]["suppliesUsage"][2]["usages"]
+        darm = value["response"]["suppliesUsage"][3]["usages"]
+        spebo = value["response"]["suppliesUsage"][4]["usages"]
         ddu = value["response"]["suppliesUsage"][5]["usages"]
         bu = value["response"]["suppliesUsage"][6]["usages"]
+
+        ttootal = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
+
+        miness = value["response"]["suppliesUsage"][0]["name"]
+        repairr = value["response"]["suppliesUsage"][1]["name"]
+        golboo = value["response"]["suppliesUsage"][2]["name"]
+        darmm = value["response"]["suppliesUsage"][3]["name"]
+        speboo = value["response"]["suppliesUsage"][4]["name"]
+        dduu = value["response"]["suppliesUsage"][5]["name"]
+        buu = value["response"]["suppliesUsage"][6]["name"]
 
         embed = Discord::Embed.new(
           timestamp: Time.now,
@@ -628,7 +639,7 @@ client.on_message_create do |payload|
           ),
           author: Discord::EmbedAuthor.new(
             name: "Granz#8561",
-            icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/0da891379e4d9d7af31b27ec67c49a3b.png"
+            icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
           ),
           fields: [Discord::EmbedField.new(
             name: "__Name__",
@@ -690,38 +701,43 @@ client.on_message_create do |payload|
                      value: "#{cryplac} | #{cryvalu}",
                    ),
                    Discord::EmbedField.new(
-                     name: "__Mines Used__",
+                     name: "__#{miness}s Used__",
                      value: "#{mines.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__Repair Kits Used__",
+                     name: "__#{repairr}s Used__",
                      value: "#{repair.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__Gold Boxes Used__",
+                     name: "__#{golboo}es Used__",
                      value: "#{golbo.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__Double Armors Used__",
+                     name: "__#{darmm}s Used__",
                      value: "#{darm.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__Speed Boosts__",
+                     name: "__#{speboo}s Used__",
                      value: "#{spebo.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__Double Damage Used__",
+                     name: "__#{dduu} Used__",
                      value: "#{ddu.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__Batteries Used__",
+                     name: "__#{buu} Used__",
                      value: "#{bu.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Total__",
+                     value: "#{ttootal.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
           ]
@@ -747,8 +763,8 @@ end
 # acronym
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "acronym") || (payload.content.starts_with? PREFIX[1] + "acronym") || (payload.content.starts_with? PREFIX[2] + "acronym")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "acronym") || (payload.content.starts_with? PREFIX[1] + "acronym") || (payload.content.starts_with? PREFIX[2] + "acronym") || (payload.content.starts_with? PREFIX[3] + "acronym") || (payload.content.starts_with? PREFIX[4] + "acronym")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -757,7 +773,7 @@ client.on_message_create do |payload|
       )
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 1
-      acro = pres.gsub("acronym ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      acro = pres.gsub("acronym ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       embeded = Discord::Embed.new(
         timestamp: Time.now,
         colour: 0xffff00,
@@ -795,7 +811,7 @@ end
 # Bird
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "bird") || (payload.content.starts_with? PREFIX[1] + "bird") || (payload.content.starts_with? PREFIX[2] + "bird")
+  if (payload.content.starts_with? PREFIX[0] + "bird") || (payload.content.starts_with? PREFIX[1] + "bird") || (payload.content.starts_with? PREFIX[2] + "bird") || (payload.content.starts_with? PREFIX[3] + "bird") || (payload.content.starts_with? PREFIX[4] + "bird")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "http://shibe.online/api/birds?count=1"
@@ -821,7 +837,7 @@ end
 # doge
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "doge") || (payload.content.starts_with? PREFIX[1] + "doge") || (payload.content.starts_with? PREFIX[2] + "doge")
+  if (payload.content.starts_with? PREFIX[0] + "doge") || (payload.content.starts_with? PREFIX[1] + "doge") || (payload.content.starts_with? PREFIX[2] + "doge") || (payload.content.starts_with? PREFIX[3] + "doge") || (payload.content.starts_with? PREFIX[4] + "doge")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "http://shibe.online/api/shibes?count=1"
@@ -847,7 +863,7 @@ end
 # cat
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "cat") || (payload.content.starts_with? PREFIX[1] + "cat") || (payload.content.starts_with? PREFIX[2] + "cat")
+  if (payload.content.starts_with? PREFIX[0] + "cat") || (payload.content.starts_with? PREFIX[1] + "cat") || (payload.content.starts_with? PREFIX[2] + "cat") || (payload.content.starts_with? PREFIX[3] + "cat") || (payload.content.starts_with? PREFIX[4] + "cat")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "http://shibe.online/api/cats?count=1"
@@ -873,7 +889,7 @@ end
 # coffee
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "coffee") || (payload.content.starts_with? PREFIX[1] + "coffee") || (payload.content.starts_with? PREFIX[2] + "coffee")
+  if (payload.content.starts_with? PREFIX[0] + "coffee") || (payload.content.starts_with? PREFIX[1] + "coffee") || (payload.content.starts_with? PREFIX[2] + "coffee") || (payload.content.starts_with? PREFIX[3] + "coffee") || (payload.content.starts_with? PREFIX[4] + "coffee")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "https://coffee.alexflipnote.xyz/random.json"
@@ -899,7 +915,7 @@ end
 # cookie
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "cookie") || (payload.content.starts_with? PREFIX[1] + "cookie") || (payload.content.starts_with? PREFIX[2] + "cookie")
+  if (payload.content.starts_with? PREFIX[0] + "cookie") || (payload.content.starts_with? PREFIX[1] + "cookie") || (payload.content.starts_with? PREFIX[2] + "cookie") || (payload.content.starts_with? PREFIX[3] + "cookie") || (payload.content.starts_with? PREFIX[4] + "cookie")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "http://www.yerkee.com/api/fortune"
@@ -907,9 +923,7 @@ client.on_message_create do |payload|
       embed = Discord::Embed.new(
         timestamp: Time.now,
         colour: 0xffff00,
-        image: Discord::EmbedImage.new(
-          url: "#{value["fortune"].as_s}"
-        )
+        title: "#{value["fortune"].as_s}"
       )
       client.create_message(payload.channel_id, "", embed)
     rescue
@@ -925,7 +939,7 @@ end
 # dog
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "dog") || (payload.content.starts_with? PREFIX[1] + "dog") || (payload.content.starts_with? PREFIX[2] + "dog")
+  if (payload.content == PREFIX[0] + "dog") || (payload.content == PREFIX[1] + "dog") || (payload.content == PREFIX[2] + "dog") || (payload.content == PREFIX[3] + "dog") || (payload.content == PREFIX[4] + "dog")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "https://random.dog/woof.json"
@@ -951,7 +965,7 @@ end
 # fox
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "fox") || (payload.content.starts_with? PREFIX[1] + "fox") || (payload.content.starts_with? PREFIX[2] + "fox")
+  if (payload.content.starts_with? PREFIX[0] + "fox") || (payload.content.starts_with? PREFIX[1] + "fox") || (payload.content.starts_with? PREFIX[2] + "fox") || (payload.content.starts_with? PREFIX[3] + "fox") || (payload.content.starts_with? PREFIX[4] + "fox")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "https://randomfox.ca/floof/"
@@ -978,8 +992,8 @@ end
 # ID
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "id") || (payload.content.starts_with? PREFIX[1] + "id") || (payload.content.starts_with? PREFIX[2] + "id")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "id") || (payload.content.starts_with? PREFIX[1] + "id") || (payload.content.starts_with? PREFIX[2] + "id") || (payload.content.starts_with? PREFIX[3] + "id") || (payload.content.starts_with? PREFIX[4] + "id")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -1039,7 +1053,7 @@ end
 # trump
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "trump") || (payload.content.starts_with? PREFIX[1] + "trump") || (payload.content.starts_with? PREFIX[2] + "trump")
+  if (payload.content.starts_with? PREFIX[0] + "trump") || (payload.content.starts_with? PREFIX[1] + "trump") || (payload.content.starts_with? PREFIX[2] + "trump") || (payload.content.starts_with? PREFIX[3] + "trump") || (payload.content.starts_with? PREFIX[4] + "trump")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "https://api.whatdoestrumpthink.com/api/v1/quotes/random"
@@ -1063,7 +1077,7 @@ end
 # joke
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "joke") || (payload.content.starts_with? PREFIX[1] + "joke") || (payload.content.starts_with? PREFIX[2] + "joke")
+  if (payload.content.starts_with? PREFIX[0] + "joke") || (payload.content.starts_with? PREFIX[1] + "joke") || (payload.content.starts_with? PREFIX[2] + "joke") || (payload.content.starts_with? PREFIX[3] + "joke") || (payload.content.starts_with? PREFIX[4] + "joke")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "https://08ad1pao69.execute-api.us-east-1.amazonaws.com/dev/random_joke"
@@ -1088,7 +1102,7 @@ end
 # norris
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "norris") || (payload.content.starts_with? PREFIX[1] + "norris") || (payload.content.starts_with? PREFIX[2] + "norris")
+  if (payload.content.starts_with? PREFIX[0] + "norris") || (payload.content.starts_with? PREFIX[1] + "norris") || (payload.content.starts_with? PREFIX[2] + "norris") || (payload.content.starts_with? PREFIX[3] + "norris") || (payload.content.starts_with? PREFIX[4] + "norris")
     channel = client.get_channel(payload.channel_id)
     begin
       response = HTTP::Client.get "http://api.icndb.com/jokes/random"
@@ -1112,7 +1126,7 @@ end
 # neko
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "neko") || (payload.content.starts_with? PREFIX[1] + "neko") || (payload.content.starts_with? PREFIX[2] + "neko")
+  if (payload.content.starts_with? PREFIX[0] + "neko") || (payload.content.starts_with? PREFIX[1] + "neko") || (payload.content.starts_with? PREFIX[2] + "neko") || (payload.content.starts_with? PREFIX[3] + "neko") || (payload.content.starts_with? PREFIX[4] + "neko")
     channel = client.get_channel(payload.channel_id)
     embeded = Discord::Embed.new(
       colour: 0xffff00,
@@ -1147,7 +1161,7 @@ end
 client.on_message_create do |payload|
   next if payload.author.bot
   begin
-    if (payload.content.starts_with? PREFIX[0] + "blush") || (payload.content.starts_with? PREFIX[1] + "blush") || (payload.content.starts_with? PREFIX[2] + "blush")
+    if (payload.content.starts_with? PREFIX[0] + "blush") || (payload.content.starts_with? PREFIX[1] + "blush") || (payload.content.starts_with? PREFIX[2] + "blush") || (payload.content.starts_with? PREFIX[3] + "blush") || (payload.content.starts_with? PREFIX[4] + "blush")
       embed = Discord::Embed.new(
         timestamp: Time.now,
         colour: 0xffff00,
@@ -1168,8 +1182,8 @@ end
 # amiibo
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "amiibo") || (payload.content.starts_with? PREFIX[1] + "amiibo") || (payload.content.starts_with? PREFIX[2] + "amiibo")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "amiibo") || (payload.content.starts_with? PREFIX[1] + "amiibo") || (payload.content.starts_with? PREFIX[2] + "amiibo") || (payload.content.starts_with? PREFIX[3] + "amiibo") || (payload.content.starts_with? PREFIX[4] + "amiibo")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -1178,7 +1192,7 @@ client.on_message_create do |payload|
       )
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 1
-      argss = pres.gsub("amiibo ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("amiibo ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         response = HTTP::Client.get "http://www.amiiboapi.com/api/amiibo/?name=#{argss}"
         value = JSON.parse(response.body)
@@ -1201,7 +1215,7 @@ client.on_message_create do |payload|
           ),
           author: Discord::EmbedAuthor.new(
             name: "Granz#8561",
-            icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/0da891379e4d9d7af31b27ec67c49a3b.png"
+            icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
           ),
           fields: [Discord::EmbedField.new(
             name: "__Amiibo Series__",
@@ -1237,11 +1251,11 @@ end
 # algebra
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "algebra") || (payload.content.starts_with? PREFIX[1] + "algebra") || (payload.content.starts_with? PREFIX[2] + "algebra")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "algebra") || (payload.content.starts_with? PREFIX[1] + "algebra") || (payload.content.starts_with? PREFIX[2] + "algebra") || (payload.content.starts_with? PREFIX[3] + "algebra") || (payload.content.starts_with? PREFIX[4] + "algebra")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
-      argss = pres.gsub("algebra ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("algebra ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       argsss = argss.split(" ").join("").gsub("+", "%2B").gsub("=", "%3D").gsub("/", "%2F").gsub(",", "%2C").gsub(".", "%2E")
       begin
         embed = Discord::Embed.new(
@@ -1271,11 +1285,11 @@ end
 # achievement
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "achievement") || (payload.content.starts_with? PREFIX[1] + "achievement") || (payload.content.starts_with? PREFIX[2] + "achievement")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "achievement") || (payload.content.starts_with? PREFIX[1] + "achievement") || (payload.content.starts_with? PREFIX[2] + "achievement") || (payload.content.starts_with? PREFIX[3] + "achievement") || (payload.content.starts_with? PREFIX[4] + "achievement")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
-      argss = pres.gsub("achievement ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("achievement ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       id = argss.split(" ")
       mooor = argss.gsub("#{id[0]} ", "").split("|")
       begin
@@ -1309,11 +1323,11 @@ end
 # choose
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "choose") || (payload.content.starts_with? PREFIX[1] + "choose") || (payload.content.starts_with? PREFIX[2] + "choose")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "choose") || (payload.content.starts_with? PREFIX[1] + "choose") || (payload.content.starts_with? PREFIX[2] + "choose") || (payload.content.starts_with? PREFIX[3] + "choose") || (payload.content.starts_with? PREFIX[4] + "choose")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
-      argss = pres.gsub("choose ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("choose ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       chs = argss.split(" ")
       begin
         embed = Discord::Embed.new(
@@ -1343,12 +1357,12 @@ end
 # howcute
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "howcute") || (payload.content.starts_with? PREFIX[1] + "howcute") || (payload.content.starts_with? PREFIX[2] + "howcute")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "howcute") || (payload.content.starts_with? PREFIX[1] + "howcute") || (payload.content.starts_with? PREFIX[2] + "howcute") || (payload.content.starts_with? PREFIX[3] + "howcute") || (payload.content.starts_with? PREFIX[4] + "howcute")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
       arr = (0..100).to_a
-      argss = pres.gsub("howcute ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("howcute ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           title: "How cute are you ?",
@@ -1377,12 +1391,12 @@ end
 # howgay
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "howgay") || (payload.content.starts_with? PREFIX[1] + "howgay") || (payload.content.starts_with? PREFIX[2] + "howgay")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "howgay") || (payload.content.starts_with? PREFIX[1] + "howgay") || (payload.content.starts_with? PREFIX[2] + "howgay") || (payload.content.starts_with? PREFIX[3] + "howgay") || (payload.content.starts_with? PREFIX[4] + "howgay")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
       arr = (0..100).to_a
-      argss = pres.gsub("howgay ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("howgay ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           title: "How much of a homosexual are you ?",
@@ -1411,12 +1425,12 @@ end
 # rate
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "rate ") || (payload.content.starts_with? PREFIX[1] + "rate ") || (payload.content.starts_with? PREFIX[2] + "rate ")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "rate ") || (payload.content.starts_with? PREFIX[1] + "rate ") || (payload.content.starts_with? PREFIX[2] + "rate ") || (payload.content.starts_with? PREFIX[3] + "rate ") || (payload.content.starts_with? PREFIX[4] + "rate ")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
       arr = (0..10).to_a
-      argss = pres.gsub("rate ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("rate ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           description: "I give **#{argss}** a **#{arr.sample}/10** ~Granz",
@@ -1444,12 +1458,12 @@ end
 # yesno
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "yesno") || (payload.content.starts_with? PREFIX[1] + "yesno") || (payload.content.starts_with? PREFIX[2] + "yesno")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "yesno") || (payload.content.starts_with? PREFIX[1] + "yesno") || (payload.content.starts_with? PREFIX[2] + "yesno") || (payload.content.starts_with? PREFIX[3] + "yesno") || (payload.content.starts_with? PREFIX[4] + "yesno")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
       arr = ["Yes.", "No."]
-      argss = pres.gsub("yesno ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("yesno ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           title: "#{arr.sample.to_s}",
@@ -1477,12 +1491,12 @@ end
 # ratewaifu
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "ratewaifu") || (payload.content.starts_with? PREFIX[1] + "ratewaifu") || (payload.content.starts_with? PREFIX[2] + "ratewaifu")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "ratewaifu") || (payload.content.starts_with? PREFIX[1] + "ratewaifu") || (payload.content.starts_with? PREFIX[2] + "ratewaifu") || (payload.content.starts_with? PREFIX[3] + "ratewaifu") || (payload.content.starts_with? PREFIX[4] + "ratewaifu")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
       arr = (0..100).to_a
-      argss = pres.gsub("ratewaifu ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("ratewaifu ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           title: "Waifu O' Meter",
@@ -1511,12 +1525,12 @@ end
 # ratehusbando
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "ratehusbando") || (payload.content.starts_with? PREFIX[1] + "ratehusbando") || (payload.content.starts_with? PREFIX[2] + "ratehusbando")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "ratehusbando") || (payload.content.starts_with? PREFIX[1] + "ratehusbando") || (payload.content.starts_with? PREFIX[2] + "ratehusbando") || (payload.content.starts_with? PREFIX[3] + "ratehusbando") || (payload.content.starts_with? PREFIX[4] + "ratehusbando")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
       arr = (0..100).to_a
-      argss = pres.gsub("ratehusbando ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("ratehusbando ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           title: "Husbando O' Meter",
@@ -1545,11 +1559,11 @@ end
 # qrcode
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "qrcode") || (payload.content.starts_with? PREFIX[1] + "qrcode") || (payload.content.starts_with? PREFIX[2] + "qrcode")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "qrcode") || (payload.content.starts_with? PREFIX[1] + "qrcode") || (payload.content.starts_with? PREFIX[2] + "qrcode") || (payload.content.starts_with? PREFIX[3] + "qrcode") || (payload.content.starts_with? PREFIX[4] + "qrcode")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
-      argss = pres.gsub("qrcode ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("qrcode ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           colour: 0xffff00,
@@ -1578,8 +1592,8 @@ end
 # hug
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "hug") || (payload.content.starts_with? PREFIX[1] + "hug") || (payload.content.starts_with? PREFIX[2] + "hug")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "hug") || (payload.content.starts_with? PREFIX[1] + "hug") || (payload.content.starts_with? PREFIX[2] + "hug") || (payload.content.starts_with? PREFIX[3] + "hug") || (payload.content.starts_with? PREFIX[4] + "hug")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -1589,7 +1603,7 @@ client.on_message_create do |payload|
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 1
       mentioned_user = payload.mentions
-      argss = pres.gsub("hug ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("hug ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         if mentioned_user[0] == payload.author
           embed = Discord::Embed.new(
@@ -1640,8 +1654,8 @@ end
 # kiss
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "kiss") || (payload.content.starts_with? PREFIX[1] + "kiss") || (payload.content.starts_with? PREFIX[2] + "kiss")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "kiss") || (payload.content.starts_with? PREFIX[1] + "kiss") || (payload.content.starts_with? PREFIX[2] + "kiss") || (payload.content.starts_with? PREFIX[3] + "kiss") || (payload.content.starts_with? PREFIX[4] + "kiss")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -1651,7 +1665,7 @@ client.on_message_create do |payload|
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 1
       mentioned_user = payload.mentions
-      argss = pres.gsub("kiss ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("kiss ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         if mentioned_user[0] == payload.author
           embed = Discord::Embed.new(
@@ -1703,7 +1717,7 @@ end
 client.on_message_create do |payload|
   next if payload.author.bot
   begin
-    if (payload.content.starts_with? PREFIX[0] + "noticeme") || (payload.content.starts_with? PREFIX[1] + "noticeme") || (payload.content.starts_with? PREFIX[2] + "noticeme")
+    if (payload.content.starts_with? PREFIX[0] + "noticeme") || (payload.content.starts_with? PREFIX[1] + "noticeme") || (payload.content.starts_with? PREFIX[2] + "noticeme") || (payload.content.starts_with? PREFIX[3] + "noticeme") || (payload.content.starts_with? PREFIX[4] + "noticeme")
       embed = Discord::Embed.new(
         description: "<@#{payload.author.id}>, I notice you :relaxed:",
         colour: 0xffff00
@@ -1721,8 +1735,8 @@ end
 # mcskin
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "mcskin") || (payload.content.starts_with? PREFIX[1] + "mcskin") || (payload.content.starts_with? PREFIX[2] + "mcskin")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "mcskin") || (payload.content.starts_with? PREFIX[1] + "mcskin") || (payload.content.starts_with? PREFIX[2] + "mcskin") || (payload.content.starts_with? PREFIX[3] + "mcskin") || (payload.content.starts_with? PREFIX[4] + "mcskin")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -1731,7 +1745,7 @@ client.on_message_create do |payload|
       )
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 1
-      argss = pres.gsub("mcskin ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("mcskin ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           title: "Here you go :",
@@ -1764,8 +1778,8 @@ end
 # mcuuid
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "mcuuid") || (payload.content.starts_with? PREFIX[1] + "mcuuid") || (payload.content.starts_with? PREFIX[2] + "mcuuid")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "mcuuid") || (payload.content.starts_with? PREFIX[1] + "mcuuid") || (payload.content.starts_with? PREFIX[2] + "mcuuid") || (payload.content.starts_with? PREFIX[3] + "mcuuid") || (payload.content.starts_with? PREFIX[4] + "mcuuid")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -1774,7 +1788,7 @@ client.on_message_create do |payload|
       )
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 1
-      argss = pres.gsub("mcuuid ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("mcuuid ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         response = HTTP::Client.get "https://api.mojang.com/users/profiles/minecraft/#{argss}"
         value = JSON.parse(response.body)
@@ -1808,7 +1822,7 @@ end
 # mcstatus
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "mcstatus") || (payload.content.starts_with? PREFIX[1] + "mcstatus") || (payload.content.starts_with? PREFIX[2] + "mcstatus")
+  if (payload.content.starts_with? PREFIX[0] + "mcstatus") || (payload.content.starts_with? PREFIX[1] + "mcstatus") || (payload.content.starts_with? PREFIX[2] + "mcstatus") || (payload.content.starts_with? PREFIX[3] + "mcstatus") || (payload.content.starts_with? PREFIX[4] + "mcstatus")
     begin
       response = HTTP::Client.get "https://status.mojang.com/check"
       value = JSON.parse(response.body)
@@ -1921,8 +1935,8 @@ end
 # pat
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "pat") || (payload.content.starts_with? PREFIX[1] + "pat") || (payload.content.starts_with? PREFIX[2] + "pat")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "pat") || (payload.content.starts_with? PREFIX[1] + "pat") || (payload.content.starts_with? PREFIX[2] + "pat") || (payload.content.starts_with? PREFIX[3] + "pat") || (payload.content.starts_with? PREFIX[4] + "pat")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -1932,7 +1946,7 @@ client.on_message_create do |payload|
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 1
       mentioned_user = payload.mentions
-      argss = pres.gsub("pat ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("pat ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         if mentioned_user[0] == payload.author
           embed = Discord::Embed.new(
@@ -1984,7 +1998,7 @@ end
 client.on_message_create do |payload|
   next if payload.author.bot
   begin
-    if (payload.content.starts_with? PREFIX[0] + "ping") || (payload.content.starts_with? PREFIX[1] + "ping") || (payload.content.starts_with? PREFIX[2] + "ping")
+    if (payload.content.starts_with? PREFIX[0] + "ping") || (payload.content.starts_with? PREFIX[1] + "ping") || (payload.content.starts_with? PREFIX[2] + "ping") || (payload.content.starts_with? PREFIX[3] + "ping") || (payload.content.starts_with? PREFIX[4] + "ping")
       time = Time.utc_now - payload.timestamp
       embed = Discord::Embed.new(
         title: ":ping_pong: Pong! :ping_pong: (#{time.total_milliseconds.round(0)} ms.)",
@@ -2004,8 +2018,8 @@ end
 # shoot
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "shoot") || (payload.content.starts_with? PREFIX[1] + "shoot") || (payload.content.starts_with? PREFIX[2] + "shoot")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "shoot") || (payload.content.starts_with? PREFIX[1] + "shoot") || (payload.content.starts_with? PREFIX[2] + "shoot") || (payload.content.starts_with? PREFIX[3] + "shoot") || (payload.content.starts_with? PREFIX[4] + "shoot")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 2
       embed = Discord::Embed.new(
@@ -2015,7 +2029,7 @@ client.on_message_create do |payload|
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 1
       mentioned_user = payload.mentions
-      argss = pres.gsub("shoot ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      argss = pres.gsub("shoot ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         if mentioned_user[0] == payload.author
           embed = Discord::Embed.new(
@@ -2061,8 +2075,8 @@ end
 # temperature
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "temperature") || (payload.content.starts_with? PREFIX[1] + "temperature") || (payload.content.starts_with? PREFIX[2] + "temperature")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "temperature") || (payload.content.starts_with? PREFIX[1] + "temperature") || (payload.content.starts_with? PREFIX[2] + "temperature") || (payload.content.starts_with? PREFIX[3] + "temperature") || (payload.content.starts_with? PREFIX[4] + "temperature")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 4
       embed = Discord::Embed.new(
@@ -2071,7 +2085,7 @@ client.on_message_create do |payload|
       )
       client.create_message(payload.channel_id, "", embed)
     elsif argscount.size > 3
-      acro = pres.gsub("temperature ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      acro = pres.gsub("temperature ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       acroo = acro.split(" ")
       embeded = Discord::Embed.new(
         timestamp: Time.now,
@@ -2166,11 +2180,11 @@ end
 # lowercase
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "lowercase") || (payload.content.starts_with? PREFIX[1] + "lowercase") || (payload.content.starts_with? PREFIX[2] + "lowercase")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "lowercase") || (payload.content.starts_with? PREFIX[1] + "lowercase") || (payload.content.starts_with? PREFIX[2] + "lowercase") || (payload.content.starts_with? PREFIX[3] + "lowercase") || (payload.content.starts_with? PREFIX[4] + "lowercase")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
-      acro = pres.gsub("lowercase ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      acro = pres.gsub("lowercase ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           timestamp: Time.now,
@@ -2199,11 +2213,11 @@ end
 # uppercase
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "uppercase") || (payload.content.starts_with? PREFIX[1] + "uppercase") || (payload.content.starts_with? PREFIX[2] + "uppercase")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "uppercase") || (payload.content.starts_with? PREFIX[1] + "uppercase") || (payload.content.starts_with? PREFIX[2] + "uppercase") || (payload.content.starts_with? PREFIX[3] + "uppercase") || (payload.content.starts_with? PREFIX[4] + "uppercase")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
-      acro = pres.gsub("uppercase ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      acro = pres.gsub("uppercase ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           timestamp: Time.now,
@@ -2232,11 +2246,11 @@ end
 # reverse
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "reverse") || (payload.content.starts_with? PREFIX[1] + "reverse") || (payload.content.starts_with? PREFIX[2] + "reverse")
-    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>")
+  if (payload.content.starts_with? PREFIX[0] + "reverse") || (payload.content.starts_with? PREFIX[1] + "reverse") || (payload.content.starts_with? PREFIX[2] + "reverse") || (payload.content.starts_with? PREFIX[3] + "reverse") || (payload.content.starts_with? PREFIX[4] + "reverse")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
     argscount = pres.split(" ")
     if argscount.size > 1
-      acro = pres.gsub("reverse ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("--", "")
+      acro = pres.gsub("reverse ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
         embed = Discord::Embed.new(
           timestamp: Time.now,
@@ -2265,7 +2279,7 @@ end
 # restart
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "restart") || (payload.content.starts_with? PREFIX[1] + "restart") || (payload.content.starts_with? PREFIX[2] + "restart")
+  if (payload.content.starts_with? PREFIX[0] + "restart") || (payload.content.starts_with? PREFIX[1] + "restart") || (payload.content.starts_with? PREFIX[2] + "restart") || (payload.content.starts_with? PREFIX[3] + "restart") || (payload.content.starts_with? PREFIX[4] + "restart")
     if payload.author.id == 216156825978929152_u64
       embed = Discord::Embed.new(
         colour: 0xffff00,
@@ -2280,8 +2294,36 @@ end
 # server
 client.on_message_create do |payload|
   next if payload.author.bot
-  if (payload.content.starts_with? PREFIX[0] + "server") || (payload.content.starts_with? PREFIX[1] + "server") || (payload.content.starts_with? PREFIX[2] + "server")
+  if (payload.content.starts_with? PREFIX[0] + "server") || (payload.content.starts_with? PREFIX[1] + "server") || (payload.content.starts_with? PREFIX[2] + "server") || (payload.content.starts_with? PREFIX[3] + "server") || (payload.content.starts_with? PREFIX[4] + "server")
     begin
+      if guild_id = client.get_channel(payload.channel_id).guild_id
+        guild_id # => Snowflake
+        server = client.get_guild(guild_id)
+        embed = Discord::Embed.new(
+          timestamp: Time.now,
+          colour: 0xffff00,
+          title: "**Server Info**",
+          thumbnail: Discord::EmbedThumbnail.new(
+            url: "https://cdn.discordapp.com/icons/#{server.id}/#{server.icon}"
+          ),
+          fields: [
+            Discord::EmbedField.new(name: "__Name__", value: "**#{server.name}**", inline: true),
+            Discord::EmbedField.new(name: "__ID__", value: "**#{server.id}**", inline: true),
+            Discord::EmbedField.new(name: "__Region__", value: "**#{server.region}**", inline: true),
+            Discord::EmbedField.new(name: "__Owner__", value: "**<@#{server.owner_id}>**", inline: true),
+            Discord::EmbedField.new(name: "__Roles__", value: "**#{server.roles.size}**", inline: true),
+            Discord::EmbedField.new(name: "__Channels__", value: "**#{cachee.guild_channels(guild_id).size}**", inline: true),
+          ]
+        )
+        client.create_message(payload.channel_id, "", embed)
+      else
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "This is not a server"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    rescue
       if guild_id = client.get_channel(payload.channel_id).guild_id
         guild_id # => Snowflake
         server = client.get_guild(guild_id)
@@ -2307,13 +2349,6 @@ client.on_message_create do |payload|
         )
         client.create_message(payload.channel_id, "", embed)
       end
-    rescue
-      embed = Discord::Embed.new(
-        colour: 0xffff00,
-        title: "Error",
-        url: "https://granz.geopjr.xyz"
-      )
-      client.create_message(payload.channel_id, "", embed)
     end
   end
 end
