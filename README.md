@@ -9,7 +9,7 @@
   <br />
   <p>
     <a href="https://discordbots.org/bot/443053627419000833"><img src="https://discordbots.org/api/widget/status/443053627419000833.svg" alt="Discord_Bots" /></a>
-    <a href="https://github.com/meew0/discordrb"><img src="https://img.shields.io/badge/discord-rb-pink.svg" alt="discordcr" /></a>
+    <a href="https://github.com/meew0/discordcr"><img src="https://img.shields.io/badge/discord-cr-pink.svg" alt="discordcr" /></a>
     <a href="https://github.com/GeopJr/Granz_bot/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-000000.svg" alt="MIT" /></a>
   </p>
 </div>
