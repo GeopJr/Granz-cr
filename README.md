@@ -26,8 +26,6 @@ A Discord Bot written in crystal using discordcr , RUBY: https://github.com/Geop
 - Useful Commands
 - Gaming Commands
 
-# THE WHOLE CODE IS BAD AND CAN EASILY BREAK
-
 # License
  The Bot is using MIT License
 # Copyrights
