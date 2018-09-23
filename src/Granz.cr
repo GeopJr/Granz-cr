@@ -424,282 +424,15 @@ client.on_message_create do |payload|
     elsif argscount.size > 1
       argss = pres.gsub("tanki ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
-        response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{argss}&lang=en"
+        response = HTTP::Client.get "https://tankapi.000webhostapp.com/?name=#{argss}"
         value = JSON.parse(response.body)
-        if value["response"]["hasPremium"] == false
-          if value["response"]["rank"] == 1
-            rank = "Recruit"
-            rimg = "https://i.imgur.com/ZcBNexc.png"
-          elsif value["response"]["rank"] == 2
-            rank = "Private"
-            rimg = "https://i.imgur.com/Jaar0MF.png"
-          elsif value["response"]["rank"] == 3
-            rank = "Gefreiter"
-            rimg = "https://i.imgur.com/j2DfBdW.png"
-          elsif value["response"]["rank"] == 4
-            rank = "Corporal"
-            rimg = "https://i.imgur.com/7Pn4X88.png"
-          elsif value["response"]["rank"] == 5
-            rank = "Master Corporal"
-            rimg = "https://i.imgur.com/WKZ0sVp.png"
-          elsif value["response"]["rank"] == 6
-            rank = "Sergeant"
-            rimg = "https://i.imgur.com/O2WuJAJ.png"
-          elsif value["response"]["rank"] == 7
-            rank = "Staff Sergeant"
-            rimg = "https://i.imgur.com/bTQLm9h.png"
-          elsif value["response"]["rank"] == 8
-            rank = "Master Sergeant"
-            rimg = "https://i.imgur.com/VvivZg0.png"
-          elsif value["response"]["rank"] == 9
-            rank = "First Sergeant"
-            rimg = "https://i.imgur.com/rCkln3K.png"
-          elsif value["response"]["rank"] == 10
-            rank = "Sergeant-Major"
-            rimg = "https://i.imgur.com/xCKvB2G.png"
-          elsif value["response"]["rank"] == 11
-            rank = "Warrant Officer 1"
-            rimg = "https://i.imgur.com/TJKJ4eB.png"
-          elsif value["response"]["rank"] == 12
-            rank = "Warrant Officer 2"
-            rimg = "https://i.imgur.com/Q8U5QIz.png"
-          elsif value["response"]["rank"] == 13
-            rank = "Warrant Officer 3"
-            rimg = "https://i.imgur.com/Ygi65T7.png"
-          elsif value["response"]["rank"] == 14
-            rank = "Warrant Officer 4"
-            rimg = "https://i.imgur.com/rx0zDOR.png"
-          elsif value["response"]["rank"] == 15
-            rank = "Warrant Officer 5"
-            rimg = "https://i.imgur.com/jDmMo5j.png"
-          elsif value["response"]["rank"] == 16
-            rank = "Third Lieutenant"
-            rimg = "https://i.imgur.com/LLvlTZY.png"
-          elsif value["response"]["rank"] == 17
-            rank = "Second Lieutenant"
-            rimg = "https://i.imgur.com/1Oor2V6.png"
-          elsif value["response"]["rank"] == 18
-            rank = "First Lieutenant"
-            rimg = "https://i.imgur.com/03s6YiZ.png"
-          elsif value["response"]["rank"] == 19
-            rank = "Captain"
-            rimg = "https://i.imgur.com/kf8Uo7U.png"
-          elsif value["response"]["rank"] == 20
-            rank = "Major"
-            rimg = "https://i.imgur.com/Zl9q3rP.png"
-          elsif value["response"]["rank"] == 21
-            rank = "Lieutenant Colonel"
-            rimg = "https://i.imgur.com/bmTEps1.png"
-          elsif value["response"]["rank"] == 22
-            rank = "Colonel"
-            rimg = "https://i.imgur.com/Ac9S6w7.png"
-          elsif value["response"]["rank"] == 23
-            rank = "Brigadier"
-            rimg = "https://i.imgur.com/vBo95NA.png"
-          elsif value["response"]["rank"] == 24
-            rank = "Major General"
-            rimg = "https://i.imgur.com/YOuPegl.png"
-          elsif value["response"]["rank"] == 25
-            rank = "Lieutenant General"
-            rimg = "https://i.imgur.com/dYh43EF.png"
-          elsif value["response"]["rank"] == 26
-            rank = "General"
-            rimg = "https://i.imgur.com/59NrDOX.png"
-          elsif value["response"]["rank"] == 27
-            rank = "Marshal"
-            rimg = "https://i.imgur.com/S4smUqx.png"
-          elsif value["response"]["rank"] == 28
-            rank = "Field Marshal"
-            rimg = "https://i.imgur.com/DRmWUfj.png"
-          elsif value["response"]["rank"] == 29
-            rank = "Commander"
-            rimg = "https://i.imgur.com/lZu9Rqt.png"
-          elsif value["response"]["rank"] == 30
-            rank = "Generalissimo"
-            rimg = "https://i.imgur.com/Fggz9xh.png"
-          elsif value["response"]["rank"].as_i > 31
-            numrank = value["response"]["rank"].as_i - 30
-            rank = "Legend #{numrank}"
-            rimg = "https://i.imgur.com/NahcZQ9.png"
-          else
-            value["response"]["rank"] == 31
-            rank = "Legend"
-            rimg = "https://i.imgur.com/NahcZQ9.png"
-          end
-        elsif value["response"]["hasPremium"] == true
-          if value["response"]["rank"] == 1
-            rank = "Recruit"
-            rimg = "https://i.imgur.com/ZcBNexc.png"
-          elsif value["response"]["rank"] == 2
-            rank = "Private"
-            rimg = "https://i.imgur.com/Jaar0MF.png"
-          elsif value["response"]["rank"] == 3
-            rank = "Gefreiter"
-            rimg = "https://i.imgur.com/j2DfBdW.png"
-          elsif value["response"]["rank"] == 4
-            rank = "Corporal"
-            rimg = "https://i.imgur.com/7Pn4X88.png"
-          elsif value["response"]["rank"] == 5
-            rank = "Master Corporal"
-            rimg = "https://i.imgur.com/WKZ0sVp.png"
-          elsif value["response"]["rank"] == 6
-            rank = "Sergeant"
-            rimg = "https://i.imgur.com/O2WuJAJ.png"
-          elsif value["response"]["rank"] == 7
-            rank = "Staff Sergeant"
-            rimg = "https://i.imgur.com/bTQLm9h.png"
-          elsif value["response"]["rank"] == 8
-            rank = "Master Sergeant"
-            rimg = "https://i.imgur.com/VvivZg0.png"
-          elsif value["response"]["rank"] == 9
-            rank = "First Sergeant"
-            rimg = "https://i.imgur.com/rCkln3K.png"
-          elsif value["response"]["rank"] == 10
-            rank = "Sergeant-Major"
-            rimg = "https://i.imgur.com/uOXqDLo.png"
-          elsif value["response"]["rank"] == 11
-            rank = "Warrant Officer 1"
-            rimg = "https://i.imgur.com/sEzBbLQ.png"
-          elsif value["response"]["rank"] == 12
-            rank = "Warrant Officer 2"
-            rimg = "https://i.imgur.com/EZJslol.png"
-          elsif value["response"]["rank"] == 13
-            rank = "Warrant Officer 3"
-            rimg = "https://i.imgur.com/xMboj6l.png"
-          elsif value["response"]["rank"] == 14
-            rank = "Warrant Officer 4"
-            rimg = "https://i.imgur.com/qLzwet8.png"
-          elsif value["response"]["rank"] == 15
-            rank = "Warrant Officer 5"
-            rimg = "https://i.imgur.com/0hKtwX2.png"
-          elsif value["response"]["rank"] == 16
-            rank = "Third Lieutenant"
-            rimg = "https://i.imgur.com/Miz0wqt.png"
-          elsif value["response"]["rank"] == 17
-            rank = "Second Lieutenant"
-            rimg = "https://i.imgur.com/qkTXhJR.png"
-          elsif value["response"]["rank"] == 18
-            rank = "First Lieutenant"
-            rimg = "https://i.imgur.com/VeA0ugN.png"
-          elsif value["response"]["rank"] == 19
-            rank = "Captain"
-            rimg = "https://i.imgur.com/INKmQMy.png"
-          elsif value["response"]["rank"] == 20
-            rank = "Major"
-            rimg = "https://i.imgur.com/hJL5fqH.png"
-          elsif value["response"]["rank"] == 21
-            rank = "Lieutenant Colonel"
-            rimg = "https://i.imgur.com/QpggknT.png"
-          elsif value["response"]["rank"] == 22
-            rank = "Colonel"
-            rimg = "https://i.imgur.com/9dg1YYq.png"
-          elsif value["response"]["rank"] == 23
-            rank = "Brigadier"
-            rimg = "https://i.imgur.com/Af6FJjE.png"
-          elsif value["response"]["rank"] == 24
-            rank = "Major General"
-            rimg = "https://i.imgur.com/SYIelDs.png"
-          elsif value["response"]["rank"] == 25
-            rank = "Lieutenant General"
-            rimg = "https://i.imgur.com/J7ob7co.png"
-          elsif value["response"]["rank"] == 26
-            rank = "General"
-            rimg = "https://i.imgur.com/laq0luJ.png"
-          elsif value["response"]["rank"] == 27
-            rank = "Marshal"
-            rimg = "https://i.imgur.com/4QzfKbh.png"
-          elsif value["response"]["rank"] == 28
-            rank = "Field Marshal"
-            rimg = "https://i.imgur.com/LVcFtIW.png"
-          elsif value["response"]["rank"] == 29
-            rank = "Commander"
-            rimg = "https://i.imgur.com/YLKv7Qy.png"
-          elsif value["response"]["rank"] == 30
-            rank = "Generalissimo"
-            rimg = "https://i.imgur.com/i8lKuZh.png"
-          elsif value["response"]["rank"].as_i > 31
-            numrank = value["response"]["rank"].as_i - 30
-            rank = "Legend #{numrank}"
-            rimg = "https://i.imgur.com/qK6onnG.png"
-          else
-            value["response"]["rank"] == 31
-            rank = "Legend"
-            rimg = "https://i.imgur.com/qK6onnG.png"
-          end
-        end
 
-        exp = value["response"]["score"]
-        expc = value["response"]["scoreNext"]
-        nex = value["response"]["scoreNext"].as_i - value["response"]["score"].as_i
-        if value["response"]["hasPremium"] == false
+        if value["premium"] == "No"
           prem = "<:xmark:314349398824058880>"
         else
-          value["response"]["hasPremium"] == true
+          value["premium"] == "Yes"
           prem = "<:check:314349398811475968>"
         end
-        crys = value["response"]["earnedCrystals"]
-        gold = value["response"]["caughtGolds"]
-        kills = value["response"]["kills"]
-        deaths = value["response"]["deaths"]
-        kd = kills.as_i.to_f / deaths.as_i
-        if value["response"]["rating"]["efficiency"]["position"] == -1
-          eplac = "-"
-        else
-          eplac = value["response"]["rating"]["efficiency"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-        end
-        if value["response"]["rating"]["efficiency"]["value"] == -1
-          evalu = "-"
-        else
-          evalu = value["response"]["rating"]["efficiency"]["value"].as_i.round(-2).to_s.chomp("00").to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-        end
-        if value["response"]["rating"]["score"]["position"] == -1
-          explac = "-"
-        else
-          explac = value["response"]["rating"]["score"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-        end
-        if value["response"]["rating"]["score"]["value"] == -1
-          exvalu = "-"
-        else
-          exvalu = value["response"]["rating"]["score"]["value"].to_s.chomp("00").to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-        end
-        if value["response"]["rating"]["golds"]["position"] == -1
-          gplac = "-"
-        else
-          gplac = value["response"]["rating"]["golds"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-        end
-        if value["response"]["rating"]["golds"]["value"] == -1
-          gvalu = "-"
-        else
-          gvalu = value["response"]["rating"]["golds"]["value"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-        end
-        if value["response"]["rating"]["crystals"]["position"] == -1
-          cryplac = "-"
-        else
-          cryplac = value["response"]["rating"]["crystals"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-        end
-        if value["response"]["rating"]["crystals"]["value"] == -1
-          cryvalu = "-"
-        else
-          cryvalu = value["response"]["rating"]["crystals"]["value"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-        end
-
-        mines = value["response"]["suppliesUsage"][0]["usages"]
-        repair = value["response"]["suppliesUsage"][1]["usages"]
-        golbo = value["response"]["suppliesUsage"][2]["usages"]
-        darm = value["response"]["suppliesUsage"][3]["usages"]
-        spebo = value["response"]["suppliesUsage"][4]["usages"]
-        ddu = value["response"]["suppliesUsage"][5]["usages"]
-        bu = value["response"]["suppliesUsage"][6]["usages"]
-
-        ttootal = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
-
-        miness = value["response"]["suppliesUsage"][0]["name"]
-        repairr = value["response"]["suppliesUsage"][1]["name"]
-        golboo = value["response"]["suppliesUsage"][2]["name"]
-        darmm = value["response"]["suppliesUsage"][3]["name"]
-        speboo = value["response"]["suppliesUsage"][4]["name"]
-        dduu = value["response"]["suppliesUsage"][5]["name"]
-        buu = value["response"]["suppliesUsage"][6]["name"]
 
         embed = Discord::Embed.new(
           timestamp: Time.now,
@@ -709,111 +442,137 @@ client.on_message_create do |payload|
             text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",
             icon_url: "https://cdn.discordapp.com/avatars/216156825978929152/c7eaee00bbe99b16304429fb9b9116ea.png"
           ),
-          url: "http://ratings.tankionline.com/en/user/#{argss}/",
+          url: "https://ratings.geopjr.xyz/ratings?name=#{argss}",
           thumbnail: Discord::EmbedThumbnail.new(
-            url: "#{rimg}"
+            url: "#{value["rank_img"]}"
           ),
           author: Discord::EmbedAuthor.new(
             name: "Granz#8561",
             icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
           ),
           fields: [Discord::EmbedField.new(
-            name: "__Name__",
-            value: "#{value["response"]["name"]}"
+            name: "👨__Name__",
+            value: "#{value["name"]}",
+            inline: true
           ),
                    Discord::EmbedField.new(
-                     name: "__Rank__",
-                     value: "#{rank}"
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__Premium__",
-                     value: "#{prem}"
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__EXP__",
-                     value: "#{exp.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}/#{expc.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__EXP left to rank up__",
-                     value: "#{nex.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} exp"
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__Caught Golden Boxes__",
-                     value: "#{gold.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__Obtained Crystals__",
-                     value: "#{crys.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__Kills__",
-                     value: "#{kills.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "🎖️__Rank__",
+                     value: "#{value["rank"]}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__Deaths__",
-                     value: "#{deaths.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "⏰__Playtime__",
+                     value: "#{value["timePlayed"]}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__K/D Ratio__",
-                     value: "#{kd.round(2)}",
+                     name: "🏅__Premium__",
+                     value: "#{prem}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__Efficiency Rating Place | Value__",
-                     value: "#{eplac} | #{evalu}",
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__Experience Rating Place | Value__",
-                     value: "#{explac} | #{exvalu}",
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__Gold Box Rating Place | Value__",
-                     value: "#{gplac} | #{gvalu}",
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__Crystals Rating Place | Value__",
-                     value: "#{cryplac} | #{cryvalu}",
-                   ),
-                   Discord::EmbedField.new(
-                     name: "__#{miness}s Used__",
-                     value: "#{mines.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "📟__Resistance Modules__",
+                     value: "#{value["resistanceModules"]}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__#{repairr}s Used__",
-                     value: "#{repair.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "🤖__Turrets Played__",
+                     value: "#{value["turretsPlayed"]}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__#{golboo}es Used__",
-                     value: "#{golbo.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "⬆️__EXP__",
+                     value: "#{value["exp"]["exp"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}/#{value["exp"]["expNext"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__#{darmm}s Used__",
-                     value: "#{darm.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "⬆️__EXP left to rank up__",
+                     value: "#{value["exp"]["expLeft"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} exp",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__#{speboo}s Used__",
-                     value: "#{spebo.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "<:GoldBoxIcon:482918640820289546>__Gold Boxes Caught__",
+                     value: "#{value["golds"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__#{dduu} Used__",
-                     value: "#{ddu.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "💎__Obtained Crystals__",
+                     value: "#{value["crystals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__#{buu} Used__",
-                     value: "#{bu.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "<:DoubleDamageIcon:482918526596939776>__Kills__",
+                     value: "#{value["kills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
-                     name: "__Total__",
-                     value: "#{ttootal.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     name: "💀__Deaths__",
+                     value: "#{value["deaths"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "⚰️__K/D Ratio__",
+                     value: "#{value["kd_ratio"]}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:DoubleDamageIcon:482918526596939776>__Efficiency Rating Place | Value__",
+                     value: "#{value["rating"]["efficiency"]["position"]["now"]} | #{value["rating"]["efficiency"]["value"]["now"]}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "⬆️__Experience Rating Place | Value__",
+                     value: "#{value["rating"]["experience"]["position"]["now"]} | #{value["rating"]["experience"]["value"]["now"]} #{value["rating"]["experience"]["value"]["arrow"]}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:GoldBoxIcon:482918640820289546>__Gold Box Rating Place | Value__",
+                     value: "#{value["rating"]["golds"]["position"]["now"]} | #{value["rating"]["golds"]["value"]["now"]} #{value["rating"]["golds"]["value"]["arrow"]}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "💎__Crystals Rating Place | Value__",
+                     value: "#{value["rating"]["crystals"]["position"]["now"]} | #{value["rating"]["crystals"]["value"]["now"]} #{value["rating"]["crystals"]["value"]["arrow"]}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:MineIcon:482918544133324812>__Mines Used__",
+                     value: "#{value["supplies"]["Mine"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:RepairKitIcon:482918499719708683>__Repair Kits Used__",
+                     value: "#{value["supplies"]["Repair Kit"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:GoldBoxIcon:482918640820289546>__Gold Boxes Used__",
+                     value: "#{value["supplies"]["Gold box"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:DoubleArmourIcon:482918515834224671>__Double Armors Used__",
+                     value: "#{value["supplies"]["Double Armor"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:SpeedBoostIcon:482918535786659842>__Speed Boosts Used__",
+                     value: "#{value["supplies"]["Speed Boost"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:DoubleDamageIcon:482918526596939776>__Double Damage Used__",
+                     value: "#{value["supplies"]["Double Damage"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:DroneIcon:482918650102415380>__Batteries Used__",
+                     value: "#{value["supplies"]["Battery"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "<:calculator:482936199455965185>__Total__",
+                     value: "#{value["supplies"]["totalUsages"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
           ]
