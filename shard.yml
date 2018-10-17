@@ -9,4 +9,8 @@ dependencies:
     github: meew0/discordcr
     branch: master
     
+dependencies:
+  magickwand-crystal:
+    github: blocknotes/magickwand-crystal
+    
 license: MIT
