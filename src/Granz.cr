@@ -1,6 +1,8 @@
 require "discordcr"
 require "json"
 require "http/client"
+require "magickwand-crystal"
+LibMagick.magickWandGenesis # lib init
 
 client = Discord::Client.new(token: "Bot token", client_id: 443053627419000833_u64)
 
