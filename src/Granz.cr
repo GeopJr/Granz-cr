@@ -5,10 +5,13 @@ require "http/client"
 client = Discord::Client.new(token: "Bot token", client_id: 443053627419000833_u64)
 
 PREFIX  = ["--", "<@443053627419000833>", "<@443053627419000833> ", "<@!443053627419000833>", "<@!443053627419000833> "]
-VERSION = "2.0"
+VERSION = "3.0"
 UPTIMER = Time.utc_now
 cachee = Discord::Cache.new(client)
 client.cache = cachee
+
+barafile = HTTP::Client.get "-"
+filenumbar = JSON.parse(barafile.body)
 
 # # cmd_count
 # client.on_message_create do |payload|
@@ -214,15 +217,16 @@ client.on_message_create do |payload|
     )
     next client.create_message(payload.channel_id, "", embeded) unless channel.nsfw == true
     begin
-      response = HTTP::Client.get "https://barapi.000webhostapp.com/api/random.php"
+      response = HTTP::Client.get "-"
       value = JSON.parse(response.body)
+      filesssss = filenumbar["files"].as_i
+      imggnamee = rand(1..filesssss)
       embed = Discord::Embed.new(
+        title: "Link",
+        url: "#{value[imggnamee]}",
         colour: 0xffff00,
         image: Discord::EmbedImage.new(
-          url: "#{value[0].as_s}"
-        ),
-        footer: Discord::EmbedFooter.new(
-          text: "https://barapi.geopjr.xyz/"
+          url: "#{value[imggnamee].as_s}"
         )
       )
       client.create_message(payload.channel_id, "", embed)
@@ -236,6 +240,482 @@ client.on_message_create do |payload|
     end
   end
 end
+# Change my mind wand
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "changemymind") || (payload.content.starts_with? PREFIX[1] + "changemymind") || (payload.content.starts_with? PREFIX[2] + "changemymind") || (payload.content.starts_with? PREFIX[3] + "changemymind") || (payload.content.starts_with? PREFIX[4] + "changemymind")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+
+    argss = pres.gsub("changemymind ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+    ###
+    ###
+    imggnamee = rand(1..1650)
+    if argss.size < 13
+      LibMagick.magickWandGenesis
+      m_wand = LibMagick.newMagickWand
+      d_wand = LibMagick.newDrawingWand
+      p_wand = LibMagick.newPixelWand
+
+      if LibMagick.magickReadImage(m_wand, "changemymind.png")
+        LibMagick.pixelSetColor p_wand, "black"
+        LibMagick.drawSetFillColor d_wand, p_wand
+        LibMagick.drawSetFont d_wand, "Verdana-Bold"
+        LibMagick.drawSetFontSize d_wand, 40
+        LibMagick.drawSetTextAntialias d_wand, true
+        LibMagick.drawRotate d_wand, -23
+        LibMagick.drawAnnotation d_wand, 220, 450, argss
+        LibMagick.magickDrawImage m_wand, d_wand
+        LibMagick.magickTrimImage m_wand, 0
+        LibMagick.magickWriteImage m_wand, "#{imggnamee}.png"
+      end
+      LibMagick.destroyPixelWand p_wand
+      LibMagick.destroyDrawingWand d_wand
+      LibMagick.destroyMagickWand m_wand
+      LibMagick.magickWandTerminus
+      client.upload_file(payload.channel_id, "", File.open("#{imggnamee}.png", "r"))
+      File.delete("./#{imggnamee}.png")
+    elsif (argss.size >= 13) && (argss.size < 25)
+      LibMagick.magickWandGenesis
+      m_wand = LibMagick.newMagickWand
+      d_wand = LibMagick.newDrawingWand
+      p_wand = LibMagick.newPixelWand
+      if LibMagick.magickReadImage(m_wand, "changemymind.png")
+        LibMagick.pixelSetColor p_wand, "black"
+        LibMagick.drawSetFillColor d_wand, p_wand
+        LibMagick.drawSetFont d_wand, "Verdana-Bold"
+        LibMagick.drawSetFontSize d_wand, 20
+        LibMagick.drawSetTextAntialias d_wand, true
+        LibMagick.drawRotate d_wand, -23
+        LibMagick.drawAnnotation d_wand, 220, 450, argss
+        LibMagick.magickDrawImage m_wand, d_wand
+        LibMagick.magickTrimImage m_wand, 0
+        LibMagick.magickWriteImage m_wand, "#{imggnamee}.png"
+      end
+      LibMagick.destroyPixelWand p_wand
+      LibMagick.destroyDrawingWand d_wand
+      LibMagick.destroyMagickWand m_wand
+      LibMagick.magickWandTerminus
+      client.upload_file(payload.channel_id, "", File.open("#{imggnamee}.png", "r"))
+      File.delete("./#{imggnamee}.png")
+    elsif (argss.size >= 25) && (argss.size < 39)
+      LibMagick.magickWandGenesis
+      m_wand = LibMagick.newMagickWand
+      d_wand = LibMagick.newDrawingWand
+      p_wand = LibMagick.newPixelWand
+      if LibMagick.magickReadImage(m_wand, "changemymind.png")
+        LibMagick.pixelSetColor p_wand, "black"
+        LibMagick.drawSetFillColor d_wand, p_wand
+        LibMagick.drawSetFont d_wand, "Verdana-Bold"
+        LibMagick.drawSetFontSize d_wand, 10
+        LibMagick.drawSetTextAntialias d_wand, true
+        LibMagick.drawRotate d_wand, -23
+        LibMagick.drawAnnotation d_wand, 220, 450, argss
+        LibMagick.magickDrawImage m_wand, d_wand
+        LibMagick.magickTrimImage m_wand, 0
+        LibMagick.magickWriteImage m_wand, "#{imggnamee}.png"
+      end
+      LibMagick.destroyPixelWand p_wand
+      LibMagick.destroyDrawingWand d_wand
+      LibMagick.destroyMagickWand m_wand
+      LibMagick.magickWandTerminus
+      client.upload_file(payload.channel_id, "", File.open("#{imggnamee}.png", "r"))
+      File.delete("./#{imggnamee}.png")
+    else
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too many characters (1-39)"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    end
+    ####
+  end
+end
+# Gay wand
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "gay") || (payload.content.starts_with? PREFIX[1] + "gay") || (payload.content.starts_with? PREFIX[2] + "gay") || (payload.content.starts_with? PREFIX[3] + "gay") || (payload.content.starts_with? PREFIX[4] + "gay")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+
+    argss = pres.gsub("gay ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+    ###
+
+    if argscount.size > 2
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too many arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    elsif argscount.size > 1
+      mentioned_user = payload.mentions
+      begin
+        if (mentioned_user[0] == payload.author) || (mentioned_user[0] != payload.author)
+          imggnamee = rand(1..1650)
+
+          HTTP::Client.get("https://cdn.discordapp.com/avatars/#{mentioned_user[0].id}/#{mentioned_user[0].avatar}.jpg?size=1024") do |response|
+            File.write("#{imggnamee}y.jpg", response.body_io)
+          end
+
+          LibMagick.magickWandGenesis
+          wand1 = LibMagick.newMagickWand
+          wand2 = LibMagick.newMagickWand
+          LibMagick.magickReadImage wand2, "gay.png"
+          LibMagick.magickReadImage wand1, "#{imggnamee}y.jpg"
+          LibMagick.magickAdaptiveResizeImage wand1, 1024, 1024
+          LibMagick.magickCompositeImage wand1, wand2, LibMagick::CompositeOperator::OverCompositeOp, 0, 0
+          LibMagick.magickWriteImage wand1, "gay#{imggnamee}.png"
+          LibMagick.destroyMagickWand wand2
+          LibMagick.destroyMagickWand wand1
+          LibMagick.magickWandTerminus
+          client.upload_file(payload.channel_id, "", File.open("gay#{imggnamee}.png", "r"))
+          File.delete("./#{imggnamee}y.jpg")
+          File.delete("./gay#{imggnamee}.png")
+        else
+          embed = Discord::Embed.new(
+            timestamp: Time.now,
+            colour: 0xffff00,
+            title: "Mention a user"
+          )
+
+          client.create_message(payload.channel_id, "", embed)
+        end
+      rescue
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "Mention a user"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    elsif argscount.size == 1
+      begin
+        imggnamee = rand(1..1650)
+
+        HTTP::Client.get("https://cdn.discordapp.com/avatars/#{payload.author.id}/#{payload.author.avatar}.jpg?size=1024") do |response|
+          File.write("#{imggnamee}y.jpg", response.body_io)
+        end
+
+        LibMagick.magickWandGenesis
+        wand1 = LibMagick.newMagickWand
+        wand2 = LibMagick.newMagickWand
+        LibMagick.magickReadImage wand2, "gay.png"
+        LibMagick.magickReadImage wand1, "#{imggnamee}y.jpg"
+        LibMagick.magickAdaptiveResizeImage wand1, 1024, 1024
+        LibMagick.magickCompositeImage wand1, wand2, LibMagick::CompositeOperator::OverCompositeOp, 0, 0
+        LibMagick.magickWriteImage wand1, "gay#{imggnamee}.png"
+        LibMagick.destroyMagickWand wand2
+        LibMagick.destroyMagickWand wand1
+        LibMagick.magickWandTerminus
+        client.upload_file(payload.channel_id, "", File.open("gay#{imggnamee}.png", "r"))
+        File.delete("./#{imggnamee}y.jpg")
+        File.delete("./gay#{imggnamee}.png")
+      rescue
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "Mention a user"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    end
+  end
+end
+# Imgtanki
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "imgtanki") || (payload.content.starts_with? PREFIX[1] + "imgtanki") || (payload.content.starts_with? PREFIX[2] + "imgtanki") || (payload.content.starts_with? PREFIX[3] + "imgtanki") || (payload.content.starts_with? PREFIX[4] + "imgtanki")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+    if argscount.size > 2
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too many arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    elsif argscount.size > 1
+      argss = pres.gsub("imgtanki ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+      begin
+        response = HTTP::Client.get "-"
+        value = JSON.parse(response.body)
+        imggnamee = rand(1..1650)
+        LibMagick.magickWandGenesis
+        m_wand = LibMagick.newMagickWand
+        wand_rank = LibMagick.newMagickWand
+        wand_author = LibMagick.newMagickWand
+        d_wand = LibMagick.newDrawingWand
+        p_wand = LibMagick.newPixelWand
+        pp_wand = LibMagick.newPixelWand
+        if LibMagick.magickReadImage(m_wand, "taaan.jpg")
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFillColor d_wand, p_wand
+          LibMagick.magickReadImage wand_rank, "#{value["rank_img"]}"
+          LibMagick.magickReadImage wand_author, "https://cdn.discordapp.com/avatars/#{payload.author.id}/#{payload.author.avatar}.jpg?size=32"
+          LibMagick.drawSetFont d_wand, "Arial-Bold"
+          LibMagick.drawSetFontSize d_wand, 40
+          LibMagick.drawSetTextAntialias d_wand, true
+          LibMagick.magickCompositeImage wand_rank, m_wand, LibMagick::CompositeOperator::OverCompositeOp, 0, 0
+          LibMagick.magickCompositeImage wand_author, m_wand, LibMagick::CompositeOperator::OverCompositeOp, 0, 1196
+          LibMagick.drawSetTextAlignment d_wand, LibMagick::AlignType::LeftAlign
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawSetStrokeWidth d_wand, 0
+          LibMagick.drawSetStrokeAntialias d_wand, false
+          LibMagick.drawSetFont d_wand, "Tahoma"
+          LibMagick.drawAnnotation d_wand, 50, 1190, "Requested By: #{payload.author.username}##{payload.author.discriminator} | https://ratings.geopjr.xyz/"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetTextAlignment d_wand, LibMagick::AlignType::CenterAlign
+          LibMagick.drawSetFontSize d_wand, 40
+          LibMagick.drawSetFont d_wand, "Arial-Bold"
+          LibMagick.drawAnnotation d_wand, 500, 50, "#{value["name"]}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 35
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 500, 100, "#{value["rank"]}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 35
+          LibMagick.drawAnnotation d_wand, 500, 150, "Playtime: #{value["timePlayed"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 750, 250, "Resistance Modules:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 750, 290, "#{value["resistanceModules"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 750, 330, "Turrets Played:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 750, 370, "#{value["turretsPlayed"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 750, 410, "Mines Used:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 750, 450, "#{value["supplies"]["Mine"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 750, 490, "Repair Kits Used:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 750, 530, "#{value["supplies"]["Repair Kit"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 750, 570, "Gold Boxes Used:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 750, 610, "#{value["supplies"]["Gold box"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 750, 650, "Double Armors Used:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 750, 690, "#{value["supplies"]["Double Armor"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 750, 730, "Speed Boosts Used:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 750, 770, "#{value["supplies"]["Speed Boost"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 750, 810, "Double Damage Used:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 750, 850, "#{value["supplies"]["Double Damage"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 750, 890, "Batteries Used:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 750, 930, "#{value["supplies"]["Battery"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 750, 970, "Total:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 750, 1010, "#{value["supplies"]["totalUsages"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 250, 250, "EXP:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 250, 290, "#{value["exp"]["exp"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}/#{value["exp"]["expNext"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 250, 330, "EXP Left:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 250, 370, "#{value["exp"]["expLeft"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} exp"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 250, 410, "Golds Caught:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 250, 450, "#{value["golds"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 250, 490, "Crystals:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 250, 530, "#{value["crystals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 250, 570, "Kills:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 250, 610, "#{value["kills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 250, 650, "Deaths:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 250, 690, "#{value["deaths"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 250, 730, "K/D:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 250, 770, "#{value["kd_ratio"]}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 250, 810, "Efficiency Rating Place | Value:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 250, 850, "#{value["rating"]["efficiency"]["position"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} | #{value["rating"]["efficiency"]["value"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 250, 890, "Experience Rating Place | Value:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 250, 930, "#{value["rating"]["experience"]["position"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} | #{value["rating"]["experience"]["value"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 250, 970, "Gold Box Rating Place | Value:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawAnnotation d_wand, 250, 1010, "#{value["rating"]["golds"]["position"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} | #{value["rating"]["golds"]["value"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.pixelSetColor p_wand, "#3498db"
+          LibMagick.drawAnnotation d_wand, 250, 1050, "Crystals Rating Place | Value:"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.pixelSetColor p_wand, "white"
+          LibMagick.drawSetFontSize d_wand, 25
+          LibMagick.drawAnnotation d_wand, 250, 1090, "#{value["rating"]["crystals"]["position"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} | #{value["rating"]["crystals"]["value"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+          LibMagick.magickDrawImage m_wand, d_wand
+          LibMagick.magickTrimImage m_wand, 0
+          LibMagick.magickWriteImage m_wand, "#{imggnamee}tanki.png"
+        end
+        LibMagick.destroyPixelWand p_wand
+        LibMagick.destroyPixelWand pp_wand
+        LibMagick.destroyDrawingWand d_wand
+        LibMagick.destroyMagickWand m_wand
+        LibMagick.destroyMagickWand wand_rank
+        LibMagick.destroyMagickWand wand_author
+        LibMagick.magickWandTerminus
+        client.upload_file(payload.channel_id, "", File.open("#{imggnamee}tanki.png", "r"))
+        File.delete("./#{imggnamee}tanki.png")
+      rescue
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "I am afraid there is not such user in existance"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    else
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too few arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    end
+  end
+end
+# okbyemom wand
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "okbyemom") || (payload.content.starts_with? PREFIX[1] + "okbyemom") || (payload.content.starts_with? PREFIX[2] + "okbyemom") || (payload.content.starts_with? PREFIX[3] + "okbyemom") || (payload.content.starts_with? PREFIX[4] + "okbyemom")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+    begin
+      argss = pres.gsub("okbyemom ", "").gsub("okbyemom", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+      ###
+      ###
+      imggnamee = rand(1..1650)
+
+      LibMagick.magickWandGenesis
+      m_wand = LibMagick.newMagickWand
+      d_wand = LibMagick.newDrawingWand
+      p_wand = LibMagick.newPixelWand
+
+      if LibMagick.magickReadImage(m_wand, "okbyemom.png")
+        LibMagick.pixelSetColor p_wand, "black"
+        LibMagick.drawSetFillColor d_wand, p_wand
+        LibMagick.drawSetFont d_wand, "Verdana-Bold"
+        LibMagick.drawSetFontSize d_wand, 20
+        LibMagick.drawSetTextAntialias d_wand, true
+        LibMagick.drawRotate d_wand, -23
+        LibMagick.drawAnnotation d_wand, 75, 653, argss
+        LibMagick.magickDrawImage m_wand, d_wand
+        LibMagick.magickTrimImage m_wand, 0
+        LibMagick.magickWriteImage m_wand, "#{imggnamee}xx.png"
+      end
+      LibMagick.destroyPixelWand p_wand
+      LibMagick.destroyDrawingWand d_wand
+      LibMagick.destroyMagickWand m_wand
+      LibMagick.magickWandTerminus
+      client.upload_file(payload.channel_id, "", File.open("#{imggnamee}xx.png", "r"))
+      File.delete("./#{imggnamee}xx.png")
+    rescue
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Can't be empty"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    end
+
+    ####
+  end
+end
+
 # DDG
 client.on_message_create do |payload|
   next if payload.author.bot
@@ -408,6 +888,715 @@ client.on_message_create do |payload|
     end
   end
 end
+# bo4 bo3 iw wwii
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "bo4") || (payload.content.starts_with? PREFIX[1] + "bo4") || (payload.content.starts_with? PREFIX[2] + "bo4") || (payload.content.starts_with? PREFIX[3] + "bo4") || (payload.content.starts_with? PREFIX[4] + "bo4")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+    if argscount.size > 3
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too many arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    elsif argscount.size > 2
+      argss = pres.gsub("bo4 ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+      begin
+        argsss = argss.split(" ")
+        response = HTTP::Client.get "https://bo4tracker.com/api/stats/bo4/#{argsss[0]}/#{argsss[1]}"
+        value = JSON.parse(response.body)
+
+        timee = value["stats"]["timeplayed"].as_i / 3600
+
+        embed = Discord::Embed.new(
+          title: "#{value["user"]["username"]}",
+          timestamp: Time.now,
+          colour: 0xffff00,
+          thumbnail: Discord::EmbedThumbnail.new(
+            url: "#{value["user"]["avatar"]}"
+          ),
+          author: Discord::EmbedAuthor.new(
+            name: "Granz#8561",
+            icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
+          ),
+          fields: [Discord::EmbedField.new(
+            name: "__Identifier__",
+            value: "#{value["identifier"]}",
+            inline: true
+          ),
+                   Discord::EmbedField.new(
+                     name: "__ID__",
+                     value: "#{value["user"]["id"]}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Level__",
+                     value: "#{value["stats"]["level"]}"
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__RankXp__",
+                     value: "#{value["stats"]["rankxp"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Time Played__",
+                     value: "#{timee.round(0)} Hours",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills__",
+                     value: "#{value["stats"]["kills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills Confirmed__",
+                     value: "#{value["stats"]["killsconfirmed"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills Denied__",
+                     value: "#{value["stats"]["killsdenied"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Deaths__",
+                     value: "#{value["stats"]["deaths"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Wins__",
+                     value: "#{value["stats"]["wins"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Losses__",
+                     value: "#{value["stats"]["losses"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Hits__",
+                     value: "#{value["stats"]["hits"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Misses__",
+                     value: "#{value["stats"]["misses"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+                   Discord::EmbedField.new(
+                     name: "__Total Heals__",
+                     value: "#{value["stats"]["totalheals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__EKIA__",
+                     value: "#{value["stats"]["ekia"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Current Winstreak__",
+                     value: "#{value["stats"]["curwinstreak"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Longest Winstreak__",
+                     value: "#{value["stats"]["longestkillstreak"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Team Kills__",
+                     value: "#{value["stats"]["teamkills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Suicides__",
+                     value: "#{value["stats"]["suicides"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Offends__",
+                     value: "#{value["stats"]["offends"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Captures__",
+                     value: "#{value["stats"]["captures"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+                   Discord::EmbedField.new(
+                     name: "__Defends__",
+                     value: "#{value["stats"]["defends"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+          ]
+        )
+        client.create_message(payload.channel_id, "", embed)
+      rescue
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "I am afraid there is not such user in existance",
+          description: "Try a different platform (psn/xbl/steam)"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    else
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too few arguments",
+        description: "Platforms (psn/xbl/steam)"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    end
+  end
+end
+
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "bo3") || (payload.content.starts_with? PREFIX[1] + "bo3") || (payload.content.starts_with? PREFIX[2] + "bo3") || (payload.content.starts_with? PREFIX[3] + "bo3") || (payload.content.starts_with? PREFIX[4] + "bo3")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+    if argscount.size > 3
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too many arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    elsif argscount.size > 2
+      argss = pres.gsub("bo3 ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+      begin
+        argsss = argss.split(" ")
+        response = HTTP::Client.get "https://bo4tracker.com/api/stats/bo3/#{argsss[0]}/#{argsss[1]}"
+        value = JSON.parse(response.body)
+
+        timee = value["stats"]["timeplayed"].as_i / 3600
+
+        embed = Discord::Embed.new(
+          title: "#{value["user"]["username"]}",
+          timestamp: Time.now,
+          colour: 0xffff00,
+          thumbnail: Discord::EmbedThumbnail.new(
+            url: "#{value["user"]["avatar"]}"
+          ),
+          author: Discord::EmbedAuthor.new(
+            name: "Granz#8561",
+            icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
+          ),
+          fields: [Discord::EmbedField.new(
+            name: "__Identifier__",
+            value: "#{value["identifier"]}",
+            inline: true
+          ),
+                   Discord::EmbedField.new(
+                     name: "__ID__",
+                     value: "#{value["user"]["id"]}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Level__",
+                     value: "#{value["stats"]["level"]}"
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__RankXp__",
+                     value: "#{value["stats"]["rankxp"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Time Played__",
+                     value: "#{timee.round(0)} Hours",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills__",
+                     value: "#{value["stats"]["kills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills Confirmed__",
+                     value: "#{value["stats"]["killsconfirmed"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills Denied__",
+                     value: "#{value["stats"]["killsdenied"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Deaths__",
+                     value: "#{value["stats"]["deaths"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Wins__",
+                     value: "#{value["stats"]["wins"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Losses__",
+                     value: "#{value["stats"]["losses"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Hits__",
+                     value: "#{value["stats"]["hits"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Misses__",
+                     value: "#{value["stats"]["misses"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+                   Discord::EmbedField.new(
+                     name: "__Total Heals__",
+                     value: "#{value["stats"]["totalheals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__EKIA__",
+                     value: "#{value["stats"]["ekia"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Current Winstreak__",
+                     value: "#{value["stats"]["curwinstreak"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Longest Winstreak__",
+                     value: "#{value["stats"]["longestkillstreak"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Team Kills__",
+                     value: "#{value["stats"]["teamkills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Suicides__",
+                     value: "#{value["stats"]["suicides"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Offends__",
+                     value: "#{value["stats"]["offends"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Captures__",
+                     value: "#{value["stats"]["captures"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+                   Discord::EmbedField.new(
+                     name: "__Defends__",
+                     value: "#{value["stats"]["defends"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+          ]
+        )
+        client.create_message(payload.channel_id, "", embed)
+      rescue
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "I am afraid there is not such user in existance",
+          description: "Try a different platform (psn/xbl/steam)"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    else
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too few arguments",
+        description: "Platforms (psn/xbl/steam)"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    end
+  end
+end
+
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "wwii") || (payload.content.starts_with? PREFIX[1] + "wwii") || (payload.content.starts_with? PREFIX[2] + "wwii") || (payload.content.starts_with? PREFIX[3] + "wwii") || (payload.content.starts_with? PREFIX[4] + "wwii")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+    if argscount.size > 3
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too many arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    elsif argscount.size > 2
+      argss = pres.gsub("wwii ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+      begin
+        argsss = argss.split(" ")
+        response = HTTP::Client.get "https://bo4tracker.com/api/stats/wwii/#{argsss[0]}/#{argsss[1]}"
+        value = JSON.parse(response.body)
+
+        timee = value["stats"]["timeplayed"].as_i / 3600
+
+        embed = Discord::Embed.new(
+          title: "#{value["user"]["username"]}",
+          timestamp: Time.now,
+          colour: 0xffff00,
+          thumbnail: Discord::EmbedThumbnail.new(
+            url: "#{value["user"]["avatar"]}"
+          ),
+          author: Discord::EmbedAuthor.new(
+            name: "Granz#8561",
+            icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
+          ),
+          fields: [Discord::EmbedField.new(
+            name: "__Identifier__",
+            value: "#{value["identifier"]}",
+            inline: true
+          ),
+                   Discord::EmbedField.new(
+                     name: "__ID__",
+                     value: "#{value["user"]["id"]}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Level__",
+                     value: "#{value["stats"]["level"]}"
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__RankXp__",
+                     value: "#{value["stats"]["rankxp"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Time Played__",
+                     value: "#{timee.round(0)} Hours",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills__",
+                     value: "#{value["stats"]["kills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills Confirmed__",
+                     value: "#{value["stats"]["killsconfirmed"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills Denied__",
+                     value: "#{value["stats"]["killsdenied"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Deaths__",
+                     value: "#{value["stats"]["deaths"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Wins__",
+                     value: "#{value["stats"]["wins"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Losses__",
+                     value: "#{value["stats"]["losses"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Hits__",
+                     value: "#{value["stats"]["hits"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Misses__",
+                     value: "#{value["stats"]["misses"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+                   Discord::EmbedField.new(
+                     name: "__Total Heals__",
+                     value: "#{value["stats"]["totalheals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__EKIA__",
+                     value: "#{value["stats"]["ekia"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Current Winstreak__",
+                     value: "#{value["stats"]["curwinstreak"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Longest Winstreak__",
+                     value: "#{value["stats"]["longestkillstreak"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Team Kills__",
+                     value: "#{value["stats"]["teamkills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Suicides__",
+                     value: "#{value["stats"]["suicides"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Offends__",
+                     value: "#{value["stats"]["offends"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Captures__",
+                     value: "#{value["stats"]["captures"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+                   Discord::EmbedField.new(
+                     name: "__Defends__",
+                     value: "#{value["stats"]["defends"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+          ]
+        )
+        client.create_message(payload.channel_id, "", embed)
+      rescue
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "I am afraid there is not such user in existance",
+          description: "Try a different platform (psn/xbl/steam)"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    else
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too few arguments",
+        description: "Platforms (psn/xbl/steam)"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    end
+  end
+end
+
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "iw") || (payload.content.starts_with? PREFIX[1] + "iw") || (payload.content.starts_with? PREFIX[2] + "iw") || (payload.content.starts_with? PREFIX[3] + "iw") || (payload.content.starts_with? PREFIX[4] + "iw")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+    if argscount.size > 3
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too many arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    elsif argscount.size > 2
+      argss = pres.gsub("iw ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+      begin
+        argsss = argss.split(" ")
+        response = HTTP::Client.get "https://bo4tracker.com/api/stats/bo3/#{argsss[0]}/#{argsss[1]}"
+        value = JSON.parse(response.body)
+
+        timee = value["stats"]["timeplayed"].as_i / 3600
+
+        embed = Discord::Embed.new(
+          title: "#{value["user"]["username"]}",
+          timestamp: Time.now,
+          colour: 0xffff00,
+          thumbnail: Discord::EmbedThumbnail.new(
+            url: "#{value["user"]["avatar"]}"
+          ),
+          author: Discord::EmbedAuthor.new(
+            name: "Granz#8561",
+            icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
+          ),
+          fields: [Discord::EmbedField.new(
+            name: "__Identifier__",
+            value: "#{value["identifier"]}",
+            inline: true
+          ),
+                   Discord::EmbedField.new(
+                     name: "__ID__",
+                     value: "#{value["user"]["id"]}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Level__",
+                     value: "#{value["stats"]["level"]}"
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__RankXp__",
+                     value: "#{value["stats"]["rankxp"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Time Played__",
+                     value: "#{timee.round(0)} Hours",
+                     inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills__",
+                     value: "#{value["stats"]["kills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills Confirmed__",
+                     value: "#{value["stats"]["killsconfirmed"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Kills Denied__",
+                     value: "#{value["stats"]["killsdenied"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Deaths__",
+                     value: "#{value["stats"]["deaths"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Wins__",
+                     value: "#{value["stats"]["wins"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Losses__",
+                     value: "#{value["stats"]["losses"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Hits__",
+                     value: "#{value["stats"]["hits"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Misses__",
+                     value: "#{value["stats"]["misses"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+                   Discord::EmbedField.new(
+                     name: "__Total Heals__",
+                     value: "#{value["stats"]["totalheals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__EKIA__",
+                     value: "#{value["stats"]["ekia"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Current Winstreak__",
+                     value: "#{value["stats"]["curwinstreak"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Longest Winstreak__",
+                     value: "#{value["stats"]["longestkillstreak"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Team Kills__",
+                     value: "#{value["stats"]["teamkills"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Suicides__",
+                     value: "#{value["stats"]["suicides"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Offends__",
+                     value: "#{value["stats"]["offends"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Captures__",
+                     value: "#{value["stats"]["captures"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+                   Discord::EmbedField.new(
+                     name: "__Defends__",
+                     value: "#{value["stats"]["defends"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}", inline: true
+                   ),
+
+          ]
+        )
+        client.create_message(payload.channel_id, "", embed)
+      rescue
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "I am afraid there is not such user in existance",
+          description: "Try a different platform (psn/xbl/steam)"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    else
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too few arguments",
+        description: "Platforms (psn/xbl/steam)"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    end
+  end
+end
+
+# ip locator
+# ip
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "ip") || (payload.content.starts_with? PREFIX[1] + "ip") || (payload.content.starts_with? PREFIX[2] + "ip") || (payload.content.starts_with? PREFIX[3] + "ip") || (payload.content.starts_with? PREFIX[4] + "ip")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+    if argscount.size > 2
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too many arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    elsif argscount.size > 1
+      acro = pres.gsub("ip ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+      begin
+        response = HTTP::Client.get "https://ipvigilante.com/json/#{acro}"
+        value = JSON.parse(response.body)
+        embed = Discord::Embed.new(
+          timestamp: Time.now,
+          colour: 0xffff00,
+          title: "IP INFO :",
+          fields: [Discord::EmbedField.new(
+            name: "__ipv4__",
+            value: "#{value["data"]["ipv4"]}"
+          ),
+                   Discord::EmbedField.new(
+                     name: "__Continent__",
+                     value: "#{value["data"]["continent_name"]}"
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Country__",
+                     value: "#{value["data"]["country_name"]}"
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Location__",
+                     value: "Lat: #{value["data"]["latitude"]}\nLong: #{value["data"]["longitude"]}\nOther:\n#{value["data"]["subdivision_1_name"]}\n#{value["data"]["city_name"]}\n#{value["data"]["subdivision_2_name"]}"
+                   ),
+          ]
+        )
+        client.create_message(payload.channel_id, "", embed)
+      rescue
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "Not found!"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    else
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too few arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    end
+  end
+end
+
+# advanced maths
+client.on_message_create do |payload|
+  next if payload.author.bot
+  if (payload.content.starts_with? PREFIX[0] + "maths") || (payload.content.starts_with? PREFIX[1] + "maths") || (payload.content.starts_with? PREFIX[2] + "maths") || (payload.content.starts_with? PREFIX[3] + "maths") || (payload.content.starts_with? PREFIX[4] + "maths")
+    pres = payload.content.gsub("<@443053627419000833> ", "<@443053627419000833>").gsub("<@!443053627419000833> ", "<@!443053627419000833>")
+    argscount = pres.split(" ")
+    if argscount.size > 3
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too many arguments"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    elsif argscount.size > 2
+      acro = pres.gsub("maths ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
+      aeee = acro.split(" ")
+      aooo = aeee.join(" ").gsub("#{aeee[0]} ", "")
+      begin
+        response = HTTP::Client.get "https://newton.now.sh/#{aeee[0].downcase}/#{aooo}"
+        value = JSON.parse(response.body)
+        embed = Discord::Embed.new(
+          timestamp: Time.now,
+          colour: 0xffff00,
+          title: "Advanced Maths:",
+          fields: [Discord::EmbedField.new(
+            name: "__Operation__",
+            value: "#{value["operation"]}"
+          ),
+                   Discord::EmbedField.new(
+                     name: "__Expression__",
+                     value: "#{value["expression"]}"
+                   ),
+                   Discord::EmbedField.new(
+                     name: "__Result__",
+                     value: "#{value["result"]}"
+                   ),
+          ]
+        )
+        client.create_message(payload.channel_id, "", embed)
+      rescue
+        embed = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "Usage :",
+          description: "--maths <operation> <expression>"
+        )
+        client.create_message(payload.channel_id, "", embed)
+      end
+    else
+      embed = Discord::Embed.new(
+        colour: 0xffff00,
+        title: "Too few arguments",
+        description: "--maths <operation> <expression>"
+      )
+      client.create_message(payload.channel_id, "", embed)
+    end
+  end
+end
+
+
 
 # tanki
 client.on_message_create do |payload|
@@ -424,7 +1613,7 @@ client.on_message_create do |payload|
     elsif argscount.size > 1
       argss = pres.gsub("tanki ", "").gsub("<@443053627419000833> ", "").gsub("<@443053627419000833>", "").gsub("<@!443053627419000833>", "").gsub("<@!443053627419000833> ", "").gsub("--", "")
       begin
-        response = HTTP::Client.get "https://tankapi.000webhostapp.com/?name=#{argss}"
+        response = HTTP::Client.get "-"
         value = JSON.parse(response.body)
 
         if value["premium"] == "No"
@@ -517,22 +1706,22 @@ client.on_message_create do |payload|
                    ),
                    Discord::EmbedField.new(
                      name: "<:DoubleDamageIcon:482918526596939776>__Efficiency Rating Place | Value__",
-                     value: "#{value["rating"]["efficiency"]["position"]["now"]} | #{value["rating"]["efficiency"]["value"]["now"]}",
+                     value: "#{value["rating"]["efficiency"]["position"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} | #{value["rating"]["efficiency"]["value"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
                      name: "⬆️__Experience Rating Place | Value__",
-                     value: "#{value["rating"]["experience"]["position"]["now"]} | #{value["rating"]["experience"]["value"]["now"]} #{value["rating"]["experience"]["value"]["arrow"]}",
+                     value: "#{value["rating"]["experience"]["position"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} | #{value["rating"]["experience"]["value"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} #{value["rating"]["experience"]["value"]["arrow"]}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
                      name: "<:GoldBoxIcon:482918640820289546>__Gold Box Rating Place | Value__",
-                     value: "#{value["rating"]["golds"]["position"]["now"]} | #{value["rating"]["golds"]["value"]["now"]} #{value["rating"]["golds"]["value"]["arrow"]}",
+                     value: "#{value["rating"]["golds"]["position"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} | #{value["rating"]["golds"]["value"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} #{value["rating"]["golds"]["value"]["arrow"]}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
                      name: "💎__Crystals Rating Place | Value__",
-                     value: "#{value["rating"]["crystals"]["position"]["now"]} | #{value["rating"]["crystals"]["value"]["now"]} #{value["rating"]["crystals"]["value"]["arrow"]}",
+                     value: "#{value["rating"]["crystals"]["position"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} | #{value["rating"]["crystals"]["value"]["now"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} #{value["rating"]["crystals"]["value"]["arrow"]}",
                      inline: true
                    ),
                    Discord::EmbedField.new(
