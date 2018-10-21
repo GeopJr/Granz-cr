@@ -17,6 +17,12 @@
 # Granz-cr
 A Discord Bot written in crystal using discordcr , RUBY: https://github.com/GeopJr/Granz_bot
 
+# How to install
+- `shards install`
+- Open config.yaml and replace the info with yours
+- Everthing should now work
+- `crystal Granz.cr` or compile
+
 # Thanks to [z64](https://github.com/z64) for helping me with both crystal and discordcr
 
 # Invite it
