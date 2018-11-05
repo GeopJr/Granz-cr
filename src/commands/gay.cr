@@ -28,7 +28,7 @@ module Granz
               LibMagick.magickWandGenesis
               wand1 = LibMagick.newMagickWand
               wand2 = LibMagick.newMagickWand
-              LibMagick.magickReadImage wand2, "gay.png"
+              LibMagick.magickReadImage wand2, "./src/images/gay.png"
               LibMagick.magickReadImage wand1, "#{imggnamee}y.jpg"
               LibMagick.magickAdaptiveResizeImage wand1, 1024, 1024
               LibMagick.magickCompositeImage wand1, wand2, LibMagick::CompositeOperator::OverCompositeOp, 0, 0
@@ -66,7 +66,7 @@ module Granz
             LibMagick.magickWandGenesis
             wand1 = LibMagick.newMagickWand
             wand2 = LibMagick.newMagickWand
-            LibMagick.magickReadImage wand2, "gay.png"
+            LibMagick.magickReadImage wand2, "./src/images/gay.png"
             LibMagick.magickReadImage wand1, "#{imggnamee}y.jpg"
             LibMagick.magickAdaptiveResizeImage wand1, 1024, 1024
             LibMagick.magickCompositeImage wand1, wand2, LibMagick::CompositeOperator::OverCompositeOp, 0, 0

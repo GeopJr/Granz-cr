@@ -16,7 +16,7 @@ module Granz
           d_wand = LibMagick.newDrawingWand
           p_wand = LibMagick.newPixelWand
 
-          if LibMagick.magickReadImage(m_wand, "changemymind.png")
+          if LibMagick.magickReadImage(m_wand, "./src/images/changemymind.png")
             LibMagick.pixelSetColor p_wand, "black"
             LibMagick.drawSetFillColor d_wand, p_wand
             LibMagick.drawSetFont d_wand, "Verdana-Bold"
@@ -39,7 +39,7 @@ module Granz
           m_wand = LibMagick.newMagickWand
           d_wand = LibMagick.newDrawingWand
           p_wand = LibMagick.newPixelWand
-          if LibMagick.magickReadImage(m_wand, "changemymind.png")
+          if LibMagick.magickReadImage(m_wand, "./src/images/changemymind.png")
             LibMagick.pixelSetColor p_wand, "black"
             LibMagick.drawSetFillColor d_wand, p_wand
             LibMagick.drawSetFont d_wand, "Verdana-Bold"
@@ -62,7 +62,7 @@ module Granz
           m_wand = LibMagick.newMagickWand
           d_wand = LibMagick.newDrawingWand
           p_wand = LibMagick.newPixelWand
-          if LibMagick.magickReadImage(m_wand, "changemymind.png")
+          if LibMagick.magickReadImage(m_wand, "./src/images/changemymind.png")
             LibMagick.pixelSetColor p_wand, "black"
             LibMagick.drawSetFillColor d_wand, p_wand
             LibMagick.drawSetFont d_wand, "Verdana-Bold"

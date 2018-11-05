@@ -16,7 +16,7 @@ module Granz
           d_wand = LibMagick.newDrawingWand
           p_wand = LibMagick.newPixelWand
 
-          if LibMagick.magickReadImage(m_wand, "okbyemom.png")
+          if LibMagick.magickReadImage(m_wand, "./src/images/okbyemom.png")
             LibMagick.pixelSetColor p_wand, "black"
             LibMagick.drawSetFillColor d_wand, p_wand
             LibMagick.drawSetFont d_wand, "Verdana-Bold"

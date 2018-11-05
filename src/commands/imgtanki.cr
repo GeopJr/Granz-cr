@@ -24,7 +24,7 @@ module Granz
             d_wand = LibMagick.newDrawingWand
             p_wand = LibMagick.newPixelWand
             pp_wand = LibMagick.newPixelWand
-            if LibMagick.magickReadImage(m_wand, "taaan.jpg")
+            if LibMagick.magickReadImage(m_wand, "./src/images/taaan.jpg")
               LibMagick.pixelSetColor p_wand, "white"
               LibMagick.drawSetFillColor d_wand, p_wand
               LibMagick.magickReadImage wand_rank, "#{value["rank_img"]}"

@@ -8,9 +8,14 @@ dependencies:
   discordcr:
     github: meew0/discordcr
     branch: master
-    
+
 dependencies:
   magickwand-crystal:
     github: blocknotes/magickwand-crystal
+
+dependencies:
+  duktape:
+    github: jessedoyle/duktape.cr
+    version: ~> 0.15.0
     
 license: MIT
