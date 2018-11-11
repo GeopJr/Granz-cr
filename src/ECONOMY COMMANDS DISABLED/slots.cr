@@ -13,6 +13,7 @@ module Granz
             value = JSON.parse(responsee.body).as_h
             valuue = JSON.parse(responsee.body)
             argsss = argss.to_i
+            baramoji = "<:baracoin:508999232775258112><:baracoin:508999232775258112><:baracoin:508999232775258112>"
             if argsss < 0
               emmbeed = Discord::Embed.new(
                 title: "No negative numbers",
@@ -37,12 +38,19 @@ module Granz
                   rancheck = rand(1..100)
 
                   stat = [
-                    "💩☘❌",
-                    "☘⚰💩",
-                    "💣💩❌",
-                    "💩⚰☘",
-                    "❌💣💩",
-                    "☘⚰💣",
+                    "💩",
+                    "☘",
+                    "💣",
+                    "❌",
+                    "⚰",
+                    "<:baracoin:508999232775258112>",
+                  ]
+
+                  staat = [
+                    "💩",
+                    "💣",
+                    "❌",
+                    "⚰",
                   ]
 
                   if rancheck <= 5
@@ -62,9 +70,9 @@ module Granz
                       end
                     end
                     wonn = "**WON**"
-                    watt = argsss
-                    wlat = "☘☘☘"
-                  elsif (rancheck > 5) && (rancheck <= 15)
+                    watt = argsss + argsss
+                    wlat = "#{baramoji}"
+                  elsif (rancheck > 5) && (rancheck <= 50)
                     bacc = valuue["#{payload.author.id}"]["background"]
                     slogann = valuue["#{payload.author.id}"]["slogan"]
                     eggss = valuue["#{payload.author.id}"]["eggplants"]
@@ -101,12 +109,12 @@ module Granz
                     end
                     wonn = "**LOST**"
                     watt = argsss
-                    wlat = stat.sample
+                    wlat = "#{staat.sample}#{staat.sample}#{staat.sample}"
                   end
 
                   embed = Discord::Embed.new(
                     title: "You #{wonn}:",
-                    description: "--#{stat.sample}--\n> #{wlat} <\n--#{stat.sample}--\n\nYou #{wonn} #{watt} coins!",
+                    description: "--#{stat.sample}#{stat.sample}#{stat.sample}--\n\n> #{wlat} <\n\n--#{stat.sample}#{stat.sample}#{stat.sample}--\n\nYou #{wonn} #{watt} coins!",
                     thumbnail: Discord::EmbedThumbnail.new(
                       url: "https://i.imgur.com/2K7FXik.png"
                     ),
@@ -125,8 +133,9 @@ module Granz
             end
           rescue
             embed = Discord::Embed.new(
-              title: "Error",
-              colour: 0xffff00
+              colour: 0xffff00,
+              title: "Usage:",
+              description: "#{PREFIX[0]}slots <number>"
             )
             BOT.create_message(payload.channel_id, "", embed)
           end
@@ -134,7 +143,7 @@ module Granz
           embed = Discord::Embed.new(
             colour: 0xffff00,
             title: "Usage:",
-            description: "#{PREFIX[0]}barcoin <number>"
+            description: "#{PREFIX[0]}slots <number>"
           )
           BOT.create_message(payload.channel_id, "", embed)
         end

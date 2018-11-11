@@ -1,8 +1,8 @@
 module Granz
-  module Imgtanki
+  module Tweekly
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "imgtanki") || (payload.content.starts_with? PREFIX[1] + "imgtanki") || (payload.content.starts_with? PREFIX[2] + "imgtanki") || (payload.content.starts_with? PREFIX[3] + "imgtanki") || (payload.content.starts_with? PREFIX[4] + "imgtanki")
+      if (payload.content.starts_with? PREFIX[0] + "tweekly") || (payload.content.starts_with? PREFIX[1] + "tweekly") || (payload.content.starts_with? PREFIX[2] + "tweekly") || (payload.content.starts_with? PREFIX[3] + "tweekly") || (payload.content.starts_with? PREFIX[4] + "tweekly")
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -12,10 +12,9 @@ module Granz
           )
           BOT.create_message(payload.channel_id, "", embed)
         elsif argscount.size > 1
-          argss = pres.gsub("imgtanki ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
+          argss = pres.gsub("tweekly ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
           begin
             response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{argss}"
-            valuee = JSON.parse(response.body).as_h
             value = JSON.parse(response.body)
 
             if value["response"]["hasPremium"] == true
@@ -218,49 +217,6 @@ module Granz
               end
             end
 
-            resistan = valuee["response"]["resistanceModules"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-
-            turr = valuee["response"]["turretsPlayed"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-
-            exp = value["response"]["score"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-            expc = value["response"]["scoreNext"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-            nex = value["response"]["scoreNext"].as_i - value["response"]["score"].as_i
-            nexx = nex.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-
-            kills = value["response"]["kills"]
-            deaths = value["response"]["deaths"]
-            if deaths != 0
-              kkd = kills.as_i.to_f / deaths.as_i
-              kd = kkd.round(2)
-            else
-              kd = "Infinite"
-            end
-
-            timeplayedms = (value["response"]["modesPlayed"][0]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][1]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][2]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][3]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][4]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][5]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][6]["timePlayed"].as_i / 1000)
-            total_seconds = timeplayedms
-            seconds = total_seconds % 60
-            minutes = (total_seconds / 60) % 60
-            hours = total_seconds / (60 * 60)
-            timeplayedf = "#{hours.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} Hours #{minutes} Minutes #{seconds} Seconds"
-
-            mines = value["response"]["suppliesUsage"][4]["usages"]
-            repair = value["response"]["suppliesUsage"][0]["usages"]
-            golbo = value["response"]["suppliesUsage"][3]["usages"]
-            darm = value["response"]["suppliesUsage"][5]["usages"]
-            spebo = value["response"]["suppliesUsage"][2]["usages"]
-            ddu = value["response"]["suppliesUsage"][1]["usages"]
-            bu = value["response"]["suppliesUsage"][6]["usages"]
-
-            ttootal = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
-
-            miness = value["response"]["suppliesUsage"][4]["name"]
-            repairr = value["response"]["suppliesUsage"][0]["name"]
-            golboo = value["response"]["suppliesUsage"][3]["name"]
-            darmm = value["response"]["suppliesUsage"][5]["name"]
-            speboo = value["response"]["suppliesUsage"][2]["name"]
-            dduu = value["response"]["suppliesUsage"][1]["name"]
-            buu = value["response"]["suppliesUsage"][6]["name"]
-
             if value["response"]["rating"]["crystals"]["value"] == -1
               valcr = "0"
               upordowncr = nil
@@ -379,218 +335,46 @@ module Granz
               valsrrss = value["response"]["previousRating"]["score"]["value"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             end
 
-            crys = value["response"]["earnedCrystals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-            gold = value["response"]["caughtGolds"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-
-            imggnamee = rand(1..1650)
-            LibMagick.magickWandGenesis
-            m_wand = LibMagick.newMagickWand
-            d_wand = LibMagick.newDrawingWand
-            p_wand = LibMagick.newPixelWand
-            pp_wand = LibMagick.newPixelWand
-            if LibMagick.magickReadImage(m_wand, "./src/images/taaan.jpg")
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFillColor d_wand, p_wand
-              LibMagick.drawSetFont d_wand, "Arial-Bold"
-              LibMagick.drawSetFontSize d_wand, 40
-              LibMagick.drawSetTextAntialias d_wand, true
-              LibMagick.drawSetTextAlignment d_wand, LibMagick::AlignType::LeftAlign
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawSetStrokeWidth d_wand, 0
-              LibMagick.drawSetStrokeAntialias d_wand, false
-              LibMagick.drawSetFont d_wand, "Tahoma"
-              LibMagick.drawAnnotation d_wand, 0, 1190, "Requested By: #{payload.author.username}##{payload.author.discriminator} | https://ratings.geopjr.xyz/"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetTextAlignment d_wand, LibMagick::AlignType::CenterAlign
-              LibMagick.drawSetFontSize d_wand, 40
-              LibMagick.drawSetFont d_wand, "Arial-Bold"
-              LibMagick.drawAnnotation d_wand, 500, 50, "#{value["response"]["name"]}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 35
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 500, 100, "#{rank}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 35
-              LibMagick.drawAnnotation d_wand, 500, 150, "Playtime: #{timeplayedf}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 750, 250, "Resistance Modules:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 750, 290, "#{resistan}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 750, 330, "Turrets Played:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 370, "#{turr}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 750, 410, "Mines Used:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 450, "#{mines}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 750, 490, "Repair Kits Used:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 530, "#{repair}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 750, 570, "Gold Boxes Used:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 610, "#{golbo}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 750, 650, "Double Armors Used:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 690, "#{darm}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 730, "Speed Boosts Used:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 770, "#{spebo}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 750, 810, "Double Damage Used:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 850, "#{ddu}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 750, 890, "Batteries Used:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 930, "#{bu}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 750, 970, "Total:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 750, 1010, "#{ttootal.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 250, 250, "EXP:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 290, "#{exp}/#{expc}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 250, 330, "EXP Left:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 370, "#{nexx} exp"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 250, 410, "Golds Caught:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 450, "#{gold}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 250, 490, "Crystals:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 530, "#{crys}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 250, 570, "Kills:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 250, 610, "#{kills}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 250, 650, "Deaths:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 690, "#{deaths}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 250, 730, "K/D:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 770, "#{kd}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 250, 810, "Efficiency Rating Place | Value:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 250, 850, "#{valeff} | #{valef}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 250, 890, "Experience Rating Place | Value:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 930, "#{valsrr} | #{valsr}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 250, 970, "Gold Box Rating Place | Value:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 1010, "#{valgdd} | #{valgd}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.pixelSetColor p_wand, "#3498db"
-              LibMagick.drawAnnotation d_wand, 250, 1050, "Crystals Rating Place | Value:"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 250, 1090, "#{valcrr} | #{valcr}"
-              LibMagick.magickDrawImage m_wand, d_wand
-              LibMagick.magickTrimImage m_wand, 0
-              LibMagick.magickWriteImage m_wand, "#{imggnamee}tanki.png"
-            end
-            LibMagick.destroyPixelWand p_wand
-            LibMagick.destroyPixelWand pp_wand
-            LibMagick.destroyDrawingWand d_wand
-            LibMagick.destroyMagickWand m_wand
-            LibMagick.magickWandTerminus
-            BOT.upload_file(payload.channel_id, "", File.open("#{imggnamee}tanki.png", "r"))
-            File.delete("./#{imggnamee}tanki.png")
+            embed = Discord::Embed.new(
+              timestamp: Time.now,
+              colour: 0xffff00,
+              title: "Weekly ratings of #{value["response"]["name"]}",
+              footer: Discord::EmbedFooter.new(
+                text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",
+                icon_url: "https://cdn.discordapp.com/avatars/216156825978929152/c7eaee00bbe99b16304429fb9b9116ea.png"
+              ),
+              url: "https://ratings.geopjr.xyz/ratings?name=#{argss}",
+              thumbnail: Discord::EmbedThumbnail.new(
+                url: "#{rankimg}"
+              ),
+              author: Discord::EmbedAuthor.new(
+                name: "Granz#8561",
+                icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
+              ),
+              fields: [
+                Discord::EmbedField.new(
+                  name: "⬆️__Experience Rating Place | Value__",
+                  value: "#{valsrr} | #{valsr} #{upordownsr}",
+                  inline: true
+                ),
+                Discord::EmbedField.new(
+                  name: "<:GoldBoxIcon:482918640820289546>__Gold Box Rating Place | Value__",
+                  value: "#{valgdd} | #{valgd} #{upordowngd}",
+                  inline: true
+                ),
+                Discord::EmbedField.new(
+                  name: "💎__Crystals Rating Place | Value__",
+                  value: "#{valcrr} | #{valcr} #{upordowncr}",
+                  inline: true
+                ),
+                Discord::EmbedField.new(
+                  name: "<:DoubleDamageIcon:482918526596939776>__Efficiency Rating Place | Value__",
+                  value: "#{valeff} | #{valef}",
+                  inline: true
+                ),
+              ]
+            )
+            BOT.create_message(payload.channel_id, "", embed)
           rescue
             embed = Discord::Embed.new(
               colour: 0xffff00,
