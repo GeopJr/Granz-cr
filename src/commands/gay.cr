@@ -2,7 +2,7 @@ module Granz
   module Gay
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "gay") || (payload.content.starts_with? PREFIX[1] + "gay") || (payload.content.starts_with? PREFIX[2] + "gay") || (payload.content.starts_with? PREFIX[3] + "gay") || (payload.content.starts_with? PREFIX[4] + "gay")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}gay") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
 
@@ -41,7 +41,7 @@ module Granz
               File.delete("./gay#{imggnamee}.png")
             else
               embed = Discord::Embed.new(
-                timestamp: Time.now,
+                
                 colour: 0xffff00,
                 title: "Mention a user"
               )

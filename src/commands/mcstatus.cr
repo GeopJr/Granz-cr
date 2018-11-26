@@ -2,7 +2,7 @@ module Granz
   module Mcstatus
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "mcstatus") || (payload.content.starts_with? PREFIX[1] + "mcstatus") || (payload.content.starts_with? PREFIX[2] + "mcstatus") || (payload.content.starts_with? PREFIX[3] + "mcstatus") || (payload.content.starts_with? PREFIX[4] + "mcstatus")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}mcstatus") }
         begin
           response = HTTP::Client.get "https://status.mojang.com/check"
           value = JSON.parse(response.body)
@@ -64,7 +64,7 @@ module Granz
           end
 
           embed = Discord::Embed.new(
-            timestamp: Time.now,
+            
             colour: 0xffff00,
             title: "Minecraft Status",
             fields: [Discord::EmbedField.new(

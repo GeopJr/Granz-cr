@@ -2,7 +2,7 @@ module Granz
   module Mcskin
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "mcskin") || (payload.content.starts_with? PREFIX[1] + "mcskin") || (payload.content.starts_with? PREFIX[2] + "mcskin") || (payload.content.starts_with? PREFIX[3] + "mcskin") || (payload.content.starts_with? PREFIX[4] + "mcskin")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}mcskin") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -22,7 +22,7 @@ module Granz
               thumbnail: Discord::EmbedThumbnail.new(
                 url: "https://crafatar.com/renders/head/#{argss}?overlay"
               ),
-              timestamp: Time.now,
+              
               colour: 0xffff00,
             )
             BOT.create_message(payload.channel_id, "", embed)

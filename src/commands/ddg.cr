@@ -2,7 +2,7 @@ module Granz
   module Ddg
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "ddg") || (payload.content.starts_with? PREFIX[1] + "ddg") || (payload.content.starts_with? PREFIX[2] + "ddg") || (payload.content.starts_with? PREFIX[3] + "ddg") || (payload.content.starts_with? PREFIX[4] + "ddg")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}ddg") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 1
@@ -11,7 +11,7 @@ module Granz
           args = argss.join("%20")
           begin
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "<http://duckduckgo.com/#{args}?ia=web>",
               description: "Replying to: <@#{payload.author.id}>"

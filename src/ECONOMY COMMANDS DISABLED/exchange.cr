@@ -49,7 +49,7 @@ module Granz
 
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "exchange") || (payload.content.starts_with? PREFIX[1] + "exchange") || (payload.content.starts_with? PREFIX[2] + "exchange") || (payload.content.starts_with? PREFIX[3] + "exchange") || (payload.content.starts_with? PREFIX[4] + "exchange")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}exchange") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         argss = pres.gsub("exchange ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
@@ -74,7 +74,12 @@ module Granz
 
               case response
               when Discord::Message
-                next unless response.content == "#{rancheck}"
+                eembeded = Discord::Embed.new(
+                  colour: 0xffff00,
+                  title: "Wrong input",
+                  description: "You were supposed to write #{rancheck}"
+                )
+                next BOT.create_message(payload.channel_id, "", eembeded) unless response.content == "#{rancheck}"
                 baracoinss = barcoins.to_s.to_i - 1000
                 eggsss = eggss.to_s.to_i + 1
                 aaa = value.merge({"#{payload.author.id}" => {"username" => "#{payload.author.username}", "discriminator" => "#{payload.author.discriminator}", "background" => bacc, "baracoins" => baracoinss, "eggplants" => eggsss, "slogan" => slogann, "avatar" => "#{payload.author.avatar}"}})

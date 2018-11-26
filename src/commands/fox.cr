@@ -2,13 +2,13 @@ module Granz
   module Fox
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "fox") || (payload.content.starts_with? PREFIX[1] + "fox") || (payload.content.starts_with? PREFIX[2] + "fox") || (payload.content.starts_with? PREFIX[3] + "fox") || (payload.content.starts_with? PREFIX[4] + "fox")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}fox") }
         channel = BOT.get_channel(payload.channel_id)
         begin
           response = HTTP::Client.get "https://randomfox.ca/floof/"
           value = JSON.parse(response.body)
           embed = Discord::Embed.new(
-            timestamp: Time.now,
+            
             colour: 0xffff00,
             image: Discord::EmbedImage.new(
               url: "#{value["image"].as_s}"

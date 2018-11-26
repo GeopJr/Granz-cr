@@ -2,7 +2,7 @@ module Granz
   module Choose
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "choose") || (payload.content.starts_with? PREFIX[1] + "choose") || (payload.content.starts_with? PREFIX[2] + "choose") || (payload.content.starts_with? PREFIX[3] + "choose") || (payload.content.starts_with? PREFIX[4] + "choose")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}choose") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -12,7 +12,7 @@ module Granz
             embed = Discord::Embed.new(
               title: "Hmm, I pick :",
               description: "#{chs.sample}",
-              timestamp: Time.now,
+              
               colour: 0xffff00,
             )
             BOT.create_message(payload.channel_id, "", embed)

@@ -2,7 +2,7 @@ module Granz
   module Kiss
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "kiss") || (payload.content.starts_with? PREFIX[1] + "kiss") || (payload.content.starts_with? PREFIX[2] + "kiss") || (payload.content.starts_with? PREFIX[3] + "kiss") || (payload.content.starts_with? PREFIX[4] + "kiss")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}kiss") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2

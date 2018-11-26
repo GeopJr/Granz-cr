@@ -3,7 +3,7 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       begin
-        if (payload.content.starts_with? PREFIX[0] + "noticeme") || (payload.content.starts_with? PREFIX[1] + "noticeme") || (payload.content.starts_with? PREFIX[2] + "noticeme") || (payload.content.starts_with? PREFIX[3] + "noticeme") || (payload.content.starts_with? PREFIX[4] + "noticeme")
+        if PREFIX.any? { |p| payload.content.starts_with?("#{p}noticeme") }
           embed = Discord::Embed.new(
             description: "<@#{payload.author.id}>, I notice you :relaxed:",
             colour: 0xffff00

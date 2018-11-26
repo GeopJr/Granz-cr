@@ -2,7 +2,7 @@ module Granz
   module Tsupplies
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "tsupplies") || (payload.content.starts_with? PREFIX[1] + "tsupplies") || (payload.content.starts_with? PREFIX[2] + "tsupplies") || (payload.content.starts_with? PREFIX[3] + "tsupplies") || (payload.content.starts_with? PREFIX[4] + "tsupplies")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}tsupplies") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -215,12 +215,12 @@ module Granz
                 rankimg = "https://i.imgur.com/NahcZQ9.png"
               end
             end
-            mines = value["response"]["suppliesUsage"][4]["usages"]
-            repair = value["response"]["suppliesUsage"][0]["usages"]
-            golbo = value["response"]["suppliesUsage"][3]["usages"]
-            darm = value["response"]["suppliesUsage"][5]["usages"]
-            spebo = value["response"]["suppliesUsage"][2]["usages"]
-            ddu = value["response"]["suppliesUsage"][1]["usages"]
+            mines = value["response"]["suppliesUsage"][0]["usages"]
+            repair = value["response"]["suppliesUsage"][1]["usages"]
+            golbo = value["response"]["suppliesUsage"][2]["usages"]
+            darm = value["response"]["suppliesUsage"][3]["usages"]
+            spebo = value["response"]["suppliesUsage"][4]["usages"]
+            ddu = value["response"]["suppliesUsage"][5]["usages"]
             bu = value["response"]["suppliesUsage"][6]["usages"]
 
             ttootal = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
@@ -233,8 +233,169 @@ module Granz
             dduu = value["response"]["suppliesUsage"][1]["name"]
             buu = value["response"]["suppliesUsage"][6]["name"]
 
+            if value["response"]["suppliesUsage"][0]["name"].as_s == "Repair Kit" 
+               emoji0 = "<:RepairKitIcon:482918499719708683>"
+               name0 = "Repair Kits"
+             elsif value["response"]["suppliesUsage"][0]["name"].as_s == "Double Damage" 
+               emoji0 = "<:DoubleDamageIcon:482918526596939776>"
+               name0 = "Double Damage"
+             elsif value["response"]["suppliesUsage"][0]["name"].as_s == "Speed Boost" 
+               emoji0 = "<:SpeedBoostIcon:482918535786659842>"
+               name0 = "Speed Boost"
+             elsif value["response"]["suppliesUsage"][0]["name"].as_s == "Gold box" 
+               emoji0 = "<:GoldBoxIcon:482918640820289546> "
+               name0 = "Golds"
+             elsif value["response"]["suppliesUsage"][0]["name"].as_s == "Double Armor" 
+               emoji0 = "<:DoubleArmourIcon:482918515834224671>"
+               name0 = "Double Armour"
+             elsif value["response"]["suppliesUsage"][0]["name"].as_s == "Mine" 
+               emoji0 = "<:MineIcon:482918544133324812>"
+               name0 = "Mines"
+             elsif value["response"]["suppliesUsage"][0]["name"].as_s == "Battery" 
+               emoji0 = "<:DroneIcon:482918650102415380>"
+               name0 = "Batteries"
+             end
+            
+            if value["response"]["suppliesUsage"][1]["name"].as_s == "Repair Kit" 
+               emoji1 = "<:RepairKitIcon:482918499719708683>"
+               name1 = "Repair Kits"
+             elsif value["response"]["suppliesUsage"][1]["name"].as_s == "Double Damage" 
+               emoji1 = "<:DoubleDamageIcon:482918526596939776>"
+               name1 = "Double Damage"
+             elsif value["response"]["suppliesUsage"][1]["name"].as_s == "Speed Boost" 
+               emoji1 = "<:SpeedBoostIcon:482918535786659842>"
+               name1 = "Speed Boost"
+             elsif value["response"]["suppliesUsage"][1]["name"].as_s == "Gold box" 
+               emoji1 = "<:GoldBoxIcon:482918640820289546> "
+               name1 = "Golds"
+             elsif value["response"]["suppliesUsage"][1]["name"].as_s == "Double Armor" 
+               emoji1 = "<:DoubleArmourIcon:482918515834224671>"
+               name1 = "Double Armour"
+             elsif value["response"]["suppliesUsage"][1]["name"].as_s == "Mine" 
+               emoji1 = "<:MineIcon:482918544133324812>"
+               name1 = "Mines"
+             elsif value["response"]["suppliesUsage"][1]["name"].as_s == "Battery" 
+               emoji1 = "<:DroneIcon:482918650102415380>"
+               name1 = "Batteries"
+              end
+            
+            if value["response"]["suppliesUsage"][2]["name"].as_s == "Repair Kit" 
+               emoji2 = "<:RepairKitIcon:482918499719708683>"
+               name2 = "Repair Kits"
+             elsif value["response"]["suppliesUsage"][2]["name"].as_s == "Double Damage" 
+               emoji2 = "<:DoubleDamageIcon:482918526596939776>"
+               name2 = "Double Damage"
+             elsif value["response"]["suppliesUsage"][2]["name"].as_s == "Speed Boost" 
+               emoji2 = "<:SpeedBoostIcon:482918535786659842>"
+               name2 = "Speed Boost"
+             elsif value["response"]["suppliesUsage"][2]["name"].as_s == "Gold box" 
+               emoji2 = "<:GoldBoxIcon:482918640820289546> "
+               name2 = "Golds"
+             elsif value["response"]["suppliesUsage"][2]["name"].as_s == "Double Armor" 
+               emoji2 = "<:DoubleArmourIcon:482918515834224671>"
+               name2 = "Double Armour"
+             elsif value["response"]["suppliesUsage"][2]["name"].as_s == "Mine" 
+               emoji2 = "<:MineIcon:482918544133324812>"
+               name2 = "Mines"
+             elsif value["response"]["suppliesUsage"][2]["name"].as_s == "Battery" 
+               emoji2 = "<:DroneIcon:482918650102415380>"
+               name2 = "Batteries"
+              end
+            
+            if value["response"]["suppliesUsage"][3]["name"].as_s == "Repair Kit" 
+               emoji3 = "<:RepairKitIcon:482918499719708683>"
+               name3 = "Repair Kits"
+             elsif value["response"]["suppliesUsage"][3]["name"].as_s == "Double Damage" 
+               emoji3 = "<:DoubleDamageIcon:482918526596939776>"
+               name3 = "Double Damage"
+             elsif value["response"]["suppliesUsage"][3]["name"].as_s == "Speed Boost" 
+               emoji3 = "<:SpeedBoostIcon:482918535786659842>"
+               name3 = "Speed Boost"
+             elsif value["response"]["suppliesUsage"][3]["name"].as_s == "Gold box" 
+               emoji3 = "<:GoldBoxIcon:482918640820289546> "
+               name3 = "Golds"
+             elsif value["response"]["suppliesUsage"][3]["name"].as_s == "Double Armor" 
+               emoji3 = "<:DoubleArmourIcon:482918515834224671>"
+               name3 = "Double Armour"
+             elsif value["response"]["suppliesUsage"][3]["name"].as_s == "Mine" 
+               emoji3 = "<:MineIcon:482918544133324812>"
+               name3 = "Mines"
+             elsif value["response"]["suppliesUsage"][3]["name"].as_s == "Battery" 
+               emoji3 = "<:DroneIcon:482918650102415380>"
+               name3 = "Batteries"
+              end
+            
+            if value["response"]["suppliesUsage"][4]["name"].as_s == "Repair Kit" 
+               emoji4 = "<:RepairKitIcon:482918499719708683>"
+               name4 = "Repair Kits"
+             elsif value["response"]["suppliesUsage"][4]["name"].as_s == "Double Damage" 
+               emoji4 = "<:DoubleDamageIcon:482918526596939776>"
+               name4 = "Double Damage"
+             elsif value["response"]["suppliesUsage"][4]["name"].as_s == "Speed Boost" 
+               emoji4 = "<:SpeedBoostIcon:482918535786659842>"
+               name4 = "Speed Boost"
+             elsif value["response"]["suppliesUsage"][4]["name"].as_s == "Gold box" 
+               emoji4 = "<:GoldBoxIcon:482918640820289546> "
+               name4 = "Golds"
+             elsif value["response"]["suppliesUsage"][4]["name"].as_s == "Double Armor" 
+               emoji4 = "<:DoubleArmourIcon:482918515834224671>"
+               name4 = "Double Armour"
+             elsif value["response"]["suppliesUsage"][4]["name"].as_s == "Mine" 
+               emoji4 = "<:MineIcon:482918544133324812>"
+               name4 = "Mines"
+             elsif value["response"]["suppliesUsage"][4]["name"].as_s == "Battery" 
+               emoji4 = "<:DroneIcon:482918650102415380>"
+               name4 = "Batteries"
+              end
+            
+            if value["response"]["suppliesUsage"][5]["name"].as_s == "Repair Kit" 
+               emoji5 = "<:RepairKitIcon:482918499719708683>"
+               name5 = "Repair Kits"
+             elsif value["response"]["suppliesUsage"][5]["name"].as_s == "Double Damage" 
+               emoji5 = "<:DoubleDamageIcon:482918526596939776>"
+               name5 = "Double Damage"
+             elsif value["response"]["suppliesUsage"][5]["name"].as_s == "Speed Boost" 
+               emoji5 = "<:SpeedBoostIcon:482918535786659842>"
+               name5 = "Speed Boost"
+             elsif value["response"]["suppliesUsage"][5]["name"].as_s == "Gold box" 
+               emoji5 = "<:GoldBoxIcon:482918640820289546> "
+               name5 = "Golds"
+             elsif value["response"]["suppliesUsage"][5]["name"].as_s == "Double Armor" 
+               emoji5 = "<:DoubleArmourIcon:482918515834224671>"
+               name5 = "Double Armour"
+             elsif value["response"]["suppliesUsage"][5]["name"].as_s == "Mine" 
+               emoji5 = "<:MineIcon:482918544133324812>"
+               name5 = "Mines"
+             elsif value["response"]["suppliesUsage"][5]["name"].as_s == "Battery" 
+               emoji5 = "<:DroneIcon:482918650102415380>"
+               name5 = "Batteries"
+              end
+            
+            if value["response"]["suppliesUsage"][6]["name"].as_s == "Repair Kit" 
+               emoji6 = "<:RepairKitIcon:482918499719708683>"
+               name6 = "Repair Kits"
+             elsif value["response"]["suppliesUsage"][6]["name"].as_s == "Double Damage" 
+               emoji6 = "<:DoubleDamageIcon:482918526596939776>"
+               name6 = "Double Damage"
+             elsif value["response"]["suppliesUsage"][6]["name"].as_s == "Speed Boost" 
+               emoji6 = "<:SpeedBoostIcon:482918535786659842>"
+               name6 = "Speed Boost"
+             elsif value["response"]["suppliesUsage"][6]["name"].as_s == "Gold box" 
+               emoji6 = "<:GoldBoxIcon:482918640820289546> "
+               name6 = "Golds"
+             elsif value["response"]["suppliesUsage"][6]["name"].as_s == "Double Armor" 
+               emoji6 = "<:DoubleArmourIcon:482918515834224671>"
+               name6 = "Double Armour"
+             elsif value["response"]["suppliesUsage"][6]["name"].as_s == "Mine" 
+               emoji6 = "<:MineIcon:482918544133324812>"
+               name6 = "Mines"
+             elsif value["response"]["suppliesUsage"][6]["name"].as_s == "Battery" 
+               emoji6 = "<:DroneIcon:482918650102415380>"
+               name6 = "Batteries"
+              end
+
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "Supplies of #{value["response"]["name"]}",
               footer: Discord::EmbedFooter.new(
@@ -250,37 +411,37 @@ module Granz
                 icon_url: "https://cdn.discordapp.com/avatars/443053627419000833/333d3868fa0837e800e6515558fd8179.png"
               ),
               fields: [Discord::EmbedField.new(
-                name: "<:MineIcon:482918544133324812>__#{miness}s Used__",
+                name: "#{emoji0}__#{name0} Used__",
                 value: "#{mines.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                 inline: true
               ),
                        Discord::EmbedField.new(
-                         name: "<:RepairKitIcon:482918499719708683>__#{repairr}s Used__",
+                         name: "#{emoji1}__#{name1} Used__",
                          value: "#{repair.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                          inline: true
                        ),
                        Discord::EmbedField.new(
-                         name: "<:GoldBoxIcon:482918640820289546>__#{golboo}es Used__",
+                         name: "#{emoji2}__#{name2} Used__",
                          value: "#{golbo.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                          inline: true
                        ),
                        Discord::EmbedField.new(
-                         name: "<:DoubleArmourIcon:482918515834224671>__#{darmm}s Used__",
+                         name: "#{emoji3}__#{name3} Used__",
                          value: "#{darm.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                          inline: true
                        ),
                        Discord::EmbedField.new(
-                         name: "<:SpeedBoostIcon:482918535786659842>__#{speboo}s Used__",
+                         name: "#{emoji4}__#{name4} Used__",
                          value: "#{spebo.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                          inline: true
                        ),
                        Discord::EmbedField.new(
-                         name: "<:DoubleDamageIcon:482918526596939776>__#{dduu} Used__",
+                         name: "#{emoji5}__#{name5} Used__",
                          value: "#{ddu.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                          inline: true
                        ),
                        Discord::EmbedField.new(
-                         name: "<:DroneIcon:482918650102415380>__#{buu} Used__",
+                         name: "#{emoji6}__#{name6} Used__",
                          value: "#{bu.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                          inline: true
                        ),

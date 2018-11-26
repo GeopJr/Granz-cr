@@ -2,7 +2,7 @@ module Granz
   module Eval
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "eval") || (payload.content.starts_with? PREFIX[1] + "eval") || (payload.content.starts_with? PREFIX[2] + "eval") || (payload.content.starts_with? PREFIX[3] + "eval") || (payload.content.starts_with? PREFIX[4] + "eval")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}eval") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
 
@@ -43,7 +43,7 @@ module Granz
               outputt = value["run_request"]["run"]["stderr"].to_s
             end
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "#{succ}",
               description: "[carc.in](#{value["run_request"]["run"]["html_url"]})",
@@ -84,7 +84,7 @@ module Granz
               outputt = value["run_request"]["run"]["stderr"].to_s
             end
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "#{succ}",
               description: "[carc.in](#{value["run_request"]["run"]["html_url"]})",
@@ -125,7 +125,7 @@ module Granz
               outputt = value["run_request"]["run"]["stderr"].to_s
             end
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "#{succ}",
               description: "[carc.in](#{value["run_request"]["run"]["html_url"]})",
@@ -149,7 +149,7 @@ module Granz
               rt = Duktape::Runtime.new
               evaluated = rt.eval("#{code}")
               embed = Discord::Embed.new(
-                timestamp: Time.now,
+                
                 colour: 0xffff00,
                 title: "Success",
                 fields: [Discord::EmbedField.new(
@@ -165,7 +165,7 @@ module Granz
               BOT.create_message(payload.channel_id, "", embed)
             rescue e : Duktape::Error
               embed = Discord::Embed.new(
-                timestamp: Time.now,
+                
                 colour: 0xffff00,
                 title: "Forgive me Father for I have sinned :pensive:",
                 fields: [Discord::EmbedField.new(
@@ -182,7 +182,7 @@ module Granz
             end
           else
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "Language Not Supported",
               description: "Use only: __crystal/cr, ruby/rb, c, js/javascript__")
@@ -191,7 +191,7 @@ module Granz
           end
         rescue
           embed = Discord::Embed.new(
-            timestamp: Time.now,
+            
             colour: 0xffff00,
             title: "Error",
             description: "Probably something is down"

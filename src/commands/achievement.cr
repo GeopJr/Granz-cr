@@ -2,7 +2,7 @@ module Granz
   module Achievement
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "achievement") || (payload.content.starts_with? PREFIX[1] + "achievement") || (payload.content.starts_with? PREFIX[2] + "achievement") || (payload.content.starts_with? PREFIX[3] + "achievement") || (payload.content.starts_with? PREFIX[4] + "achievement")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}achievement") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 1
@@ -12,7 +12,7 @@ module Granz
           begin
             embed = Discord::Embed.new(
               title: "Achievement Unlocked",
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               image: Discord::EmbedImage.new(
                 url: "https://www.minecraftskinstealer.com/achievement/a.php?i=#{id[0].gsub("+", "%2B").gsub(" ", "+")}&h=#{mooor[0].gsub("+", "%2B").gsub(" ", "+")}&t=#{mooor[1].gsub("+", "%2B").gsub(" ", "+")}"

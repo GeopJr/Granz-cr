@@ -3,7 +3,7 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       begin
-        if (payload.content.starts_with? PREFIX[0] + "stats") || (payload.content.starts_with? PREFIX[1] + "stats") || (payload.content.starts_with? PREFIX[2] + "stats") || (payload.content.starts_with? PREFIX[3] + "stats") || (payload.content.starts_with? PREFIX[4] + "stats")
+        if PREFIX.any? { |p| payload.content.starts_with?("#{p}stats") }
           response = HTTP::Client.get "https://api.myjson.com/bins/wnhdw"
           valuee = JSON.parse(response.body)
           timee = Time.now - UPTIMER
@@ -20,7 +20,7 @@ module Granz
                        inline: true
                      ),
             ],
-            timestamp: Time.now,
+            
             colour: 0xffff00,
             footer: Discord::EmbedFooter.new(
               text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",

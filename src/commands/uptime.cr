@@ -2,11 +2,11 @@ module Granz
   module Uptime
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "uptime") || (payload.content.starts_with? PREFIX[1] + "uptime") || (payload.content.starts_with? PREFIX[2] + "uptime") || (payload.content.starts_with? PREFIX[3] + "uptime") || (payload.content.starts_with? PREFIX[4] + "uptime")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}uptime") }
         begin
           timee = Time.now - UPTIMER
           embed = Discord::Embed.new(
-            timestamp: Time.now,
+            
             colour: 0xffff00,
             title: "I've been up for:",
             description: "#{timee.hours} Hours, #{timee.minutes} Minutes, #{timee.seconds} Seconds"

@@ -2,7 +2,7 @@ module Granz
   module Tanki
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "tanki") || (payload.content.starts_with? PREFIX[1] + "tanki") || (payload.content.starts_with? PREFIX[2] + "tanki") || (payload.content.starts_with? PREFIX[3] + "tanki") || (payload.content.starts_with? PREFIX[4] + "tanki")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}tanki") }
         begin
           embed = Discord::Embed.new(
             colour: 0xffff00,

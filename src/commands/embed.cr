@@ -2,7 +2,7 @@ module Granz
   module Embed
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "embed") || (payload.content.starts_with? PREFIX[1] + "embed") || (payload.content.starts_with? PREFIX[2] + "embed") || (payload.content.starts_with? PREFIX[3] + "embed") || (payload.content.starts_with? PREFIX[4] + "embed")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}embed") }
         if payload.author.id == CONFIG["my_id"].to_s.to_u64
           pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
           argscount = pres.split(" ")

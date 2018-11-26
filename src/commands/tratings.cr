@@ -2,7 +2,7 @@ module Granz
   module Tratings
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "tratings") || (payload.content.starts_with? PREFIX[1] + "tratings") || (payload.content.starts_with? PREFIX[2] + "tratings") || (payload.content.starts_with? PREFIX[3] + "tratings") || (payload.content.starts_with? PREFIX[4] + "tratings")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}tratings") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -243,8 +243,8 @@ module Granz
               kd = "Infinite"
             end
 
-            timeplayedms = (value["response"]["modesPlayed"][0]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][1]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][2]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][3]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][4]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][5]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][6]["timePlayed"].as_i / 1000)
-            total_seconds = timeplayedms
+            timeplayedms = value["response"]["modesPlayed"][0]["timePlayed"].as_i64 + value["response"]["modesPlayed"][1]["timePlayed"].as_i64 + value["response"]["modesPlayed"][2]["timePlayed"].as_i64 + value["response"]["modesPlayed"][3]["timePlayed"].as_i64 + value["response"]["modesPlayed"][4]["timePlayed"].as_i64 + value["response"]["modesPlayed"][5]["timePlayed"].as_i64 + value["response"]["modesPlayed"][6]["timePlayed"].as_i64
+            total_seconds = timeplayedms / 1000
             seconds = total_seconds % 60
             minutes = (total_seconds / 60) % 60
             hours = total_seconds / (60 * 60)
@@ -253,7 +253,7 @@ module Granz
             gold = value["response"]["caughtGolds"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "Stats of #{value["response"]["name"]}",
               footer: Discord::EmbedFooter.new(
@@ -321,6 +321,11 @@ module Granz
                        Discord::EmbedField.new(
                          name: "⚰️__K/D__",
                          value: "#{kd}",
+                         inline: true
+                       ),
+                       Discord::EmbedField.new(
+                         name: "⚙️__Gear Score__",
+                         value: "#{value["response"]["gearScore"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                          inline: true
                        ),
                        Discord::EmbedField.new(

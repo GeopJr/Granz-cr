@@ -49,7 +49,7 @@ module Granz
 
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "give") || (payload.content.starts_with? PREFIX[1] + "give") || (payload.content.starts_with? PREFIX[2] + "give") || (payload.content.starts_with? PREFIX[3] + "give") || (payload.content.starts_with? PREFIX[4] + "give")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}give") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 1
@@ -86,7 +86,12 @@ module Granz
                     response = await_manager.await_user(payload.author.id, 10.seconds)
                     case response
                     when Discord::Message
-                      next unless response.content == "#{rancheck}"
+                      eembeded = Discord::Embed.new(
+                        colour: 0xffff00,
+                        title: "Wrong input",
+                        description: "You were supposed to write #{rancheck}"
+                      )
+                      next BOT.create_message(payload.channel_id, "", eembeded) unless response.content == "#{rancheck}"
 
                       bacc = valuue["#{mentioned_user[0].id}"]["background"]
                       slogann = valuue["#{mentioned_user[0].id}"]["slogan"]

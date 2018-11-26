@@ -2,7 +2,7 @@ module Granz
   module Howgay
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "howgay") || (payload.content.starts_with? PREFIX[1] + "howgay") || (payload.content.starts_with? PREFIX[2] + "howgay") || (payload.content.starts_with? PREFIX[3] + "howgay") || (payload.content.starts_with? PREFIX[4] + "howgay")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}howgay") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 1
@@ -12,7 +12,7 @@ module Granz
             embed = Discord::Embed.new(
               title: "How much of a homosexual are you ?",
               description: "**#{argss}** is **#{arr.sample}/100** homosexual :gay_pride_flag:",
-              timestamp: Time.now,
+              
               colour: 0xffff00,
             )
             BOT.create_message(payload.channel_id, "", embed)

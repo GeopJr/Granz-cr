@@ -2,13 +2,13 @@ module Granz
   module Server
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "server") || (payload.content.starts_with? PREFIX[1] + "server") || (payload.content.starts_with? PREFIX[2] + "server") || (payload.content.starts_with? PREFIX[3] + "server") || (payload.content.starts_with? PREFIX[4] + "server")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}server") }
         begin
           if guild_id = BOT.get_channel(payload.channel_id).guild_id
             guild_id # => Snowflake
             server = BOT.get_guild(guild_id)
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "**Server Info**",
               thumbnail: Discord::EmbedThumbnail.new(
@@ -35,7 +35,7 @@ module Granz
             guild_id # => Snowflake
             server = BOT.get_guild(guild_id)
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "**Server Info**",
               thumbnail: Discord::EmbedThumbnail.new(

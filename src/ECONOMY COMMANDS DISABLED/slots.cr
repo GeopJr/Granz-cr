@@ -2,7 +2,7 @@ module Granz
   module Slots
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "slots") || (payload.content.starts_with? PREFIX[1] + "slots") || (payload.content.starts_with? PREFIX[2] + "slots") || (payload.content.starts_with? PREFIX[3] + "slots") || (payload.content.starts_with? PREFIX[4] + "slots")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}slots") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 1
@@ -14,7 +14,7 @@ module Granz
             valuue = JSON.parse(responsee.body)
             argsss = argss.to_i
             baramoji = "<:baracoin:508999232775258112><:baracoin:508999232775258112><:baracoin:508999232775258112>"
-            if argsss < 0
+            if argsss < 1
               emmbeed = Discord::Embed.new(
                 title: "No negative numbers",
                 thumbnail: Discord::EmbedThumbnail.new(

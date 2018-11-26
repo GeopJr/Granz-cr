@@ -2,7 +2,7 @@ module Granz
   module Wwii
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "wwii") || (payload.content.starts_with? PREFIX[1] + "wwii") || (payload.content.starts_with? PREFIX[2] + "wwii") || (payload.content.starts_with? PREFIX[3] + "wwii") || (payload.content.starts_with? PREFIX[4] + "wwii")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}wwii") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 3
@@ -22,7 +22,7 @@ module Granz
 
             embed = Discord::Embed.new(
               title: "#{value["user"]["username"]}",
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               thumbnail: Discord::EmbedThumbnail.new(
                 url: "#{value["user"]["avatar"]}"

@@ -2,7 +2,7 @@ module Granz
   module Tweekly
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "tweekly") || (payload.content.starts_with? PREFIX[1] + "tweekly") || (payload.content.starts_with? PREFIX[2] + "tweekly") || (payload.content.starts_with? PREFIX[3] + "tweekly") || (payload.content.starts_with? PREFIX[4] + "tweekly")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}tweekly") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -336,7 +336,7 @@ module Granz
             end
 
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "Weekly ratings of #{value["response"]["name"]}",
               footer: Discord::EmbedFooter.new(

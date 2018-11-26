@@ -2,7 +2,7 @@ module Granz
   module Acronym
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "acronym") || (payload.content.starts_with? PREFIX[1] + "acronym") || (payload.content.starts_with? PREFIX[2] + "acronym") || (payload.content.starts_with? PREFIX[3] + "acronym") || (payload.content.starts_with? PREFIX[4] + "acronym")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}acronym") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -14,7 +14,7 @@ module Granz
         elsif argscount.size > 1
           acro = pres.gsub("acronym ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
           embeded = Discord::Embed.new(
-            timestamp: Time.now,
+            
             colour: 0xffff00,
             title: "Only Latin Letters Please"
           )
@@ -23,7 +23,7 @@ module Granz
             response = HTTP::Client.get "https://api.chew.pro/acronym/#{acro}"
             value = JSON.parse(response.body)
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "#{acro} Stands For :",
               description: "#{value["phrase"]}"

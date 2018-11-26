@@ -3,10 +3,10 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       begin
-        if (payload.content.starts_with? PREFIX[0] + "info") || (payload.content.starts_with? PREFIX[1] + "info") || (payload.content.starts_with? PREFIX[2] + "info") || (payload.content.starts_with? PREFIX[3] + "info") || (payload.content.starts_with? PREFIX[4] + "info")
+        if PREFIX.any? { |p| payload.content.starts_with?("#{p}info") }
           embed = Discord::Embed.new(
             title: "Some Info",
-            timestamp: Time.now,
+            
             colour: 0xffff00,
             footer: Discord::EmbedFooter.new(
               text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",

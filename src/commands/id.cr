@@ -2,7 +2,7 @@ module Granz
   module Id
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "id") || (payload.content.starts_with? PREFIX[1] + "id") || (payload.content.starts_with? PREFIX[2] + "id") || (payload.content.starts_with? PREFIX[3] + "id") || (payload.content.starts_with? PREFIX[4] + "id")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}id") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -16,13 +16,13 @@ module Granz
           begin
             if (mentioned_user[0] == payload.author) || (mentioned_user[0] != payload.author)
               embed = Discord::Embed.new(
-                timestamp: Time.now,
+                
                 colour: 0xffff00,
                 title: "#{mentioned_user[0].id}"
               )
             else
               embed = Discord::Embed.new(
-                timestamp: Time.now,
+                
                 colour: 0xffff00,
                 title: "Mention a user"
               )
@@ -38,7 +38,7 @@ module Granz
         elsif argscount.size == 1
           begin
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "#{payload.author.id}"
             )

@@ -2,7 +2,7 @@ module Granz
   module Changemymind
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "changemymind") || (payload.content.starts_with? PREFIX[1] + "changemymind") || (payload.content.starts_with? PREFIX[2] + "changemymind") || (payload.content.starts_with? PREFIX[3] + "changemymind") || (payload.content.starts_with? PREFIX[4] + "changemymind")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}changemymind") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
 

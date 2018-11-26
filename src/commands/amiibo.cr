@@ -2,7 +2,7 @@ module Granz
   module Amiibo
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "amiibo") || (payload.content.starts_with? PREFIX[1] + "amiibo") || (payload.content.starts_with? PREFIX[2] + "amiibo") || (payload.content.starts_with? PREFIX[3] + "amiibo") || (payload.content.starts_with? PREFIX[4] + "amiibo")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}amiibo") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -24,7 +24,7 @@ module Granz
 
             embed = Discord::Embed.new(
               title: "#{value["amiibo"][0]["character"]}",
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               footer: Discord::EmbedFooter.new(
                 text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",

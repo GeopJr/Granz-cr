@@ -1,18 +1,14 @@
 module Granz
-  module Cat
+  module Vote
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if PREFIX.any? { |p| payload.content.starts_with?("#{p}cat") }
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}vote") }
         channel = BOT.get_channel(payload.channel_id)
         begin
-          response = HTTP::Client.get "http://shibe.online/api/cats?count=1"
-          value = JSON.parse(response.body)
           embed = Discord::Embed.new(
-            
             colour: 0xffff00,
-            image: Discord::EmbedImage.new(
-              url: "#{value[0].as_s}"
-            )
+            title: "You can vote here!",
+            url: "https://discordbots.org/bot/443053627419000833/vote"
           )
           BOT.create_message(payload.channel_id, "", embed)
         rescue

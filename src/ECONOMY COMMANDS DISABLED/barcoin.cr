@@ -2,7 +2,7 @@ module Granz
   module Barcoin
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "barcoin") || (payload.content.starts_with? PREFIX[1] + "barcoin") || (payload.content.starts_with? PREFIX[2] + "barcoin") || (payload.content.starts_with? PREFIX[3] + "barcoin") || (payload.content.starts_with? PREFIX[4] + "barcoin")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}barcoin") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if payload.author.id == CONFIG["my_id"].to_s.to_u64

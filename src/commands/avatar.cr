@@ -2,7 +2,7 @@ module Granz
   module Avatar
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "avatar") || (payload.content.starts_with? PREFIX[1] + "avatar") || (payload.content.starts_with? PREFIX[2] + "avatar") || (payload.content.starts_with? PREFIX[3] + "avatar") || (payload.content.starts_with? PREFIX[4] + "avatar")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}avatar") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -16,7 +16,7 @@ module Granz
           begin
             if (mentioned_user[0] == payload.author) || (mentioned_user[0] != payload.author)
               embed = Discord::Embed.new(
-                timestamp: Time.now,
+                
                 colour: 0xffff00,
                 image: Discord::EmbedImage.new(
                   url: "https://cdn.discordapp.com/avatars/#{mentioned_user[0].id}/#{mentioned_user[0].avatar}.webp?size=1024"
@@ -24,7 +24,7 @@ module Granz
               )
             else
               embed = Discord::Embed.new(
-                timestamp: Time.now,
+                
                 colour: 0xffff00,
                 title: "Mention a user"
               )
@@ -40,7 +40,7 @@ module Granz
         elsif argscount.size == 1
           begin
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               image: Discord::EmbedImage.new(
                 url: "https://cdn.discordapp.com/avatars/#{payload.author.id}/#{payload.author.avatar}.webp?size=1024"

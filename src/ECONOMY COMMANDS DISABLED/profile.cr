@@ -2,7 +2,7 @@ module Granz
   module Profile
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "profile") || (payload.content.starts_with? PREFIX[1] + "profile") || (payload.content.starts_with? PREFIX[2] + "profile") || (payload.content.starts_with? PREFIX[3] + "profile") || (payload.content.starts_with? PREFIX[4] + "profile")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}profile") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
 
@@ -45,6 +45,7 @@ module Granz
                   thumbnail: Discord::EmbedThumbnail.new(
                     url: "https://i.imgur.com/2K7FXik.png"
                   ),
+                  url: "https://economy.geopjr.xyz/user?id=#{mentioned_user[0].id}",
                   fields: [Discord::EmbedField.new(
                     name: "__Slogan__",
                     value: "#{slogan}"
@@ -162,26 +163,27 @@ module Granz
               eggplants = valuee["#{payload.author.id}"]["eggplants"]
               slogan = valuee["#{payload.author.id}"]["slogan"]
               eembed = Discord::Embed.new(
-                title: "#{usernamee}##{discriminatorr}",
-                colour: 0xffff00,
-                thumbnail: Discord::EmbedThumbnail.new(
-                  url: "https://i.imgur.com/2K7FXik.png"
-                ),
-                fields: [Discord::EmbedField.new(
-                  name: "__Slogan__",
-                  value: "#{slogan}"
-                ),
-                         Discord::EmbedField.new(
-                           name: "__Level__",
-                           value: "<:level:509000627704168460> #{eggplants} <:level:509000627704168460>"
-                         ),
-                         Discord::EmbedField.new(
-                           name: "__Bara-coins__",
-                           value: "<:baracoin:508999232775258112> #{baracoins} <:baracoin:508999232775258112>"
-                         ),
-                ]
-              )
-              BOT.create_message(payload.channel_id, "", eembed)
+                  title: "#{usernamee}##{discriminatorr}",
+                  colour: 0xffff00,
+                  thumbnail: Discord::EmbedThumbnail.new(
+                    url: "https://i.imgur.com/2K7FXik.png"
+                  ),
+                  url: "https://economy.geopjr.xyz/user?id=#{payload.author.id}",
+                  fields: [Discord::EmbedField.new(
+                    name: "__Slogan__",
+                    value: "#{slogan}"
+                  ),
+                           Discord::EmbedField.new(
+                             name: "__Level__",
+                             value: "<:level:509000627704168460> #{eggplants} <:level:509000627704168460>"
+                           ),
+                           Discord::EmbedField.new(
+                             name: "__Bara-coins__",
+                             value: "<:baracoin:508999232775258112> #{baracoins} <:baracoin:508999232775258112>"
+                           ),
+                  ]
+                )
+                BOT.create_message(payload.channel_id, "", eembed)
               LibMagick.magickWandGenesis
               wand1 = LibMagick.newMagickWand
               wand2 = LibMagick.newMagickWand

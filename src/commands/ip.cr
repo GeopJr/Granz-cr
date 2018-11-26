@@ -2,7 +2,7 @@ module Granz
   module Ip
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "ip") || (payload.content.starts_with? PREFIX[1] + "ip") || (payload.content.starts_with? PREFIX[2] + "ip") || (payload.content.starts_with? PREFIX[3] + "ip") || (payload.content.starts_with? PREFIX[4] + "ip")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}ip") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
@@ -17,7 +17,7 @@ module Granz
             response = HTTP::Client.get "https://ipvigilante.com/json/#{acro}"
             value = JSON.parse(response.body)
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "IP INFO :",
               fields: [Discord::EmbedField.new(

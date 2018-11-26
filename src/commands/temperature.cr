@@ -2,7 +2,7 @@ module Granz
   module Temperature
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "temperature") || (payload.content.starts_with? PREFIX[1] + "temperature") || (payload.content.starts_with? PREFIX[2] + "temperature") || (payload.content.starts_with? PREFIX[3] + "temperature") || (payload.content.starts_with? PREFIX[4] + "temperature")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}temperature") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 4
@@ -15,7 +15,7 @@ module Granz
           acro = pres.gsub("temperature ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
           acroo = acro.split(" ")
           embeded = Discord::Embed.new(
-            timestamp: Time.now,
+            
             colour: 0xffff00,
             title: "Only Numbers Please"
           )
@@ -34,7 +34,7 @@ module Granz
                 done = prepare + 32
               else
                 embed = Discord::Embed.new(
-                  timestamp: Time.now,
+                  
                   colour: 0xffff00,
                   title: "Check what you have typed and try again !"
                 )
@@ -51,7 +51,7 @@ module Granz
                 done = "INFINITY"
               else
                 embed = Discord::Embed.new(
-                  timestamp: Time.now,
+                  
                   colour: 0xffff00,
                   title: "Check what you have typed and try again !"
                 )
@@ -67,7 +67,7 @@ module Granz
                 done = prepare - 459.67
               else
                 embed = Discord::Embed.new(
-                  timestamp: Time.now,
+                  
                   colour: 0xffff00,
                   title: "Check what you have typed and try again !"
                 )
@@ -75,21 +75,21 @@ module Granz
               end
             else
               embed = Discord::Embed.new(
-                timestamp: Time.now,
+                
                 colour: 0xffff00,
                 title: "Check what you have typed and try again !"
               )
               BOT.create_message(payload.channel_id, "", embed)
             end
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "#{done} #{aft.upcase}"
             )
             BOT.create_message(payload.channel_id, "", embed)
           rescue
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "Check what you have typed and try again !"
             )

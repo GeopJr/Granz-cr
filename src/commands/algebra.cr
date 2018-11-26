@@ -2,7 +2,7 @@ module Granz
   module Algebra
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "algebra") || (payload.content.starts_with? PREFIX[1] + "algebra") || (payload.content.starts_with? PREFIX[2] + "algebra") || (payload.content.starts_with? PREFIX[3] + "algebra") || (payload.content.starts_with? PREFIX[4] + "algebra")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}algebra") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 1

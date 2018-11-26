@@ -2,21 +2,21 @@ module Granz
   module Uppercase
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "uppercase") || (payload.content.starts_with? PREFIX[1] + "uppercase") || (payload.content.starts_with? PREFIX[2] + "uppercase") || (payload.content.starts_with? PREFIX[3] + "uppercase") || (payload.content.starts_with? PREFIX[4] + "uppercase")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}uppercase") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 1
           acro = pres.gsub("uppercase ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
           begin
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "#{acro.upcase}"
             )
             BOT.create_message(payload.channel_id, "", embed)
           rescue
             embed = Discord::Embed.new(
-              timestamp: Time.now,
+              
               colour: 0xffff00,
               title: "Error",
               url: "https://geopjr.xyz"

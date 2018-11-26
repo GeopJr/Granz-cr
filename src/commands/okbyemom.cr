@@ -2,7 +2,7 @@ module Granz
   module Okbyemom
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "okbyemom") || (payload.content.starts_with? PREFIX[1] + "okbyemom") || (payload.content.starts_with? PREFIX[2] + "okbyemom") || (payload.content.starts_with? PREFIX[3] + "okbyemom") || (payload.content.starts_with? PREFIX[4] + "okbyemom")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}okbyemom") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         begin

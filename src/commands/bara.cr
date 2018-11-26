@@ -2,7 +2,7 @@ module Granz
   module Bara
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "bara") || (payload.content.starts_with? PREFIX[1] + "bara") || (payload.content.starts_with? PREFIX[2] + "bara") || (payload.content.starts_with? PREFIX[3] + "bara") || (payload.content.starts_with? PREFIX[4] + "bara")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}bara") }
         channel = BOT.get_channel(payload.channel_id)
         embeded = Discord::Embed.new(
           colour: 0xffff00,
@@ -12,25 +12,79 @@ module Granz
           title: "I'm sorry. I can't do that because this is a SFW channel."
         )
         next BOT.create_message(payload.channel_id, "", embeded) unless channel.nsfw == true
-        begin
-          response = HTTP::Client.get "https://baraapi.herokuapp.com/random.php"
-          value = JSON.parse(response.body)
-          embed = Discord::Embed.new(
-            title: "Link",
-            url: "#{value["link"]}",
-            colour: 0xffff00,
-            image: Discord::EmbedImage.new(
-              url: "#{value["link"].as_s}"
+
+        response = HTTP::Client.get "https://barapi.geopjr.xyz/json"
+        value = JSON.parse(response.body)
+        pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
+        argscount = pres.split(" ")
+        if argscount.size > 1
+          begin
+            acro = pres.gsub("bara ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
+            if (acro.to_i64 <= value["totalImages"].as_i) && (acro.to_i64 >= 0)
+            responsee = HTTP::Client.get "https://barapi.geopjr.xyz/json?num=#{acro.to_i64}"
+            vvalue = JSON.parse(responsee.body)
+              embed = Discord::Embed.new(
+                title: "Link",
+                url: "#{vvalue["link"]}",
+                colour: 0xffff00,
+                footer: Discord::EmbedFooter.new(
+                  text: "##{acro.to_i64}"
+                ),
+                image: Discord::EmbedImage.new(
+                  url: "#{vvalue["link"].as_s}"
+                )
+              )
+              BOT.create_message(payload.channel_id, "", embed)
+            else
+              embed = Discord::Embed.new(
+                title: "Link",
+                url: "#{value["link"]}",
+                colour: 0xffff00,
+                footer: Discord::EmbedFooter.new(
+                  text: "##{value["imageNum"]}"
+                ),
+                image: Discord::EmbedImage.new(
+                  url: "#{value["link"].as_s}"
+                )
+              )
+              BOT.create_message(payload.channel_id, "", embed)
+            end
+          rescue
+            embed = Discord::Embed.new(
+              title: "Link",
+              url: "#{value["link"]}",
+              colour: 0xffff00,
+              footer: Discord::EmbedFooter.new(
+                text: "##{value["imageNum"]}"
+              ),
+              image: Discord::EmbedImage.new(
+                url: "#{value["link"].as_s}"
+              )
             )
-          )
-          BOT.create_message(payload.channel_id, "", embed)
-        rescue
-          embed = Discord::Embed.new(
-            colour: 0xffff00,
-            title: "Error",
-            url: "https://granz.geopjr.xyz"
-          )
-          BOT.create_message(payload.channel_id, "", embed)
+            BOT.create_message(payload.channel_id, "", embed)
+          end
+        else
+          begin
+            embed = Discord::Embed.new(
+              title: "Link",
+              url: "#{value["link"]}",
+              colour: 0xffff00,
+              footer: Discord::EmbedFooter.new(
+                text: "##{value["imageNum"]}"
+              ),
+              image: Discord::EmbedImage.new(
+                url: "#{value["link"].as_s}"
+              )
+            )
+            BOT.create_message(payload.channel_id, "", embed)
+          rescue
+            embed = Discord::Embed.new(
+              colour: 0xffff00,
+              title: "Error",
+              url: "https://granz.geopjr.xyz"
+            )
+            BOT.create_message(payload.channel_id, "", embed)
+          end
         end
       end
     end

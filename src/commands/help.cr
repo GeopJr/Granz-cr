@@ -7,7 +7,7 @@ module Granz
           embed = Discord::Embed.new(
             title: "You called for help , here I am !!!",
             description: "\n__[Command List !](https://granz.geopjr.xyz/commands)__\n\n__Type #{PREFIX[0]}info for some info__\n\n__Found a bug? Add me \xE3\x80\x8EGeop\xE3\x80\x8F#4066__\n\n__[Support Server](https://discordbots.org/servers/404294934041067522)__",
-            timestamp: Time.now,
+            
             colour: 0xffff00,
             footer: Discord::EmbedFooter.new(
               text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",

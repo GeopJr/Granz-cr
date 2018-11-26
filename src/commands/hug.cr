@@ -2,7 +2,7 @@ module Granz
   module Hug
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if (payload.content.starts_with? PREFIX[0] + "hug") || (payload.content.starts_with? PREFIX[1] + "hug") || (payload.content.starts_with? PREFIX[2] + "hug") || (payload.content.starts_with? PREFIX[3] + "hug") || (payload.content.starts_with? PREFIX[4] + "hug")
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}hug") }
         pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
         argscount = pres.split(" ")
         if argscount.size > 2
