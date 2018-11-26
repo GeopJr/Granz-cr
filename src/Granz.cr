@@ -9,7 +9,7 @@ require "./commands/*"
 # Config
 CONFIG = YAML.parse(File.read("./config.yaml"))
 
-PREFIX  = ["#{CONFIG["prefix"]}", "<@#{CONFIG["client_id"]}>", "<@#{CONFIG["client_id"]}> ", "<@!#{CONFIG["client_id"]}>", "<@!#{CONFIG["client_id"]}>"]
+PREFIX  = ["#{CONFIG["prefix"]}", "<@#{CONFIG["client_id"]}>", "<@#{CONFIG["client_id"]}> ", "<@!#{CONFIG["client_id"]}> ", "<@!#{CONFIG["client_id"]}>"]
 VERSION = CONFIG["version"]
 UPTIMER = Time.utc_now
 
