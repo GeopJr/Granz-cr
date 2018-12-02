@@ -1,17 +1,16 @@
 module Granz
-  module Dog
+  module Redpanda
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if PREFIX.any? { |p| payload.content == "#{p}dog" }
-        channel = BOT.get_channel(payload.channel_id)
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}redpanda") }
         begin
-          response = HTTP::Client.get "https://random.dog/woof.json"
+          response = HTTP::Client.get "https://api-to.get-a.life/redpandaimg"
           value = JSON.parse(response.body)
           embed = Discord::Embed.new(
-            
+
             colour: 0xffff00,
             image: Discord::EmbedImage.new(
-              url: "#{value["url"].as_s}"
+              url: "#{value["link"].as_s}"
             )
           )
           BOT.create_message(payload.channel_id, "", embed)

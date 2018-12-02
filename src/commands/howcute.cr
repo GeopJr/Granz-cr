@@ -12,7 +12,7 @@ module Granz
             embed = Discord::Embed.new(
               title: "How cute are you ?",
               description: "**#{argss}** is **#{arr.sample}/100** cute :blush:",
-              
+
               colour: 0xffff00,
             )
             BOT.create_message(payload.channel_id, "", embed)
@@ -25,9 +25,12 @@ module Granz
             BOT.create_message(payload.channel_id, "", embed)
           end
         else
+          arr = (0..100).to_a
           embed = Discord::Embed.new(
+            title: "How cute are you ?",
+            description: "**<@#{payload.author.id}>** is **#{arr.sample}/100** cute :blush:",
+
             colour: 0xffff00,
-            title: "Too few arguments"
           )
           BOT.create_message(payload.channel_id, "", embed)
         end
