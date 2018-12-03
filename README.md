@@ -1,14 +1,15 @@
 <div align="center">
 <br />
   <p>
-    <img src="https://i.imgur.com/90xR5vB.png"/></a>
+    <img src="https://i.imgur.com/90xR5vB.png"/>
   </p>
   <p>
-    <img src="https://i.imgur.com/kG2PYbz.jpg" alt="Granz_avatar"/></a>
+    <img src="https://i.imgur.com/kG2PYbz.jpg" alt="Granz_avatar"/>
   </p>
   <br />
   <p>
     <a href="https://discordbots.org/bot/443053627419000833"><img src="https://discordbots.org/api/widget/status/443053627419000833.svg" alt="Discord_Bots" /></a>
+    <img src="https://travis-ci.org/GeopJr/Granz-cr.svg?branch=master"/>
     <a href="https://github.com/meew0/discordcr"><img src="https://img.shields.io/badge/discord-cr-pink.svg" alt="discordcr" /></a>
     <a href="https://github.com/GeopJr/Granz_bot/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-000000.svg" alt="MIT" /></a>
   </p>
