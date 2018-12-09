@@ -1,10 +1,10 @@
 module Granz
-  module Dog
+  module Smug
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      if PREFIX.any? { |p| payload.content == "#{p}dog" }
+      if PREFIX.any? { |p| payload.content.starts_with?("#{p}smug") }
         begin
-          response = HTTP::Client.get "https://nekos.life/api/v2/img/woof"
+          response = HTTP::Client.get "https://nekos.life/api/v2/img/smug"
           value = JSON.parse(response.body)
           embed = Discord::Embed.new(
             

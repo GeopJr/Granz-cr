@@ -15,11 +15,17 @@ module Granz
             "Referer"          => "https://carc.in",
             "X-Requested-With" => "XMLHttpRequest",
           }
+        embeded = Discord::Embed.new(
+          colour: 0xffff00,
+          title: "Use code blocks",
+          description: "Use only: __crystal/cr, ruby/rb, c, js/javascript__\nIn a code block command\neg. --eval ```cr\nputs \"hello world\"\n```"
+        )
+        next BOT.create_message(payload.channel_id, "", embeded) unless acro.includes? "```"
           acroo = acro.gsub("\n```", "").gsub("\n```", "").gsub("```", "").gsub("```", "").split("\n")
           language = acroo[0].downcase
           if (language == "crystal") || (language == "cr")
             languagee = "crystal"
-            version = "0.26.1"
+            version = "0.27.0"
             acr = acro.gsub("\n```crystal", "").gsub("\n```cr", "").gsub("```crystal", "").gsub("```cr", "").gsub("\n```", "").gsub("```", "")
             code = acr
             body = JSON.build do |jsono|
