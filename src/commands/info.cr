@@ -39,7 +39,7 @@ module Granz
                      ),
                      Discord::EmbedField.new(
                        name: "__Support Server__",
-                       value: "https://discordbots.org/servers/404294934041067522"
+                       value: "https://discordapp.com/invite/SWEsj6q"
                      ),
                      Discord::EmbedField.new(
                        name: "__MIT Licenced__",

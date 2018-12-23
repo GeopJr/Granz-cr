@@ -20,7 +20,6 @@ module Granz
     servers = things.guilds.size
     Discord.every(60000.milliseconds) do
       stattts = [
-        "#{servers} servers",
         "discord.gg/SWEsj6q",
         "ZA WARUDO",
         "JJBA!",
@@ -29,7 +28,7 @@ module Granz
         "geopjr.xyz",
         "Geop crying"
       ]
-      BOT.status_update("online", Discord::GamePlaying.new(name: "#{stattts.sample} | #{CONFIG["prefix"]}help", type: 3_i64))
+      BOT.status_update("online", Discord::GamePlaying.new(name: "#{stattts.sample} | #{CONFIG["prefix"]}help | #{servers} servers", type: 3_i64))
     end
   end
   BOT.run

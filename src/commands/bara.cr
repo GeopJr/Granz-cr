@@ -4,6 +4,13 @@ module Granz
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}bara") }
         channel = BOT.get_channel(payload.channel_id)
+	if guild_id = channel.guild_id
+          begin
+            BOT.delete_message(payload.channel_id, payload.id)
+          rescue
+          end
+        else
+        end
         embeded = Discord::Embed.new(
           colour: 0xffff00,
           image: Discord::EmbedImage.new(

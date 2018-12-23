@@ -6,7 +6,7 @@ module Granz
         if (payload.content.starts_with? PREFIX[0] + "help") || (payload.content.starts_with? PREFIX[1] + "help") || (payload.content.starts_with? PREFIX[2] + "help") || (payload.content == PREFIX[1]) || (payload.content == PREFIX[2]) || (payload.content.starts_with? PREFIX[3] + "help") || (payload.content.starts_with? PREFIX[4] + "help") || (payload.content == PREFIX[3]) || (payload.content == PREFIX[4])
           embed = Discord::Embed.new(
             title: "You called for help , here I am !!!",
-            description: "\n__[Command List !](https://granz.geopjr.xyz/commands)__\n\n__Type #{PREFIX[0]}info for some info__\n\n__Found a bug? Add me \xE3\x80\x8EGeop\xE3\x80\x8F#4066__\n\n__[Support Server](https://discordbots.org/servers/404294934041067522)__",
+            description: "\n__[Command List !](https://granz.geopjr.xyz/commands)__\n\n__Type #{PREFIX[0]}info for some info__\n\n__Found a bug? Add me \xE3\x80\x8EGeop\xE3\x80\x8F#4066__\n\n__[Support Server](https://discordapp.com/invite/SWEsj6q)__",
             
             colour: 0xffff00,
             footer: Discord::EmbedFooter.new(
