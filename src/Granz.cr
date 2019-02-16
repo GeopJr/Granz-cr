@@ -3,7 +3,6 @@ require "json"
 require "http/client"
 require "yaml"
 require "magickwand-crystal"
-LibMagick.magickWandGenesis # lib init
 require "./commands/*"
 
 # Config
