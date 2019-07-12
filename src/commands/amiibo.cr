@@ -3,18 +3,18 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}amiibo") }
-        pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
-        argscount = pres.split(" ")
-        if argscount.size > 2
+        no_space = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
+        args_count = no_space.split(" ")
+        if args_count.size > 2
           embed = Discord::Embed.new(
             colour: 0xffff00,
             title: "Too many arguments"
           )
           BOT.create_message(payload.channel_id, "", embed)
-        elsif argscount.size > 1
-          argss = pres.gsub("amiibo ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
+        elsif args_count.size > 1
+          args = no_space.gsub("amiibo ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[0]}", "")
           begin
-            response = HTTP::Client.get "http://www.amiiboapi.com/api/amiibo/?name=#{argss}"
+            response = HTTP::Client.get "http://www.amiiboapi.com/api/amiibo/?name=#{args}"
             value = JSON.parse(response.body)
             img = value["amiibo"][0]["image"]
             eu = value["amiibo"][0]["release"]["eu"]
@@ -24,7 +24,7 @@ module Granz
 
             embed = Discord::Embed.new(
               title: "#{value["amiibo"][0]["character"]}",
-              
+
               colour: 0xffff00,
               footer: Discord::EmbedFooter.new(
                 text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",
@@ -41,14 +41,14 @@ module Granz
                 name: "__Amiibo Series__",
                 value: "#{value["amiibo"][0]["amiiboSeries"]}"
               ),
-                       Discord::EmbedField.new(
-                         name: "__Game Series__",
-                         value: "#{value["amiibo"][0]["gameSeries"]}"
-                       ),
-                       Discord::EmbedField.new(
-                         name: "__Release Day__",
-                         value: "**AU:** #{au}\n**EU:** #{eu}\n**JP:** #{jp}\n**NA:** #{na}"
-                       ),
+              Discord::EmbedField.new(
+                name: "__Game Series__",
+                value: "#{value["amiibo"][0]["gameSeries"]}"
+              ),
+              Discord::EmbedField.new(
+                name: "__Release Day__",
+                value: "**AU:** #{au}\n**EU:** #{eu}\n**JP:** #{jp}\n**NA:** #{na}"
+              ),
               ]
             )
             BOT.create_message(payload.channel_id, "", embed)

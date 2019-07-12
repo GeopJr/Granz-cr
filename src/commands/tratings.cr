@@ -3,21 +3,21 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}tratings") }
-        pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
-        argscount = pres.split(" ")
-        if argscount.size > 2
+        no_space = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
+        args_count = no_space.split(" ")
+        if args_count.size > 2
           embed = Discord::Embed.new(
             colour: 0xffff00,
             title: "Too many arguments"
           )
           BOT.create_message(payload.channel_id, "", embed)
-        elsif argscount.size > 1
-          argss = pres.gsub("tratings ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
+        elsif args_count.size > 1
+          args = no_space.gsub("tratings ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[0]}", "")
           begin
-            response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{argss}"
-            valuee = JSON.parse(response.body).as_h
+            response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{args}"
+            value_hash = JSON.parse(response.body).as_h
             value = JSON.parse(response.body)
-            urll = "https://ratings.geopjr.xyz/ratings?name=#{argss}"
+            url = "https://ratings.geopjr.xyz/ratings?name=#{args}"
 
             if value["response"]["hasPremium"] == false
               prem = "<:xmark:314349398824058880>"
@@ -225,20 +225,19 @@ module Granz
               end
             end
 
-            resistan = valuee["response"]["resistanceModules"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            resistance_mod = value_hash["response"]["resistanceModules"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
-            turr = valuee["response"]["turretsPlayed"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            turret = value_hash["response"]["turretsPlayed"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
             exp = value["response"]["score"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-            expc = value["response"]["scoreNext"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            exp_next = value["response"]["scoreNext"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             nex = value["response"]["scoreNext"].as_i - value["response"]["score"].as_i
-            nexx = nex.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            exp_diff = nex.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
             kills = value["response"]["kills"]
             deaths = value["response"]["deaths"]
             if deaths != 0
-              kkd = kills.as_i.to_f / deaths.as_i
-              kd = kkd.round(2)
+              kd = (kills.as_i.to_f / deaths.as_i).round(2)
             else
               kd = "Infinite"
             end
@@ -248,7 +247,7 @@ module Granz
             seconds = total_seconds % 60
             minutes = (total_seconds / 60) % 60
             hours = total_seconds / (60 * 60)
-            timeplayedf = "#{hours.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} Hours #{minutes} Minutes #{seconds} Seconds"
+            timeplayed_string = "#{hours.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} Hours #{minutes} Minutes #{seconds} Seconds"
             crys = value["response"]["earnedCrystals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             gold = value["response"]["caughtGolds"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
@@ -260,7 +259,7 @@ module Granz
                 text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",
                 icon_url: "https://cdn.discordapp.com/avatars/216156825978929152/c7eaee00bbe99b16304429fb9b9116ea.png"
               ),
-              url: "https://ratings.geopjr.xyz/ratings?name=#{argss}",
+              url: "https://ratings.geopjr.xyz/ratings?name=#{args}",
               thumbnail: Discord::EmbedThumbnail.new(
                 url: "#{rankimg}"
               ),
@@ -273,71 +272,71 @@ module Granz
                 value: "#{value["response"]["name"]}",
                 inline: true
               ),
-                       Discord::EmbedField.new(
-                         name: "🎖️__Rank__",
-                         value: "#{rank}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "🏅__Premium__",
-                         value: "#{prem}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⏰__Playtime__",
-                         value: "#{timeplayedf}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "<:GoldBoxIcon:482918640820289546>__Gold Boxes Caught__",
-                         value: "#{gold}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "💎__Obtained Crystals__",
-                         value: "#{crys}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "📟__Resistance Modules__",
-                         value: "#{resistan}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "🤖__Turrets Played__",
-                         value: "#{turr}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "<:DoubleDamageIcon:482918526596939776>__Kills__",
-                         value: "#{kills.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "💀__Deaths__",
-                         value: "#{deaths.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⚰️__K/D__",
-                         value: "#{kd}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⚙️__Gear Score__",
-                         value: "#{value["response"]["gearScore"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⬆️__EXP__",
-                         value: "#{exp}/#{expc}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⬆️__EXP left to rank up__",
-                         value: "#{nexx} exp",
-                         inline: true
-                       ),
+              Discord::EmbedField.new(
+                name: "🎖️__Rank__",
+                value: "#{rank}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "🏅__Premium__",
+                value: "#{prem}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⏰__Playtime__",
+                value: "#{timeplayed_string}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "<:GoldBoxIcon:482918640820289546>__Gold Boxes Caught__",
+                value: "#{gold}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "💎__Obtained Crystals__",
+                value: "#{crys}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "📟__Resistance Modules__",
+                value: "#{resistance_mod}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "🤖__Turrets Played__",
+                value: "#{turret}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "<:DoubleDamageIcon:482918526596939776>__Kills__",
+                value: "#{kills.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "💀__Deaths__",
+                value: "#{deaths.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⚰️__K/D__",
+                value: "#{kd}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⚙️__Gear Score__",
+                value: "#{value["response"]["gearScore"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⬆️__EXP__",
+                value: "#{exp}/#{exp_next}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⬆️__EXP left to rank up__",
+                value: "#{exp_diff} exp",
+                inline: true
+              ),
               ]
             )
             BOT.create_message(payload.channel_id, "", embed)
@@ -354,9 +353,9 @@ module Granz
             values = JSON.parse(responses.body)
 
             response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{values[payload.author.id.to_s]}"
-            valuee = JSON.parse(response.body).as_h
+            value_hash = JSON.parse(response.body).as_h
             value = JSON.parse(response.body)
-            urll = "https://ratings.geopjr.xyz/ratings?name=#{value["response"]["name"]}"
+            url = "https://ratings.geopjr.xyz/ratings?name=#{value["response"]["name"]}"
 
             if value["response"]["hasPremium"] == false
               prem = "<:xmark:314349398824058880>"
@@ -564,14 +563,14 @@ module Granz
               end
             end
 
-            resistan = valuee["response"]["resistanceModules"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            resistance_mod = value_hash["response"]["resistanceModules"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
-            turr = valuee["response"]["turretsPlayed"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            turret = value_hash["response"]["turretsPlayed"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
             exp = value["response"]["score"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-            expc = value["response"]["scoreNext"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            exp_next = value["response"]["scoreNext"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             nex = value["response"]["scoreNext"].as_i - value["response"]["score"].as_i
-            nexx = nex.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            exp_diff = nex.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
             kills = value["response"]["kills"]
             deaths = value["response"]["deaths"]
@@ -587,7 +586,7 @@ module Granz
             seconds = total_seconds % 60
             minutes = (total_seconds / 60) % 60
             hours = total_seconds / (60 * 60)
-            timeplayedf = "#{hours.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} Hours #{minutes} Minutes #{seconds} Seconds"
+            timeplayed_string = "#{hours.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} Hours #{minutes} Minutes #{seconds} Seconds"
             crys = value["response"]["earnedCrystals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             gold = value["response"]["caughtGolds"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
@@ -599,7 +598,7 @@ module Granz
                 text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",
                 icon_url: "https://cdn.discordapp.com/avatars/216156825978929152/c7eaee00bbe99b16304429fb9b9116ea.png"
               ),
-              url: "#{urll}",
+              url: "#{url}",
               thumbnail: Discord::EmbedThumbnail.new(
                 url: "#{rankimg}"
               ),
@@ -612,71 +611,71 @@ module Granz
                 value: "#{value["response"]["name"]}",
                 inline: true
               ),
-                       Discord::EmbedField.new(
-                         name: "🎖️__Rank__",
-                         value: "#{rank}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "🏅__Premium__",
-                         value: "#{prem}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⏰__Playtime__",
-                         value: "#{timeplayedf}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "<:GoldBoxIcon:482918640820289546>__Gold Boxes Caught__",
-                         value: "#{gold}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "💎__Obtained Crystals__",
-                         value: "#{crys}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "📟__Resistance Modules__",
-                         value: "#{resistan}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "🤖__Turrets Played__",
-                         value: "#{turr}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "<:DoubleDamageIcon:482918526596939776>__Kills__",
-                         value: "#{kills.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "💀__Deaths__",
-                         value: "#{deaths.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⚰️__K/D__",
-                         value: "#{kd}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⚙️__Gear Score__",
-                         value: "#{value["response"]["gearScore"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⬆️__EXP__",
-                         value: "#{exp}/#{expc}",
-                         inline: true
-                       ),
-                       Discord::EmbedField.new(
-                         name: "⬆️__EXP left to rank up__",
-                         value: "#{nexx} exp",
-                         inline: true
-                       ),
+              Discord::EmbedField.new(
+                name: "🎖️__Rank__",
+                value: "#{rank}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "🏅__Premium__",
+                value: "#{prem}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⏰__Playtime__",
+                value: "#{timeplayed_string}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "<:GoldBoxIcon:482918640820289546>__Gold Boxes Caught__",
+                value: "#{gold}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "💎__Obtained Crystals__",
+                value: "#{crys}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "📟__Resistance Modules__",
+                value: "#{resistance_mod}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "🤖__Turrets Played__",
+                value: "#{turret}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "<:DoubleDamageIcon:482918526596939776>__Kills__",
+                value: "#{kills.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "💀__Deaths__",
+                value: "#{deaths.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⚰️__K/D__",
+                value: "#{kd}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⚙️__Gear Score__",
+                value: "#{value["response"]["gearScore"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⬆️__EXP__",
+                value: "#{exp}/#{exp_next}",
+                inline: true
+              ),
+              Discord::EmbedField.new(
+                name: "⬆️__EXP left to rank up__",
+                value: "#{exp_diff} exp",
+                inline: true
+              ),
               ]
             )
             BOT.create_message(payload.channel_id, "", embed)

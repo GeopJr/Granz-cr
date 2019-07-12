@@ -3,19 +3,19 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}imgtanki") }
-        pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
-        argscount = pres.split(" ")
-        if argscount.size > 2
+        no_space = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
+        args_count = no_space.split(" ")
+        if args_count.size > 2
           embed = Discord::Embed.new(
             colour: 0xffff00,
             title: "Too many arguments"
           )
           BOT.create_message(payload.channel_id, "", embed)
-        elsif argscount.size > 1
-          argss = pres.gsub("imgtanki ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
+        elsif args_count.size > 1
+          args = no_space.gsub("imgtanki ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[0]}", "")
           begin
-            response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{argss}"
-            valuee = JSON.parse(response.body).as_h
+            response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{args}"
+            value_hash = JSON.parse(response.body).as_h
             value = JSON.parse(response.body)
 
             if value["response"]["hasPremium"] == true
@@ -218,30 +218,27 @@ module Granz
               end
             end
 
-            resistan = valuee["response"]["resistanceModules"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            resistance_modules = value_hash["response"]["resistanceModules"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
-            turr = valuee["response"]["turretsPlayed"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            turrets = value_hash["response"]["turretsPlayed"].size.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
             exp = value["response"]["score"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-            expc = value["response"]["scoreNext"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
-            nex = value["response"]["scoreNext"].as_i - value["response"]["score"].as_i
-            nexx = nex.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            exp_next = value["response"]["scoreNext"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+            exp_diff = (value["response"]["scoreNext"].as_i - value["response"]["score"].as_i).to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
             kills = value["response"]["kills"]
             deaths = value["response"]["deaths"]
             if deaths != 0
-              kkd = kills.as_i.to_f / deaths.as_i
-              kd = kkd.round(2)
+              kd = (kills.as_i.to_f / deaths.as_i).round(2)
             else
               kd = "Infinite"
             end
 
-            timeplayedms = (value["response"]["modesPlayed"][0]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][1]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][2]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][3]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][4]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][5]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][6]["timePlayed"].as_i / 1000)
-            total_seconds = timeplayedms
+            total_seconds = (value["response"]["modesPlayed"][0]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][1]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][2]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][3]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][4]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][5]["timePlayed"].as_i / 1000) + (value["response"]["modesPlayed"][6]["timePlayed"].as_i / 1000)
             seconds = total_seconds % 60
             minutes = (total_seconds / 60) % 60
             hours = total_seconds / (60 * 60)
-            timeplayedf = "#{hours.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} Hours #{minutes} Minutes #{seconds} Seconds"
+            timeplayed_string = "#{hours.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse} Hours #{minutes} Minutes #{seconds} Seconds"
 
             mines = value["response"]["suppliesUsage"][4]["usages"]
             repair = value["response"]["suppliesUsage"][0]["usages"]
@@ -251,7 +248,7 @@ module Granz
             ddu = value["response"]["suppliesUsage"][1]["usages"]
             bu = value["response"]["suppliesUsage"][6]["usages"]
 
-            ttootal = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
+            total = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
 
             miness = value["response"]["suppliesUsage"][4]["name"]
             repairr = value["response"]["suppliesUsage"][0]["name"]
@@ -315,32 +312,31 @@ module Granz
             if value["response"]["rating"]["efficiency"]["value"] == -1
               valef = "0"
             else
-              valefff = value["response"]["rating"]["efficiency"]["value"]
-              valef = valefff.as_i.round(-2).to_s.chomp("00").to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+              valef = value["response"]["rating"]["efficiency"]["value"].as_i.round(-2).to_s.chomp("00").to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             end
 
             if value["response"]["rating"]["efficiency"]["position"] == -1
-              valeff = "0"
+              valef_pos = "0"
             else
-              valeff = value["response"]["rating"]["efficiency"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+              valef_pos = value["response"]["rating"]["efficiency"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             end
 
             if value["response"]["rating"]["crystals"]["position"] == -1
-              valcrr = "0"
+              valcr_pos = "0"
             else
-              valcrr = value["response"]["rating"]["crystals"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+              valcr_pos = value["response"]["rating"]["crystals"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             end
 
             if value["response"]["rating"]["golds"]["position"] == -1
-              valgdd = "0"
+              valgd_pos = "0"
             else
-              valgdd = value["response"]["rating"]["golds"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+              valgd_pos = value["response"]["rating"]["golds"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             end
 
             if value["response"]["rating"]["score"]["position"] == -1
-              valsrr = "0"
+              valsr_pos = "0"
             else
-              valsrr = value["response"]["rating"]["score"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
+              valsr_pos = value["response"]["rating"]["score"]["position"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             end
 
             if value["response"]["previousRating"]["crystals"]["position"] == -1
@@ -382,13 +378,13 @@ module Granz
             crys = value["response"]["earnedCrystals"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
             gold = value["response"]["caughtGolds"].to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse
 
-            imggnamee = rand(1..1650)
+            random_number = rand(1..1650)
             LibMagick.magickWandGenesis
             m_wand = LibMagick.newMagickWand
             d_wand = LibMagick.newDrawingWand
             p_wand = LibMagick.newPixelWand
             pp_wand = LibMagick.newPixelWand
-            if LibMagick.magickReadImage(m_wand, "./src/images/taaan.jpg")
+            if LibMagick.magickReadImage(m_wand, "./src/images/tanki.jpg")
               LibMagick.pixelSetColor p_wand, "white"
               LibMagick.drawSetFillColor d_wand, p_wand
               LibMagick.drawSetFont d_wand, "Arial-Bold"
@@ -411,7 +407,7 @@ module Granz
               LibMagick.drawAnnotation d_wand, 500, 100, "#{rank}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 35
-              LibMagick.drawAnnotation d_wand, 500, 150, "Playtime: #{timeplayedf}"
+              LibMagick.drawAnnotation d_wand, 500, 150, "Playtime: #{timeplayed_string}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "#3498db"
@@ -419,7 +415,7 @@ module Granz
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 750, 290, "#{resistan}"
+              LibMagick.drawAnnotation d_wand, 750, 290, "#{resistance_modules}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "#3498db"
@@ -427,7 +423,7 @@ module Granz
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.pixelSetColor p_wand, "white"
               LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 750, 370, "#{turr}"
+              LibMagick.drawAnnotation d_wand, 750, 370, "#{turrets}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "#3498db"
@@ -491,7 +487,7 @@ module Granz
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 750, 1010, "#{ttootal.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
+              LibMagick.drawAnnotation d_wand, 750, 1010, "#{total.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "#3498db"
@@ -499,7 +495,7 @@ module Granz
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 290, "#{exp}/#{expc}"
+              LibMagick.drawAnnotation d_wand, 250, 290, "#{exp}/#{exp_next}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.pixelSetColor p_wand, "#3498db"
               LibMagick.drawSetFontSize d_wand, 25
@@ -507,7 +503,7 @@ module Granz
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 370, "#{nexx} exp"
+              LibMagick.drawAnnotation d_wand, 250, 370, "#{exp_diff} exp"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "#3498db"
@@ -555,7 +551,7 @@ module Granz
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.pixelSetColor p_wand, "white"
               LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 250, 850, "#{valeff} | #{valef}"
+              LibMagick.drawAnnotation d_wand, 250, 850, "#{valef_pos} | #{valef}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.pixelSetColor p_wand, "#3498db"
               LibMagick.drawSetFontSize d_wand, 25
@@ -563,7 +559,7 @@ module Granz
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 930, "#{valsrr} | #{valsr}"
+              LibMagick.drawAnnotation d_wand, 250, 930, "#{valsr_pos} | #{valsr}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "#3498db"
@@ -571,7 +567,7 @@ module Granz
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "white"
-              LibMagick.drawAnnotation d_wand, 250, 1010, "#{valgdd} | #{valgd}"
+              LibMagick.drawAnnotation d_wand, 250, 1010, "#{valgd_pos} | #{valgd}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.drawSetFontSize d_wand, 25
               LibMagick.pixelSetColor p_wand, "#3498db"
@@ -579,18 +575,18 @@ module Granz
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.pixelSetColor p_wand, "white"
               LibMagick.drawSetFontSize d_wand, 25
-              LibMagick.drawAnnotation d_wand, 250, 1090, "#{valcrr} | #{valcr}"
+              LibMagick.drawAnnotation d_wand, 250, 1090, "#{valcr_pos} | #{valcr}"
               LibMagick.magickDrawImage m_wand, d_wand
               LibMagick.magickTrimImage m_wand, 0
-              LibMagick.magickWriteImage m_wand, "#{imggnamee}tanki.png"
+              LibMagick.magickWriteImage m_wand, "#{random_number}tanki.png"
             end
             LibMagick.destroyPixelWand p_wand
             LibMagick.destroyPixelWand pp_wand
             LibMagick.destroyDrawingWand d_wand
             LibMagick.destroyMagickWand m_wand
             LibMagick.magickWandTerminus
-            BOT.upload_file(payload.channel_id, "", File.open("#{imggnamee}tanki.png", "r"))
-            File.delete("./#{imggnamee}tanki.png")
+            BOT.upload_file(payload.channel_id, "", File.open("#{random_number}tanki.png", "r"))
+            File.delete("./#{random_number}tanki.png")
           rescue
             embed = Discord::Embed.new(
               colour: 0xffff00,

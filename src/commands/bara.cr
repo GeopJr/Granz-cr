@@ -4,41 +4,41 @@ module Granz
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}bara") }
         channel = BOT.get_channel(payload.channel_id)
-	if guild_id = channel.guild_id
+        if guild_id = channel.guild_id
           begin
             BOT.delete_message(payload.channel_id, payload.id)
           rescue
+            # BOT probably doesn't have perms or something
           end
-        else
         end
-        embeded = Discord::Embed.new(
+        nsfw_warning = Discord::Embed.new(
           colour: 0xffff00,
           image: Discord::EmbedImage.new(
             url: "https://i.imgur.com/yVs6TqV.gif"
           ),
           title: "I'm sorry. I can't do that because this is a SFW channel."
         )
-        next BOT.create_message(payload.channel_id, "", embeded) unless channel.nsfw == true
+        next BOT.create_message(payload.channel_id, "", nsfw_warning) unless channel.nsfw == true
 
-        response = HTTP::Client.get "https://barapi.geopjr.xyz/json"
+        response = HTTP::Client.get "http://barapi.geopjr.xyz/json.php"
         value = JSON.parse(response.body)
-        pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
-        argscount = pres.split(" ")
-        if argscount.size > 1
+        no_space = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
+        args_count = no_space.split(" ")
+        if args_count.size > 1
           begin
-            acro = pres.gsub("bara ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
-            if (acro.to_i64 <= value["totalImages"].as_i) && (acro.to_i64 >= 0)
-            responsee = HTTP::Client.get "https://barapi.geopjr.xyz/json?num=#{acro.to_i64}"
-            vvalue = JSON.parse(responsee.body)
+            args = no_space.gsub("bara ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[0]}", "")
+            if (args.to_i64 <= value["totalImages"].as_i) && (args.to_i64 >= 0)
+              response_num = HTTP::Client.get "http://barapi.geopjr.xyz/json.php?num=#{args.to_i64}"
+              value_num = JSON.parse(response_num.body)
               embed = Discord::Embed.new(
                 title: "Link",
-                url: "#{vvalue["link"]}",
+                url: "#{value_num["link"]}",
                 colour: 0xffff00,
                 footer: Discord::EmbedFooter.new(
-                  text: "##{acro.to_i64}"
+                  text: "##{args.to_i64}"
                 ),
                 image: Discord::EmbedImage.new(
-                  url: "#{vvalue["link"].as_s}"
+                  url: "#{value_num["link"].as_s}"
                 )
               )
               BOT.create_message(payload.channel_id, "", embed)

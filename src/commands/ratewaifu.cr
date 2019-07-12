@@ -3,20 +3,20 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}ratewaifu") }
-        pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
-        argscount = pres.split(" ")
-        if argscount.size > 1
-          arr = (0..100).to_a
-          argss = pres.gsub("ratewaifu ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
+        no_space = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
+        args_count = no_space.split(" ")
+        if args_count.size > 1
+          random_number = (0..100).to_a
+          args = no_space.gsub("ratewaifu ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[0]}", "")
           begin
-            if argss == ""
-              wry = PREFIX[1]
+            if args == ""
+              rate = PREFIX[1]
             else
-              wry = argss
+              rate = args
             end
             embed = Discord::Embed.new(
               title: "Waifu O' Meter",
-              description: "My rating for **#{wry}** is **#{arr.sample.to_i / 10}/100** :princess:",
+              description: "My rating for **#{rate}** is **#{random_number.sample.to_i / 10}/100** :princess:",
               colour: 0xffff00,
             )
             BOT.create_message(payload.channel_id, "", embed)

@@ -3,18 +3,18 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}tsupplies") }
-        pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
-        argscount = pres.split(" ")
-        if argscount.size > 2
+        no_space = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
+        args_count = no_space.split(" ")
+        if args_count.size > 2
           embed = Discord::Embed.new(
             colour: 0xffff00,
             title: "Too many arguments"
           )
           BOT.create_message(payload.channel_id, "", embed)
-        elsif argscount.size > 1
-          argss = pres.gsub("tsupplies ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
+        elsif args_count.size > 1
+          args = no_space.gsub("tsupplies ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[0]}", "")
           begin
-            response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{argss}"
+            response = HTTP::Client.get "https://ratings.tankionline.com/api/eu/profile/?user=#{args}"
             value = JSON.parse(response.body)
             if value["response"]["hasPremium"] == true
               if value["response"]["rank"] == 1
@@ -223,7 +223,7 @@ module Granz
             ddu = value["response"]["suppliesUsage"][5]["usages"]
             bu = value["response"]["suppliesUsage"][6]["usages"]
 
-            ttootal = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
+            total = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
 
             miness = value["response"]["suppliesUsage"][4]["name"]
             repairr = value["response"]["suppliesUsage"][0]["name"]
@@ -402,7 +402,7 @@ module Granz
                 text: "\xE3\x80\x8EGeop\xE3\x80\x8F#4066",
                 icon_url: "https://cdn.discordapp.com/avatars/216156825978929152/c7eaee00bbe99b16304429fb9b9116ea.png"
               ),
-              url: "https://ratings.geopjr.xyz/ratings?name=#{argss}",
+              url: "https://ratings.geopjr.xyz/ratings?name=#{args}",
               thumbnail: Discord::EmbedThumbnail.new(
                 url: "#{rankimg}"
               ),
@@ -447,7 +447,7 @@ module Granz
                        ),
                        Discord::EmbedField.new(
                          name: "<:calculator:482936199455965185>__Total__",
-                         value: "#{ttootal.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                         value: "#{total.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                          inline: true
                        ),
               ]
@@ -675,7 +675,7 @@ module Granz
             ddu = value["response"]["suppliesUsage"][5]["usages"]
             bu = value["response"]["suppliesUsage"][6]["usages"]
 
-            ttootal = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
+            total = mines.as_i + repair.as_i + golbo.as_i + darm.as_i + spebo.as_i + ddu.as_i + bu.as_i
 
             miness = value["response"]["suppliesUsage"][4]["name"]
             repairr = value["response"]["suppliesUsage"][0]["name"]
@@ -899,7 +899,7 @@ module Granz
                        ),
                        Discord::EmbedField.new(
                          name: "<:calculator:482936199455965185>__Total__",
-                         value: "#{ttootal.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
+                         value: "#{total.to_s.reverse.gsub(/(\d{3})(?=\d)/, "\\1,").reverse}",
                          inline: true
                        ),
               ]

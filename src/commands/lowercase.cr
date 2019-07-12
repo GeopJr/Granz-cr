@@ -3,20 +3,20 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}lowercase") }
-        pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
-        argscount = pres.split(" ")
-        if argscount.size > 1
-          acro = pres.gsub("lowercase ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
+        no_space = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
+        args_count = no_space.split(" ")
+        if args_count.size > 1
+          args = no_space.gsub("lowercase ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[0]}", "")
           begin
             embed = Discord::Embed.new(
-              
+
               colour: 0xffff00,
-              title: "#{acro.downcase}"
+              title: "#{args.downcase}"
             )
             BOT.create_message(payload.channel_id, "", embed)
           rescue
             embed = Discord::Embed.new(
-              
+
               colour: 0xffff00,
               title: "Error",
               url: "https://geopjr.xyz"

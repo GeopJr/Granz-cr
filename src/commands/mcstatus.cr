@@ -64,41 +64,41 @@ module Granz
           end
 
           embed = Discord::Embed.new(
-            
+
             colour: 0xffff00,
             title: "Minecraft Status",
             fields: [Discord::EmbedField.new(
               name: "__Minecraft.net__",
               value: "#{minecraft}"
             ),
-                     Discord::EmbedField.new(
-                       name: "__Sessions__",
-                       value: "#{session}"
-                     ),
-                     Discord::EmbedField.new(
-                       name: "__Accounts__",
-                       value: "#{acc}"
-                     ),
-                     Discord::EmbedField.new(
-                       name: "__Auth Server__",
-                       value: "#{aserv}"
-                     ),
-                     Discord::EmbedField.new(
-                       name: "__Session Server__",
-                       value: "#{sserv}"
-                     ),
-                     Discord::EmbedField.new(
-                       name: "__API__",
-                       value: "#{api}"
-                     ),
-                     Discord::EmbedField.new(
-                       name: "__Textures___",
-                       value: "#{textures}"
-                     ),
-                     Discord::EmbedField.new(
-                       name: "__Mojang.com__",
-                       value: "#{moj}"
-                     ),
+            Discord::EmbedField.new(
+              name: "__Sessions__",
+              value: "#{session}"
+            ),
+            Discord::EmbedField.new(
+              name: "__Accounts__",
+              value: "#{acc}"
+            ),
+            Discord::EmbedField.new(
+              name: "__Auth Server__",
+              value: "#{aserv}"
+            ),
+            Discord::EmbedField.new(
+              name: "__Session Server__",
+              value: "#{sserv}"
+            ),
+            Discord::EmbedField.new(
+              name: "__API__",
+              value: "#{api}"
+            ),
+            Discord::EmbedField.new(
+              name: "__Textures___",
+              value: "#{textures}"
+            ),
+            Discord::EmbedField.new(
+              name: "__Mojang.com__",
+              value: "#{moj}"
+            ),
             ]
           )
           BOT.create_message(payload.channel_id, "", embed)

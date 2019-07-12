@@ -3,19 +3,19 @@ module Granz
     BOT.on_message_create do |payload|
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}rate ") }
-        pres = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
-        argscount = pres.split(" ")
-        if argscount.size > 1
-          arr = (0..100).to_a
-          argss = pres.gsub("rate ", "").gsub("#{PREFIX[1]} ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[3]} ", "").gsub("#{PREFIX[0]}", "")
-          if argss == ""
-            wry = PREFIX[1]
+        no_space = payload.content.gsub("#{PREFIX[1]} ", "#{PREFIX[1]}").gsub("#{PREFIX[3]} ", "#{PREFIX[3]}")
+        args_count = no_space.split(" ")
+        if args_count.size > 1
+          random_number = (0..100).to_a
+          args = no_space.gsub("rate ", "").gsub("#{PREFIX[1]}", "").gsub("#{PREFIX[3]}", "").gsub("#{PREFIX[0]}", "")
+          if args == ""
+            rate = PREFIX[1]
           else
-            wry = argss
+            rate = args
           end
           begin
             embed = Discord::Embed.new(
-              description: "I give **#{wry}** a **#{arr.sample / 10}/10** \n~Granz",
+              description: "I give **#{rate}** a **#{random_number.sample / 10}/10** \n~Granz",
               colour: 0xffff00,
             )
             BOT.create_message(payload.channel_id, "", embed)
