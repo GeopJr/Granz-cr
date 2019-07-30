@@ -1,5 +1,5 @@
 module Granz
-  module Neko
+  module Furry
     BOT.on_message_create do |payload|
       next if payload.author.bot
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}furry") }
