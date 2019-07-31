@@ -5,7 +5,7 @@ module Granz
       if PREFIX.any? { |p| payload.content.starts_with?("#{p}coffee") }
         channel = BOT.get_channel(payload.channel_id)
         begin
-          response = HTTP::Client.get "https://coffee.alexflipnote.xyz/random.json"
+          response = HTTP::Client.get "https://coffee.alexflipnote.dev/random.json"
           value = JSON.parse(response.body)
           embed = Discord::Embed.new(
             
