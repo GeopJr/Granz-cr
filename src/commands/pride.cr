@@ -50,7 +50,7 @@ module Granz
                 LibMagick.magickReadImage wand2, "#{imgname}.png"
                 LibMagick.magickReadImage wand1, "#{random_number}z.jpg"
                 LibMagick.magickAdaptiveResizeImage wand1, 1024, 1024
-                LibMagick.magickCompositeImage wand1, wand2, LibMagick::CompositeOperator::OverCompositeOp, 0, 0
+                LibMagick.magickCompositeImage wand1, wand2, LibMagick::CompositeOperator::OverCompositeOp, false, 0, 0
                 LibMagick.magickWriteImage wand1, "#{imgname}#{random_number}.png"
                 LibMagick.destroyMagickWand wand2
                 LibMagick.destroyMagickWand wand1
@@ -88,7 +88,7 @@ module Granz
               LibMagick.magickReadImage wand2, "#{imgname}.png"
               LibMagick.magickReadImage wand1, "#{random_number}z.jpg"
               LibMagick.magickAdaptiveResizeImage wand1, 1024, 1024
-              LibMagick.magickCompositeImage wand1, wand2, LibMagick::CompositeOperator::OverCompositeOp, 0, 0
+              LibMagick.magickCompositeImage wand1, wand2, LibMagick::CompositeOperator::OverCompositeOp, false, 0, 0
               LibMagick.magickWriteImage wand1, "#{imgname}#{random_number}.png"
               LibMagick.destroyMagickWand wand2
               LibMagick.destroyMagickWand wand1
