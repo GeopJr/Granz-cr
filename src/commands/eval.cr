@@ -1,3 +1,5 @@
+require "duktape/runtime"
+
 #
 # This is 90% by z64
 # https://github.com/z64/hornet/blob/rewrite/src/plugins/carcin.cr

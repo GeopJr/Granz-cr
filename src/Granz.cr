@@ -21,7 +21,7 @@ module Granz
   # Ready event
   BOT.on_ready do |things|
     # Initial status
-    BOT.status_update("online", Discord::GamePlaying.new(name: "Booting... | #{CONFIG["prefix"]}help", type: 3_i64))
+    BOT.status_update("online", Discord::GamePlaying.new(name: "Booting... | #{CONFIG["prefix"]}help", type: :watching))
     # Wait 30 secs
     sleep 30.seconds
     # Amount of guilds
@@ -37,7 +37,7 @@ module Granz
         "geopjr.xyz",
         "Geop crying",
       ]
-      BOT.status_update("online", Discord::GamePlaying.new(name: "#{stats_array.sample} | #{CONFIG["prefix"]}help | #{servers} servers", type: 3_i64))
+      BOT.status_update("online", Discord::GamePlaying.new(name: "#{stats_array.sample} | #{CONFIG["prefix"]}help | #{servers} servers", type: :watching))
     end
   end
   BOT.run
