@@ -6,10 +6,13 @@ require "magickwand-crystal"
 require "./commands/*"
 
 # Config
+# TODO: Switch to json probably
 CONFIG = YAML.parse(File.read("./config.yaml"))
 # Consts
+# TODO: Better prefix handler
 PREFIX  = ["#{CONFIG["prefix"]}", "<@#{CONFIG["client_id"]}>", "<@#{CONFIG["client_id"]}> ", "<@!#{CONFIG["client_id"]}> ", "<@!#{CONFIG["client_id"]}>"]
 VERSION = CONFIG["version"]
+# TODO: Add option in config
 UPTIMER = Time.utc_now
 
 module Granz
@@ -19,26 +22,11 @@ module Granz
   cache = Discord::Cache.new(BOT)
   BOT.cache = cache
   # Ready event
-  BOT.on_ready do |things|
-    # Initial status
-    BOT.status_update("online", Discord::GamePlaying.new(name: "Booting... | #{CONFIG["prefix"]}help", type: :watching))
-    # Wait 30 secs
-    sleep 30.seconds
+  BOT.on_ready do |event|
     # Amount of guilds
-    servers = cache.guilds.size
-    # Change status every 60 seconds from the array
-    Discord.every(60000.milliseconds) do
-      stats_array = [
-        "discord.gg/SWEsj6q",
-        "ZA WARUDO",
-        "JJBA!",
-        "BARA!",
-        "Kuroshitsuji",
-        "geopjr.xyz",
-        "Geop crying",
-      ]
-      BOT.status_update("online", Discord::GamePlaying.new(name: "#{stats_array.sample} | #{CONFIG["prefix"]}help | #{servers} servers", type: :watching))
-    end
+    guild_count = cache.guilds.size
+    # Set status
+    BOT.status_update("online", Discord::GamePlaying.new(name: "#{CONFIG["prefix"]}help | #{guild_count} servers", type: :watching))
   end
   BOT.run
 end
