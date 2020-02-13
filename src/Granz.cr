@@ -1,18 +1,20 @@
 require "discordcr"
 require "json"
 require "http/client"
-require "yaml"
 require "magickwand-crystal"
 require "./commands/*"
+require "./functions/*"
 
 # Config
-# TODO: Switch to json probably
-CONFIG = YAML.parse(File.read("./config.yaml"))
+CONFIG = JSON.parse(File.read("./config.json"))
+# Check Config
+["client_id", "my_id", "version", "prefix", "token"].each do |p|
+  if CONFIG.as_h.fetch(p, nil).nil?
+    raise "#{p} is not set in config.json"
+	end
+end
 # Consts
-# TODO: Better prefix handler
-PREFIX  = ["#{CONFIG["prefix"]}", "<@#{CONFIG["client_id"]}>", "<@#{CONFIG["client_id"]}> ", "<@!#{CONFIG["client_id"]}> ", "<@!#{CONFIG["client_id"]}>"]
 VERSION = CONFIG["version"]
-# TODO: Add option in config
 UPTIMER = Time.utc_now
 
 module Granz

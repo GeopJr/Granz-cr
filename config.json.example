@@ -1,0 +1,12 @@
+{
+  // Your bot's ID
+  "client_id": 000000000000000000,
+  // Your ID
+  "my_id": 000000000000000000,
+  // Bot version
+  "version": 2,
+  // Prefix
+  "prefix": "==",
+  // Your Bot's token
+  "token": "y0Ur.b0t.T0k3n"
+}
