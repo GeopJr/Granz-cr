@@ -16,15 +16,30 @@
 </div>
 
 # Granz-cr
-A Discord Bot written in crystal using discordcr , RUBY: https://github.com/GeopJr/Granz_bot
+A Discord Bot written in Crystal using discordcr
 
 # How to install
 - `shards install`
-- Open config.yaml and replace the info with yours
+- Open config.json.example, replace the info with yours and rename to config.json
 - Everthing should now work
 - `crystal Granz.cr` or compile
 
-# Thanks to [z64](https://github.com/z64) for helping me with both crystal and discordcr
+# config.json
+```json
+{
+  // Your bot's ID
+  "client_id": 000000000000000000,
+  // Your ID
+  "my_id": 000000000000000000,
+  // Bot version
+  "version": 2,
+  // Prefix
+  "prefix": "==",
+  // Your Bot's token
+  "token": "y0Ur.b0t.T0k3n"
+}
+```
+## Thanks to [z64](https://github.com/z64) for helping me with both crystal and discordcr
 
 # Invite it
 [CLICK HERE](https://discordapp.com/oauth2/authorize?client_id=443053627419000833&scope=bot&permissions=103894080&redirect_uri=https://granz.geopjr.xyz/thanks.html&response_type=code)

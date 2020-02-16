@@ -21,12 +21,12 @@ module Granz
   # Authorize
   BOT = Discord::Client.new(token: "Bot #{CONFIG["token"]}", client_id: CONFIG["client_id"].to_s.to_u64)
   # Cache
-  cache = Discord::Cache.new(BOT)
-  BOT.cache = cache
+  CACHE = Discord::Cache.new(BOT)
+  BOT.cache = CACHE
   # Ready event
   BOT.on_ready do |event|
     # Amount of guilds
-    guild_count = cache.guilds.size
+    guild_count = CACHE.guilds.size
     # Set status
     BOT.status_update("online", Discord::GamePlaying.new(name: "#{CONFIG["prefix"]}help | #{guild_count} servers", type: :watching))
   end
