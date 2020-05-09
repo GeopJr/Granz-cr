@@ -4,6 +4,6 @@ class Prefix_check
   end
 
   def check
-    @content.squeeze(" ").starts_with?(/(<@(\!)?#{CONFIG["client_id"]}>( )?|#{CONFIG["prefix"]})#{@name.downcase}( |$)/)
+    @content.downcase.squeeze(" ").starts_with?(/(<@(\!)?#{CONFIG["client_id"]}>( )?|#{CONFIG["prefix"]})#{@name}( |$)/)
   end
 end
