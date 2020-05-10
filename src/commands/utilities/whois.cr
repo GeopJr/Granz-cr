@@ -1,10 +1,12 @@
 module Granz
+  command = Command.new("whois", "utilities", "#{CONFIG["prefix"]}whois [ID/MENTION]", "#{CONFIG["prefix"]}whois 216156825978929152", "Returns user info if provided, else server info")
+  Granz::COMMANDS << command
   module Whois
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("whois", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
-      args = Args.new("whois", payload.content).args
+      args = Args.new(command.name, payload.content).args
       next if Min_max_arg.new(2, args.size, 1, BOT, payload.channel_id).check
       if args.size == 0
         server = CACHE.resolve_guild(payload.guild_id.not_nil!)

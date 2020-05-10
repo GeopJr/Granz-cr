@@ -3,12 +3,14 @@
 # https://github.com/z64/hornet/blob/rewrite/src/plugins/carcin.cr
 #
 module Granz
+  command = Command.new("eval", "utilities", "#{CONFIG["prefix"]}eval <CODE BLOCK>", "#{CONFIG["prefix"]}eval ```cr\nputs 1 + 1\n```", "Evals code inside the provided code-block.\nAvailable languages: cr, rb, c")
+  Granz::COMMANDS << command
   module Eval
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("eval", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
-      args = Args.new("eval", payload.content).args
+      args = Args.new(command.name, payload.content).args
       next if Min_max_arg.new(1, args.size, 1, BOT, payload.channel_id).check
       carchead = HTTP::Headers{
         "Accept"           => "application/json",

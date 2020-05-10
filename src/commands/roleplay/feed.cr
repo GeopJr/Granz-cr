@@ -1,10 +1,12 @@
 module Granz
+  command = Command.new("feed", "roleplay", "#{CONFIG["prefix"]}feed [ID/MENTION]", "#{CONFIG["prefix"]}feed @『Geop』#4066", "Feeds provided user")
+  Granz::COMMANDS << command
   module Feed
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("feed", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
-      args = Args.new("feed", payload.content).args
+      args = Args.new(command.name, payload.content).args
       next if Min_max_arg.new(2, args.size, 1, BOT, payload.channel_id).check
 
       if args.any? && args[0].to_u64?

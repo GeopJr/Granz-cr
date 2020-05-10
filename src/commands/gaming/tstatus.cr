@@ -1,8 +1,10 @@
 module Granz
+  command = Command.new("tstatus", "gaming", "#{CONFIG["prefix"]}tstatus", "#{CONFIG["prefix"]}tstatus", "Returns the status of tankionline servers")
+  Granz::COMMANDS << command
   module Tstatus
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("tstatus", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
 
       response = HTTP::Client.get "https://tankionline.com/s/status.js"

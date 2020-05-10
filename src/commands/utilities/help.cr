@@ -1,8 +1,10 @@
 module Granz
+  command = Command.new("help", "utilities", "#{CONFIG["prefix"]}help", "#{CONFIG["prefix"]}help", "Returns a help menu")
+  Granz::COMMANDS << command
   module Help
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("help", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check || payload.content.starts_with?(/(<@(\!)?#{CONFIG["client_id"]}>( )?)$/)
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
       guild_invite = CONFIG["support_guild"] != "" ? "\n\n__[Support Server](https://discordapp.com/invite/#{CONFIG["support_guild"]})__" : ""
       current_user = CACHE.resolve_current_user

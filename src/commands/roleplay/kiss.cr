@@ -1,10 +1,12 @@
 module Granz
+  command = Command.new("kiss", "roleplay", "#{CONFIG["prefix"]}kiss [ID/MENTION]", "#{CONFIG["prefix"]}kiss @『Geop』#4066", "Kisses provided user")
+  Granz::COMMANDS << command
   module Kiss
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("kiss", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
-      args = Args.new("kiss", payload.content).args
+      args = Args.new(command.name, payload.content).args
       next if Min_max_arg.new(2, args.size, 1, BOT, payload.channel_id).check
 
       if args.any? && args[0].to_u64?

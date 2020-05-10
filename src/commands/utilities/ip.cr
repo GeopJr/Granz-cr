@@ -1,10 +1,12 @@
 module Granz
+  command = Command.new("ip", "utilities", "#{CONFIG["prefix"]}ip <ip address>", "#{CONFIG["prefix"]}ip 8.8.8.8", "Returns some info about the provided ip")
+  Granz::COMMANDS << command
   module Ip
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("ip", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
-      args = Args.new("ip", payload.content).args
+      args = Args.new(command.name, payload.content).args
       next if Min_max_arg.new(1, args.size, 1, BOT, payload.channel_id).check
       next if Min_max_arg.new(2, args.size, 1, BOT, payload.channel_id).check
       response = HTTP::Client.get "https://ipvigilante.com/json/#{args[0]}"

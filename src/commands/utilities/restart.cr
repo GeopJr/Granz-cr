@@ -1,4 +1,6 @@
 module Granz
+  # Owner only
+  # No need to be collected
   module Restart
     BOT.on_message_create do |payload|
       next if payload.author.bot

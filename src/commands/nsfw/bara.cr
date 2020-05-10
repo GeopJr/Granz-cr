@@ -1,10 +1,12 @@
 require "xml"
 
 module Granz
+  command = Command.new("bara", "nsfw", "#{CONFIG["prefix"]}bara", "#{CONFIG["prefix"]}bara", "Returns a bara image")
+  Granz::COMMANDS << command
   module Bara
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("bara", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
       BOT.delete_message(payload.channel_id, payload.id)
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xffff00, image: Discord::EmbedImage.new(url: "https://i.imgur.com/yVs6TqV.gif"), title: "I'm sorry. I can't do that because this is a SFW channel.")) unless CACHE.resolve_channel(payload.channel_id).nsfw

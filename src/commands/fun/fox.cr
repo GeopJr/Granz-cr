@@ -1,8 +1,10 @@
 module Granz
+  command = Command.new("fox", "fun", "#{CONFIG["prefix"]}fox", "#{CONFIG["prefix"]}fox", "Returns an image of a fox")
+  Granz::COMMANDS << command
   module Fox
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("fox", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
 
       response = HTTP::Client.get "https://randomfox.ca/floof/"

@@ -1,8 +1,10 @@
 module Granz
+  command = Command.new("smug", "roleplay", "#{CONFIG["prefix"]}smug", "#{CONFIG["prefix"]}smug", "Smugs")
+  Granz::COMMANDS << command
   module Smug
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("smug", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
 
       response = HTTP::Client.get "https://nekos.life/api/v2/img/smug"

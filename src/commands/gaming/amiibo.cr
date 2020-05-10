@@ -1,10 +1,12 @@
 module Granz
+  command = Command.new("amiibo", "gaming", "#{CONFIG["prefix"]}amiibo <character>", "#{CONFIG["prefix"]}amiibo mewtwo", "Returns info about the given character's amiibo")
+  Granz::COMMANDS << command
   module Amiibo
     BOT.on_message_create do |payload|
       next if payload.author.bot
-      next unless Prefix_check.new("amiibo", payload.content).check
+      next unless Prefix_check.new(command.name, payload.content).check
       next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
-      args = Args.new("amiibo", payload.content).args
+      args = Args.new(command.name, payload.content).args
       next if Min_max_arg.new(1, args.size, 1, BOT, payload.channel_id).check
       next if Min_max_arg.new(2, args.size, 1, BOT, payload.channel_id).check
       response = HTTP::Client.get "https://www.amiiboapi.com/api/amiibo/?name=#{args.join(" ")}"
