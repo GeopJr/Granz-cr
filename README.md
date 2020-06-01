@@ -16,15 +16,18 @@
 </div>
 
 # Granz-cr
-A Discord Bot written in Crystal using discordcr
+
+A Discord Bot & Framework written in Crystal using discordcr
 
 # How to install
+
 - `shards install`
 - Open config.json.example, replace the info with yours and rename to config.json
 - Everthing should now work
-- `crystal Granz.cr` or compile
+- `crystal src/Granz.cr` or compile
 
 # config.json
+
 ```json
 {
   // Your bot's ID
@@ -36,21 +39,35 @@ A Discord Bot written in Crystal using discordcr
   // Prefix
   "prefix": "==",
   // Your Bot's token
-  "token": "y0Ur.b0t.T0k3n"
+  "token": "y0Ur.b0t.T0k3n",
+  // Support guild url (leave empty if none)
+  "support_guild": "7XQNZGq",
+  // Your tag
+  "my_tag": "『Geop』#4066"
 }
 ```
-## Thanks to [z64](https://github.com/z64) for helping me with both crystal and discordcr
+
+# Framework
+
+#### You can use Granz as a base for your bot!
+
+- Register commands dynamically
+- Generate a markdown of all the commands
+- Dynamic help command
+- More More More!
+
+### Thanks to [z64](https://github.com/z64) for helping me with both crystal and discordcr
 
 # Invite it
+
 [CLICK HERE](https://discordapp.com/oauth2/authorize?client_id=443053627419000833&scope=bot&permissions=103894080&redirect_uri=https://granz.geopjr.xyz/thanks.html&response_type=code)
-# Commands
-- Fun Commands
-- Useful Commands
-- Gaming Commands
 
 # License
- The Bot is using MIT License
+
+The Bot is using MIT License
+
 # Copyrights
+
 Granz's avatar is copyrighted under [Mentaiko Itto©](https://twitter.com/ittorasii)
 
 <div align="center">

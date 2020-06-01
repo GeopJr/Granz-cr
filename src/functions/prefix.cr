@@ -1,9 +1,16 @@
 # Prefix checker
-class Prefix_check
-  def initialize(@name : String, @content : String)
+class Prefix
+  @match : Regex::MatchData?
+
+  def initialize(@content : String)
+    return @match = @content.squeeze(" ").match(/(<@(\!)?#{CONFIG["client_id"]}>( )?|#{CONFIG["prefix"]})([^\s]+)(( )?[\S\s]+|$)/)
   end
 
-  def check
-    @content.downcase.squeeze(" ").starts_with?(/(<@(\!)?#{CONFIG["client_id"]}>( )?|#{CONFIG["prefix"]})#{@name}( |$)/)
+  def name
+    return @match.try &.[4]
+  end
+
+  def args
+    return @match.try &.[5].split(/ |\n/).reject! { |c| c.empty? } || [] of String
   end
 end

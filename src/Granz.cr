@@ -11,8 +11,10 @@ require "./commands/roleplay/*"
 require "./commands/utilities/*"
 require "./functions/*"
 
-# This will build the commands page
-# require "./page_gen.cr"
+{% if env("GRANZ_BUILD") %}
+  # This will build the commands page
+  require "./page_gen.cr"
+{% end %}
 
 # Config
 CONFIG = JSON.parse(File.read("./config.json"))
@@ -37,6 +39,17 @@ module Granz
   # Cache
   CACHE = Discord::Cache.new(BOT)
   BOT.cache = CACHE
+  modules = Granz::Commands.collected_modules.uniq!
+  BOT.on_message_create do |payload|
+    next if payload.author.bot
+    command = Prefix.new(payload.content)
+    next unless !command.name.nil? && Granz::COMMANDS.has_key?(command.name.not_nil!.downcase)
+    next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
+    command_module = modules.find { |i| i.to_s == "Granz::Commands::#{command.name.not_nil!.capitalize}" }
+    args = Granz::COMMANDS[command.name].args ? command.args : [] of String
+    command_module.try &.execute(payload, args)
+    next
+  end
   # Ready event
   BOT.on_ready do |event|
     # Amount of guilds
