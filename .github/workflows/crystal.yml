@@ -1,0 +1,29 @@
+name: Docs
+
+on: push
+
+jobs:
+  convert_via_pandoc:
+    name: Convert via Pandoc
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v1
+      - uses: MeilCli/setup-crystal-action@v3.0.0
+        with:
+          crystal_version: 0.34.0
+          shards_version: 0.10.0
+      - name: Run Crystal
+        run: |
+          export GRANZ_BUILD=TRUE
+          shards install
+          mv config.json.example config.json
+          crystal run ./src/Granz.cr
+      - uses: maxheld83/pandoc@v2
+        with:
+          args: "--standalone -f markdown -t html5 -o ./docs/index.html ./commands.md -c ./docs/main.css"
+      - run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ./docs/index.html ./commands.md
+          git commit -m "Generate Docs"
+          git push "https://GeopJr:${{ secrets.GITHUB_TOKEN }}@github.com/GeopJr/Granz-cr.git" HEAD:v2

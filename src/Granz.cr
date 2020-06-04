@@ -16,6 +16,10 @@ require "./functions/*"
   require "./page_gen.cr"
 {% end %}
 
+{% if env("GRANZ_BOTLIST") %}
+  require "bot_list"
+{% end %}
+
 # Config
 CONFIG = JSON.parse(File.read("./config.json"))
 # Check Config
@@ -39,6 +43,15 @@ module Granz
   # Cache
   CACHE = Discord::Cache.new(BOT)
   BOT.cache = CACHE
+  # Bot lists
+  # Comment out whichever you don't use
+  {% if env("GRANZ_BOTLIST") %}
+    bot_list = BotList::Client.new(BOT)
+    bot_list.add_provider("discordbots.org") if ENV["DBOTSDOTORG_TOKEN"]?
+    bot_list.add_provider("discord.bots.gg") if ENV["DBOTSGG_TOKEN"]?
+    bot_list.add_provider(Bots_on_Discord.new) if ENV["BOTSONDISCORD_TOKEN"]?
+    bot_list.update_every(5.hours)
+  {% end %}
   modules = Granz::Commands.collected_modules.uniq!
   BOT.on_message_create do |payload|
     next if payload.author.bot
@@ -58,5 +71,7 @@ module Granz
     BOT.status_update("online", Discord::GamePlaying.new(name: "#{CONFIG["prefix"]}help | #{guild_count} servers", type: :watching))
   end
   puts "Loaded #{Granz::COMMANDS.size} public commands!"
-  BOT.run
+  {% if !env("GRANZ_BUILD") %}
+    BOT.run
+  {% end %}
 end
