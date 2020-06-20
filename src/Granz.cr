@@ -18,6 +18,7 @@ require "./functions/*"
 
 {% if env("GRANZ_BOTLIST") %}
   require "bot_list"
+  require "./bot_lists/*"
 {% end %}
 
 # Config
@@ -43,16 +44,8 @@ module Granz
   # Cache
   CACHE = Discord::Cache.new(BOT)
   BOT.cache = CACHE
-  # Bot lists
-  # Comment out whichever you don't use
-  {% if env("GRANZ_BOTLIST") %}
-    bot_list = BotList::Client.new(BOT)
-    bot_list.add_provider("discordbots.org") if ENV["DBOTSDOTORG_TOKEN"]?
-    bot_list.add_provider("discord.bots.gg") if ENV["DBOTSGG_TOKEN"]?
-    bot_list.add_provider(Bots_on_Discord.new) if ENV["BOTSONDISCORD_TOKEN"]?
-    bot_list.update_every(5.hours)
-  {% end %}
-  modules = Granz::Commands.collected_modules.uniq!
+
+  modules = Granz::Commands.collected_modules
   BOT.on_message_create do |payload|
     next if payload.author.bot
     command = Prefix.new(payload.content)
@@ -65,6 +58,14 @@ module Granz
   end
   # Ready event
   BOT.on_ready do |event|
+    # Bot lists
+    {% if env("GRANZ_BOTLIST") %}
+      bot_list = BotList::Client.new(BOT)
+      bot_list.add_provider("top.gg") if ENV["TOPGG_TOKEN"]?
+      bot_list.add_provider("discord.bots.gg") if ENV["BOTSGG_TOKEN"]?
+      bot_list.add_provider(Bots_on_Discord.new) if ENV["BOTSONDISCORD_TOKEN"]?
+      bot_list.update_every(5.hours)
+    {% end %}
     # Amount of guilds
     guild_count = event.guilds.size > CACHE.guilds.size ? event.guilds.size : CACHE.guilds.size
     # Set status

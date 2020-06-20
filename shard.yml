@@ -12,5 +12,6 @@ dependencies:
     github: blocknotes/magickwand-crystal
   bot_list:
     github: z64/bot_list
+    branch: master
 
 license: MIT
