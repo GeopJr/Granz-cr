@@ -2,7 +2,7 @@ require "discordcr"
 require "json"
 require "http/client"
 require "magickwand-crystal"
-
+# Loading all commands and functions
 require "./commands/collector.cr"
 require "./commands/fun/*"
 require "./commands/gaming/*"
@@ -44,15 +44,21 @@ module Granz
   # Cache
   CACHE = Discord::Cache.new(BOT)
   BOT.cache = CACHE
-
+  # All modules, see src/commands/collector.cr
   modules = Granz::Commands.collected_modules
   BOT.on_message_create do |payload|
     next if payload.author.bot
+    # src/functions/prefix.cr
     command = Prefix.new(payload.content)
+    # Make sure it was found
     next unless !command.name.nil? && Granz::COMMANDS.has_key?(command.name.not_nil!.downcase)
+    # Don't respond to dms (if you even listen to it on intents)
     next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
+    # Find the correct command
     command_module = modules.find { |i| i.to_s == "Granz::Commands::#{command.name.not_nil!.capitalize}" }
+    # Check args
     args = Granz::COMMANDS[command.name].args ? command.args : [] of String
+    # Execute
     command_module.try &.execute(payload, args)
     next
   end
@@ -72,6 +78,7 @@ module Granz
     BOT.status_update("online", Discord::GamePlaying.new(name: "#{CONFIG["prefix"]}help | #{guild_count} servers", type: :watching))
   end
   puts "Loaded #{Granz::COMMANDS.size} public commands!"
+  # Don't run if it's doc build
   {% if !env("GRANZ_BUILD") %}
     BOT.run
   {% end %}

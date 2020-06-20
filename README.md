@@ -31,13 +31,13 @@ A Discord Bot & Framework written in Crystal using discordcr
 ```json
 {
   // Your bot's ID
-  "client_id": 000000000000000000,
+  "client_id": 100000000000000000,
   // Your ID
-  "my_id": 000000000000000000,
+  "my_id": 100000000000000000,
   // Bot version
   "version": 2,
   // Prefix
-  "prefix": "==",
+  "prefix": "--",
   // Your Bot's token
   "token": "y0Ur.b0t.T0k3n",
   // Support guild url (leave empty if none)
@@ -45,6 +45,16 @@ A Discord Bot & Framework written in Crystal using discordcr
   // Your tag
   "my_tag": "『Geop』#4066"
 }
+```
+
+# Env Vars
+
+```
+GRANZ_BUILD: Set to true to build commands.md
+GRANZ_BOTLIST: Set to true to use bot_list.cr
+TOPGG_TOKEN: Set to top.gg token if any
+BOTSGG_TOKEN: Set to bots.gg token if any
+BOTSONDISCORD_TOKEN: Set to bots.ondiscord.xyz token if any
 ```
 
 # Framework
