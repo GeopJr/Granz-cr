@@ -6,6 +6,7 @@ jobs:
   convert_via_pandoc:
     name: Convert via Pandoc
     runs-on: ubuntu-18.04
+    if: "contains(github.event.head_commit.message, '[docs]')"
     steps:
       - uses: actions/checkout@v1
       - uses: MeilCli/setup-crystal-action@v3.0.0
@@ -25,5 +26,5 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add ./docs/index.html ./commands.md
-          git commit -m "Generate Docs"
+          git commit -m ":pencil: Generate Docs"
           git push "https://GeopJr:${{ secrets.GITHUB_TOKEN }}@github.com/GeopJr/Granz-cr.git" HEAD:v2
