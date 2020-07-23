@@ -1,6 +1,16 @@
 # AwaitManager by z64 (https://github.com/z64)
 #
 # https://gist.github.com/z64/664da118788889ce4740d4a62abd38e8
+
+## Example
+# response = Granz::ReactionAwaitManager.new.await_manager.await_user(payload.author.id, 30.seconds)
+# case response
+# when Discord::Message
+#   BOT.create_message(payload.channel_id, "Input: #{response.content}")
+# when Granz::ReactionAwaitManager::Timeout
+#   BOT.create_message(payload.channel_id, "You took too long!")
+# end
+
 module Granz
   class MessageAwaitManager
     class Timeout
