@@ -55,6 +55,7 @@ GRANZ_BOTLIST: Set to true to use bot_list.cr
 TOPGG_TOKEN: Set to top.gg token if any
 BOTSGG_TOKEN: Set to bots.gg token if any
 BOTSONDISCORD_TOKEN: Set to bots.ondiscord.xyz token if any
+GRANZ_TOKEN: Set to bot's token
 ```
 
 # Framework

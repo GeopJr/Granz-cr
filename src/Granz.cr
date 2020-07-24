@@ -24,7 +24,7 @@ require "./functions/*"
 # Config
 CONFIG = JSON.parse(File.read("./config.json"))
 # Check Config
-["client_id", "my_id", "version", "prefix", "token", "support_guild", "my_tag"].each do |p|
+["client_id", "my_id", "version", "prefix", "support_guild", "my_tag"].each do |p|
   if CONFIG.as_h.fetch(p, nil).nil?
     raise "#{p} is not set in config.json"
   end
@@ -40,7 +40,7 @@ Log.setup_from_env
 
 module Granz
   # Authorize
-  BOT = Discord::Client.new(token: "Bot #{CONFIG["token"]}", client_id: CONFIG["client_id"].to_s.to_u64, intents: Discord::Gateway::Intents::Guilds | Discord::Gateway::Intents::GuildMessages | Discord::Gateway::Intents::DirectMessages)
+  BOT = Discord::Client.new(token: "Bot #{ENV["GRANZ_TOKEN"]}", client_id: CONFIG["client_id"].to_s.to_u64, intents: Discord::Gateway::Intents::Guilds | Discord::Gateway::Intents::GuildMessages | Discord::Gateway::Intents::DirectMessages)
   # Cache
   CACHE = Discord::Cache.new(BOT)
   BOT.cache = CACHE
