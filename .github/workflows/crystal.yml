@@ -22,7 +22,7 @@ jobs:
           mv ./docs/main.css ./
       - uses: maxheld83/pandoc@v2
         with:
-          args: "--standalone -f markdown -t html5 -o ./docs/index.html ./commands.md -c ./main.css"
+          args: "--standalone -f markdown-smart -t html5 -o ./docs/index.html ./commands.md -c ./main.css"
       - run: |
           mv ./main.css ./docs/main.css
           git config --global user.name "github-actions[bot]"
