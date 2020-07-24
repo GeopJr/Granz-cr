@@ -39,8 +39,6 @@ A Discord Bot & Framework written in Crystal using discordcr
   "version": 2,
   // Prefix
   "prefix": "--",
-  // Your Bot's token
-  "token": "y0Ur.b0t.T0k3n",
   // Support guild url (leave empty if none)
   "support_guild": "7XQNZGq",
   // Your tag
