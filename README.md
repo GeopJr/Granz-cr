@@ -12,6 +12,7 @@
     <img src="https://travis-ci.org/GeopJr/Granz-cr.svg?branch=master"/>
     <a href="https://github.com/meew0/discordcr"><img src="https://img.shields.io/badge/discord-cr-pink.svg" alt="discordcr" /></a>
     <a href="https://github.com/GeopJr/Granz_bot/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-000000.svg" alt="MIT" /></a>
+    <img src="https://github.com/GeopJr/Granz-cr/workflows/Docs/badge.svg" alt="DOCS" />
   </p>
 </div>
 
