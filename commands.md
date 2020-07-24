@@ -25,7 +25,6 @@ tstatus | Returns the status of tankionline servers | --tstatus | --tstatus
 Name | Description | Usage | Example
 --- | --- | --- | ---
 bara | Returns a bara image | --bara | --bara
-neko | Returns a neko image | --neko | --neko
 # Roleplay
 Name | Description | Usage | Example
 --- | --- | --- | ---
