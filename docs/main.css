@@ -42,3 +42,11 @@ td {
   text-shadow: -4px 0 4px black, 0 4px 4px black, 4px 0 4px black,
     0 -4px 4px black;
 }
+
+@media screen and (max-width: 640px) {
+    table {
+        overflow-x: auto;
+        display: block;
+    }
+}
+
