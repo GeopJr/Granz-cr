@@ -49,7 +49,6 @@ module Granz
           output = value["run_request"]["run"]["stderr"].to_s
         end
         embed = Discord::Embed.new(
-
           colour: 0xffff00,
           title: "#{succ}",
           description: "[carc.in](#{value["run_request"]["run"]["html_url"]})",

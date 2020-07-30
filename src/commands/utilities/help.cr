@@ -33,7 +33,7 @@ module Granz
               text: "Args: #{command_info.args}"
             ),
             author: Discord::EmbedAuthor.new(
-              name: "`#{command_info.name}` in `#{command_info.category}`"
+              name: "[#{command_info.name}] in [#{command_info.category}]"
             )
           )
           BOT.create_message(payload.channel_id, "", embed)
