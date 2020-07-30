@@ -40,6 +40,7 @@ smug | Smugs | --smug | --smug
 Name | Description | Usage | Example
 --- | --- | --- | ---
 avatar | Shows all user avatars if provided, else author's | --avatar [ID/MENTION] [ID/MENTION]... | --avatar 216156825978929152 @『Geop』#4066
+contact | Returns the provided platform's contact info of the owner | --contact &lt;platform&gt; | --contact mastodon
 donate | Returns the provided coin's address you can donate crypto to | --donate &lt;COIN&gt; | --donate XLM
 eval | Evals code inside the provided code-block. Available languages: cr, rb, c | --eval &lt;CODE BLOCK&gt; | --eval ´´´cr<br>puts 1 + 1<br>´´´
 help | Returns a help menu | --help | --help
