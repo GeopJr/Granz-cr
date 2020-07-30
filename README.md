@@ -23,7 +23,8 @@ A Discord Bot & Framework written in Crystal using discordcr
 # How to install
 
 - `shards install`
-- Open config.json.example, replace the info with yours and rename to config.json
+- Open config.json, replace the info with [yours](https://github.com/geopjr/granz-cr#configjson)
+- Set the Env vars you [need](https://github.com/geopjr/granz-cr#env-vars)
 - Everthing should now work
 - `crystal src/Granz.cr` or compile
 
@@ -85,4 +86,4 @@ Granz's avatar is copyrighted under [Mentaiko Itto©](https://twitter.com/ittora
   <p>
     <img src="https://i.imgur.com/HEtVbUc.png" alt="info"/></a>
   </p>
-  </div>
+</div>
