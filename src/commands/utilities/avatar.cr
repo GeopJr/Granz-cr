@@ -10,7 +10,7 @@ module Granz
         i = 0
         avatar_embeds = [] of Discord::Embed
         while i < 5 && (i < args.size || i == 0)
-          id = args[i].delete("^0-9").to_u64?
+          id = args[i]?.try &.delete("^0-9").to_u64?
           mentioned_user = if id.nil?
                              payload.author
                            else
