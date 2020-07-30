@@ -52,8 +52,8 @@ module Granz
     command = Prefix.new(payload.content)
     # Make sure it was found
     next unless !command.name.nil? && Granz::COMMANDS.has_key?(command.name.not_nil!.downcase)
-    # Don't respond to dms (if you even listen to it on intents)
-    next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
+    # Don't respond to dms (if you listen to it on intents)
+    # next BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xff0000, title: "Sorry, I only respond on guilds")) unless CACHE.resolve_channel(payload.channel_id).type.guild_text?
     # Find the correct command
     command_module = modules.find { |i| i.to_s == "Granz::Commands::#{command.name.not_nil!.capitalize}" }
     # Check args
