@@ -17,7 +17,6 @@ jobs:
         run: |
           export GRANZ_BUILD=TRUE
           shards install
-          mv config.json.example config.json
           crystal run ./src/Granz.cr
           mv ./docs/main.css ./
       - uses: maxheld83/pandoc@v2
