@@ -9,7 +9,11 @@ module Granz
       extend self
 
       def execute(payload : Discord::Message, args : Array(String))
-        BOT.try &.delete_message(payload.channel_id, payload.id)
+        begin
+          BOT.delete_message(payload.channel_id, payload.id)
+        rescue
+          # Do nothing
+        end
         return BOT.create_message(payload.channel_id, "", Discord::Embed.new(colour: 0xffff00, image: Discord::EmbedImage.new(url: "https://i.imgur.com/yVs6TqV.gif"), title: "I'm sorry. I can't do that because this is a SFW channel.")) unless CACHE.resolve_channel(payload.channel_id).nsfw
         i = 0
         response = HTTP::Client.get("https://rule34.xxx/index.php?page=dapi&s=post&q=index&pid=#{rand(50)}&tags=bara%20-furry%20-furry_only%20-anthro%20-3d%20-3d_(artwork)%20-forced%20-yaoi%20-pokemon%20-canid%20-humanoid%20-humanoid_penis%20-mammal%20-animal_humanoid%20-fur%20-vagina%20-pussy")
