@@ -9,7 +9,8 @@
   <br />
   <p>
     <a href="https://discordbots.org/bot/443053627419000833"><img src="https://discordbots.org/api/widget/status/443053627419000833.svg" alt="Discord_Bots" /></a>
-    <img src="https://travis-ci.org/GeopJr/Granz-cr.svg?branch=master"/>
+    <a href="https://ko-fi.com/GeopJr" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a>
+    <a href="https://liberapay.com/GeopJr"><img src="https://img.shields.io/liberapay/goal/GeopJr.svg?logo=liberapay" alt="liberapay" ></a>
     <a href="https://github.com/meew0/discordcr"><img src="https://img.shields.io/badge/discord-cr-pink.svg" alt="discordcr" /></a>
     <a href="https://github.com/GeopJr/Granz_bot/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-000000.svg" alt="MIT" /></a>
     <img src="https://github.com/GeopJr/Granz-cr/workflows/Docs/badge.svg" alt="DOCS" />
