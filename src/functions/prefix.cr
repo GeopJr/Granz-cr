@@ -3,7 +3,7 @@ class Prefix
   @match : Regex::MatchData?
 
   def initialize(@content : String)
-    return @match = @content.sub("—", "--").squeeze(" ").match(/(<@(\!)?#{CONFIG["client_id"]}>( )?|#{CONFIG["prefix"]})([^\s]+)(( )?[\S\s]+|$)/)
+    return @match = @content.sub("—", "--").squeeze(" ").match(/^(<@(\!)?#{CONFIG["client_id"]}>( )?|#{CONFIG["prefix"]})([^\s]+)(( )?[\S\s]+|$)/)
   end
 
   def name
