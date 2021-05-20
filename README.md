@@ -3,16 +3,9 @@
   <p>
     <img src="https://i.imgur.com/90xR5vB.png"/>
   </p>
-  <p>
-    <img src="https://i.imgur.com/kG2PYbz.jpg" alt="Granz_avatar"/>
-  </p>
   <br />
   <p>
-    <a href="https://discordbots.org/bot/443053627419000833"><img src="https://discordbots.org/api/widget/status/443053627419000833.svg" alt="Discord_Bots" /></a>
-    <a href="https://ko-fi.com/GeopJr" title="Donate to this project using Buy Me A Coffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-yellow.svg" alt="Buy Me A Coffee donate button" /></a>
-    <a href="https://liberapay.com/GeopJr"><img src="https://img.shields.io/liberapay/patrons/GeopJr.svg?logo=liberapay" alt="liberapay" ></a>
-    <a href="https://github.com/meew0/discordcr"><img src="https://img.shields.io/badge/discord-cr-pink.svg" alt="discordcr" /></a>
-    <a href="https://github.com/GeopJr/Granz_bot/blob/master/LICENSE"><img src="https://img.shields.io/badge/LICENSE-MIT-000000.svg" alt="MIT" /></a>
+    <a href="https://top.gg/bot/443053627419000833"><img src="https://discordbots.org/api/widget/status/443053627419000833.svg" alt="Discord_Bots" /></a>
     <img src="https://github.com/GeopJr/Granz-cr/workflows/Docs/badge.svg" alt="DOCS" />
   </p>
 </div>
@@ -44,7 +37,7 @@ A Discord Bot & Framework written in Crystal using discordcr
   // Support guild url (leave empty if none)
   "support_guild": "7XQNZGq",
   // Your tag
-  "my_tag": "『Geop』#4066"
+  "my_tag": "GeopJr#4066"
 }
 ```
 
@@ -68,23 +61,12 @@ GRANZ_TOKEN: Set to bot's token
 - Dynamic help command
 - More More More!
 
-### Thanks to [z64](https://github.com/z64) for helping me with both crystal and discordcr
-
 # Invite it
 
-[CLICK HERE](https://discordapp.com/oauth2/authorize?client_id=443053627419000833&scope=bot&permissions=103894080&redirect_uri=https://granz.geopjr.xyz/thanks.html&response_type=code)
-
-# License
-
-The Bot is using MIT License
+[CLICK HERE](https://discordapp.com/oauth2/authorize?client_id=443053627419000833&scope=bot&permissions=103894080)
 
 # Copyrights
 
 Granz's avatar is copyrighted under [Mentaiko Itto©](https://twitter.com/ittorasii)
 
-<div align="center">
-  <br />
-  <p>
-    <img src="https://i.imgur.com/HEtVbUc.png" alt="info"/></a>
-  </p>
-</div>
+> Thanks to [z64](https://github.com/z64) for helping me with both crystal and discordcr
