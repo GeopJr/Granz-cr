@@ -1,6 +1,6 @@
 # Fun
 Name | Description | Usage | Example
---- | --- | --- | ---
+--- | --- | --- | --- 
 bird | Returns an image of a bird | --bird | --bird
 cat | Returns an image of a cat | --cat | --cat
 choose | Chooses something between the given choices | --choose &lt;choice1|choice2|choiceN&gt; | --choose chocolate|ice cream
