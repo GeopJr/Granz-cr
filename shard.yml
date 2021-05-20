@@ -2,11 +2,11 @@ name: Granz
 version: 2.0
 
 authors:
-  - GeopJr <geopjr@geopjr.xyz>
+  - GeopJr <evan@geopjr.dev>
 
 dependencies:
   discordcr:
-    github: meew0/discordcr
+    github: discordcr/discordcr
     branch: master
   magickwand-crystal:
     github: blocknotes/magickwand-crystal
