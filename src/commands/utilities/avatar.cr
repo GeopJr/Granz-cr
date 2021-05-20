@@ -1,5 +1,5 @@
 module Granz
-  command = Command.new("avatar", "utilities", "#{CONFIG["prefix"]}avatar [ID/MENTION] [ID/MENTION]...", "#{CONFIG["prefix"]}avatar 216156825978929152 @『Geop』#4066", "Shows all user avatars if provided, else author's", true)
+  command = Command.new("avatar", "utilities", "#{CONFIG["prefix"]}avatar [ID/MENTION] [ID/MENTION]...", "#{CONFIG["prefix"]}avatar 216156825978929152 @GeopJr#4066", "Shows all user avatars if provided, else author's", true)
   Granz::COMMANDS[command.name] = command
 
   module Commands

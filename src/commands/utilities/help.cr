@@ -43,7 +43,7 @@ module Granz
         current_user = CACHE.resolve_current_user
         embed = Discord::Embed.new(
           title: "You called for help , here I am !!!",
-          description: "\n__[Command List !](https://granz.geopjr.xyz/commands)__\n\n__Type #{CONFIG["prefix"]}info for some info__\n\n__Found a bug? Add me #{CONFIG["my_tag"]}__#{guild_invite}",
+          description: "\n__[Command List !](https://granz.geopjr.dev/commands)__\n\n__Type #{CONFIG["prefix"]}info for some info__\n\n__Found a bug? Add me #{CONFIG["my_tag"]}__#{guild_invite}",
 
           colour: 0xffff00,
           footer: Discord::EmbedFooter.new(

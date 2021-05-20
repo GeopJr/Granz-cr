@@ -1,5 +1,5 @@
 module Granz
-  command = Command.new("shoot", "roleplay", "#{CONFIG["prefix"]}shoot [ID/MENTION]", "#{CONFIG["prefix"]}shoot @『Geop』#4066", "Shoots provided user", true)
+  command = Command.new("shoot", "roleplay", "#{CONFIG["prefix"]}shoot [ID/MENTION]", "#{CONFIG["prefix"]}shoot @GeopJr#4066", "Shoots provided user", true)
   Granz::COMMANDS[command.name] = command
 
   module Commands

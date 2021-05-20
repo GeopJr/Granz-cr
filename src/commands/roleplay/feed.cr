@@ -1,5 +1,5 @@
 module Granz
-  command = Command.new("feed", "roleplay", "#{CONFIG["prefix"]}feed [ID/MENTION]", "#{CONFIG["prefix"]}feed @『Geop』#4066", "Feeds provided user", true)
+  command = Command.new("feed", "roleplay", "#{CONFIG["prefix"]}feed [ID/MENTION]", "#{CONFIG["prefix"]}feed @GeopJr#4066", "Feeds provided user", true)
   Granz::COMMANDS[command.name] = command
 
   module Commands

@@ -1,5 +1,5 @@
 module Granz
-  command = Command.new("qrcode", "utilities", "#{CONFIG["prefix"]}qrcode <text>", "#{CONFIG["prefix"]}qrcode https://geopjr.xyz/", "Returns a qrcode from the provided text", true)
+  command = Command.new("qrcode", "utilities", "#{CONFIG["prefix"]}qrcode <text>", "#{CONFIG["prefix"]}qrcode https://geopjr.dev/", "Returns a qrcode from the provided text", true)
   Granz::COMMANDS[command.name] = command
 
   module Commands
