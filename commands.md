@@ -1,6 +1,6 @@
 # Fun
 Name | Description | Usage | Example
---- | --- | --- | --- 
+--- | --- | --- | ---
 bird | Returns an image of a bird | --bird | --bird
 cat | Returns an image of a cat | --cat | --cat
 choose | Chooses something between the given choices | --choose &lt;choice1|choice2|choiceN&gt; | --choose chocolate|ice cream
@@ -28,25 +28,23 @@ bara | Returns a bara image | --bara | --bara
 # Roleplay
 Name | Description | Usage | Example
 --- | --- | --- | ---
-baka | The provided user is a baka | --baka [ID/MENTION] | --baka @『Geop』#4066
-feed | Feeds provided user | --feed [ID/MENTION] | --feed @『Geop』#4066
-hug | Hugs provided user | --hug [ID/MENTION] | --hug @『Geop』#4066
-kiss | Kisses provided user | --kiss [ID/MENTION] | --kiss @『Geop』#4066
-pat | Pats provided user | --pat [ID/MENTION] | --pat @『Geop』#4066
-poke | Pokes provided user | --poke [ID/MENTION] | --poke @『Geop』#4066
-shoot | Shoots provided user | --shoot [ID/MENTION] | --shoot @『Geop』#4066
+baka | The provided user is a baka | --baka [ID/MENTION] | --baka @GeopJr#4066
+feed | Feeds provided user | --feed [ID/MENTION] | --feed @GeopJr#4066
+hug | Hugs provided user | --hug [ID/MENTION] | --hug @GeopJr#4066
+kiss | Kisses provided user | --kiss [ID/MENTION] | --kiss @GeopJr#4066
+pat | Pats provided user | --pat [ID/MENTION] | --pat @GeopJr#4066
+poke | Pokes provided user | --poke [ID/MENTION] | --poke @GeopJr#4066
+shoot | Shoots provided user | --shoot [ID/MENTION] | --shoot @GeopJr#4066
 smug | Smugs | --smug | --smug
 # Utilities
 Name | Description | Usage | Example
 --- | --- | --- | ---
-avatar | Shows all user avatars if provided, else author's | --avatar [ID/MENTION] [ID/MENTION]... | --avatar 216156825978929152 @『Geop』#4066
-contact | Returns the provided platform's contact info of the owner | --contact &lt;platform&gt; | --contact mastodon
-donate | Returns the provided coin's address you can donate crypto to | --donate &lt;COIN&gt; | --donate XLM
+avatar | Shows all user avatars if provided, else author's | --avatar [ID/MENTION] [ID/MENTION]... | --avatar 216156825978929152 @GeopJr#4066
 eval | Evals code inside the provided code-block. Available languages: cr, rb, c | --eval &lt;CODE BLOCK&gt; | --eval ´´´cr<br>puts 1 + 1<br>´´´
 help | Returns a help menu | --help | --help
 info | Returns some info about the bot | --info | --info
 ip | Returns some info about the provided ip | --ip &lt;ip address&gt; | --ip 8.8.8.8
 ping | Returns "Pong!" with the amount of time it took it to reply | --ping | --ping
-qrcode | Returns a qrcode from the provided text | --qrcode &lt;text&gt; | --qrcode https://geopjr.xyz/
+qrcode | Returns a qrcode from the provided text | --qrcode &lt;text&gt; | --qrcode https://geopjr.dev/
 uptime | Returns the amount of time the bot has been up | --uptime | --uptime
 whois | Returns user info if provided, else server info | --whois [ID/MENTION] | --whois 216156825978929152

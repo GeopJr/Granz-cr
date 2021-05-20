@@ -171,18 +171,6 @@
       "example": "--avatar 216156825978929152 @GeopJr#4066"
     },
     {
-      "name": "contact",
-      "desc": "Returns the provided platform's contact info of the owner",
-      "usage": "--contact <platform>",
-      "example": "--contact mastodon"
-    },
-    {
-      "name": "donate",
-      "desc": "Returns the provided coin's address you can donate crypto to",
-      "usage": "--donate <COIN>",
-      "example": "--donate XLM"
-    },
-    {
       "name": "eval",
       "desc": "Evals code inside the provided code-block. Available languages: cr, rb, c",
       "usage": "--eval <CODE BLOCK>",
