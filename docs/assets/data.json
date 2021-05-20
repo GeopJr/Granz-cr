@@ -1,0 +1,11 @@
+{
+    "name": "Granz",
+    "domain": "granz.geopjr.dev",
+    "colors": {
+        "theme": "#0086ff"
+    },
+    "avi": {
+        "local": "avi.jpg",
+        "cdn": "https://i.imgur.com/vYD4xJM.jpg"
+    }
+}

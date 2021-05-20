@@ -3,27 +3,33 @@ def htmlify(text)
 end
 
 module Granz
+  commands_json = Hash(String, Array(Hash(String, String))).new
   table_title = "Name | Description | Usage | Example"
-  table_body = Hash(String, Array(String)).new
 
   Granz::COMMANDS.each_value do |p|
-    table_body[p.category] = [] of String
+    commands_json[p.category] = [] of Hash(String, String)
   end
 
   Granz::COMMANDS.each_value do |p|
-    table_body[p.category] << "#{p.name} | #{htmlify(p.desc)} | #{htmlify(p.usage)} | #{htmlify(p.example)}"
+    commands_json[p.category] << {
+      "name" => p.name,
+      "desc" => p.desc,
+      "usage" => p.usage,
+      "example" => p.example
+    }
   end
 
   table = [] of String
 
-  table_body.each_key  do |key|
-    table << "# #{key.capitalize}"
+  commands_json.each  do |k, v|
+    table << "# #{k.capitalize}"
     table << table_title
     table << "--- | --- | --- | ---"
-    table_body[key].each do |p|
-      table << p
+    v.each do |p|
+      table << "#{htmlify(p["name"])} | #{htmlify(p["desc"])} | #{htmlify(p["usage"])} | #{htmlify(p["example"])}"
     end
   end
 
   File.write("commands.md", table.join("\n"))
+  File.write("commands.json", commands_json.to_pretty_json)
 end
