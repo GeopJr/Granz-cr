@@ -13,8 +13,7 @@
   },
   "dependencies": {
     "core-js": "^3.12.1",
-    "nuxt": "^2.15.6",
-    "vue-discord-message": "^5.0.3"
+    "nuxt": "^2.15.6"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^6.0.0",
@@ -26,6 +25,7 @@
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-vue": "^7.9.0",
-    "prettier": "^2.3.0"
+    "prettier": "^2.3.0",
+    "vue-discord-message": "^5.0.3"
   }
 }

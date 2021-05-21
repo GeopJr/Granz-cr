@@ -3,11 +3,7 @@
     <v-app-bar fixed app flat class="rounded-b-xl">
       <v-btn class="ml-0" icon :to="'/'" title="Home">
         <v-avatar>
-          <v-img
-            :src="info.avi.cdn.slice(0, -4) + 's' + info.avi.cdn.slice(-4)"
-            quality="50"
-            alt="Avatar"
-          />
+          <v-img src="/avi.jpg" quality="50" alt="Avatar" />
         </v-avatar>
       </v-btn>
       <v-toolbar-title class="d-none d-sm-flex ml-3">{{
