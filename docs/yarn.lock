@@ -1469,16 +1469,16 @@
     consola "^2.15.0"
     eslint-webpack-plugin "^2.4.1"
 
-"@nuxtjs/vuetify@^1.11.3":
-  version "1.11.3"
-  resolved "https://registry.yarnpkg.com/@nuxtjs/vuetify/-/vuetify-1.11.3.tgz#61d4a38436ebf87d16ff8e029049220124421d78"
-  integrity sha512-VHfw0PMgOMRxy8gmhfLzMLicAN8XRcXI4M2/JoiuyVo0rmlW3br5oJ3Q7j/usDOsKOhO2/ieFzLbQNqF7kzdBQ==
+"@nuxtjs/vuetify@^1.12.1":
+  version "1.12.1"
+  resolved "https://registry.yarnpkg.com/@nuxtjs/vuetify/-/vuetify-1.12.1.tgz#87dd1e1517b0120c660f4a43a22627c9fe124189"
+  integrity sha512-oNwNhR6LY7l9ETsNyPkmCxgzbOYuAf27m+6E9mjQzHSu8PPI0vJ3xnGLgo87XnTcnWr9nYxqjwRN8xqMuuyoxQ==
   dependencies:
     deepmerge "^4.2.2"
-    sass "^1.32.4"
-    sass-loader "^10.1.1"
-    vuetify "^2.4.2"
-    vuetify-loader "^1.6.0"
+    sass "~1.32.13"
+    sass-loader "^10.2.0"
+    vuetify "^2.5.3"
+    vuetify-loader "^1.7.2"
 
 "@nuxtjs/youch@^4.2.3":
   version "4.2.3"
@@ -2635,7 +2635,7 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-"chokidar@>=2.0.0 <4.0.0", chokidar@^3.4.1, chokidar@^3.5.1:
+"chokidar@>=3.0.0 <4.0.0", chokidar@^3.4.1, chokidar@^3.5.1:
   version "3.5.1"
   resolved "https://registry.yarnpkg.com/chokidar/-/chokidar-3.5.1.tgz#ee9ce7bbebd2b79f49f304799d5468e31e14e68a"
   integrity sha512-9+s+Od+W0VJJzawDma/gvBNQqkTiqYTWLuZoyAsivsI4AaWTCzHG06/TMjsf1cYe9Cb97UCEhjz7HvnPk2p/tw==
@@ -7739,10 +7739,10 @@ safe-regex@^2.1.1:
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
 
-sass-loader@^10.1.1:
-  version "10.1.1"
-  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-10.1.1.tgz#4ddd5a3d7638e7949065dd6e9c7c04037f7e663d"
-  integrity sha512-W6gVDXAd5hR/WHsPicvZdjAWHBcEJ44UahgxcIE196fW2ong0ZHMPO1kZuI5q0VlvMQZh32gpv69PLWQm70qrw==
+sass-loader@^10.2.0:
+  version "10.2.0"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-10.2.0.tgz#3d64c1590f911013b3fa48a0b22a83d5e1494716"
+  integrity sha512-kUceLzC1gIHz0zNJPpqRsJyisWatGYNFRmv2CKZK2/ngMJgLqxTbXwe/hJ85luyvZkgqU3VlJ33UVF2T/0g6mw==
   dependencies:
     klona "^2.0.4"
     loader-utils "^2.0.0"
@@ -7750,12 +7750,12 @@ sass-loader@^10.1.1:
     schema-utils "^3.0.0"
     semver "^7.3.2"
 
-sass@^1.32.4:
-  version "1.32.8"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.32.8.tgz#f16a9abd8dc530add8834e506878a2808c037bdc"
-  integrity sha512-Sl6mIeGpzjIUZqvKnKETfMf0iDAswD9TNlv13A7aAF3XZlRPMq4VvJWBC2N2DXbp94MQVdNSFG6LfF/iOXrPHQ==
+sass@~1.32.13:
+  version "1.32.13"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.32.13.tgz#8d29c849e625a415bce71609c7cf95e15f74ed00"
+  integrity sha512-dEgI9nShraqP7cXQH+lEXVf73WOPCse0QlFzSD8k+1TcOxCMwVXfQlr0jtoluZysQOyJGnfr21dLvYKDJq8HkA==
   dependencies:
-    chokidar ">=2.0.0 <4.0.0"
+    chokidar ">=3.0.0 <4.0.0"
 
 sax@~1.2.4:
   version "1.2.4"
@@ -8949,7 +8949,7 @@ vue@^2.6.12:
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.12.tgz#f5ebd4fa6bd2869403e29a896aed4904456c9123"
   integrity sha512-uhmLFETqPPNyuLLbsKz6ioJ4q7AZHzD8ZVFNATNyICSZouqP2Sz0rotWQC8UNBF6VGSCs5abnKJoStA6JbCbfg==
 
-vuetify-loader@^1.6.0:
+vuetify-loader@^1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/vuetify-loader/-/vuetify-loader-1.7.2.tgz#5cdc45309496cf3a5fe431fd7611706ffa4aa8c8"
   integrity sha512-2GSo4KvRAOThBsj8mvtIEeIoyBAZx38GDfh8D90e/or7Hzx4813krJKvcQAllyLO/Ln0eQWrq2IuvBXnZ55cSA==
@@ -8958,10 +8958,10 @@ vuetify-loader@^1.6.0:
     file-loader "^6.2.0"
     loader-utils "^2.0.0"
 
-vuetify@^2.4.2:
-  version "2.4.6"
-  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.4.6.tgz#127b37bd36c7a63f61615e0cd6f97e8b203e7a07"
-  integrity sha512-oqAWKAin07ip/QuT/p4bL1LegE3MYPbfojrOcj80RATZDSnJyco2PZD8QuIzd0RhYfdAuSTkY8elvHsLu90RuQ==
+vuetify@^2.5.3:
+  version "2.5.3"
+  resolved "https://registry.yarnpkg.com/vuetify/-/vuetify-2.5.3.tgz#9d703414a736879673c94550035adc177a6ca394"
+  integrity sha512-c0oX063PzWrIV29Mi7Pyi63OcF0FlCDJcgMvu0woTt4GL4yVmNQMh5hyKS5NEwlsS66HcjKJERMoY0JJc1bYGA==
 
 vuex@^3.6.2:
   version "3.6.2"
