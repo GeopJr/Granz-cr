@@ -12,7 +12,7 @@
     "lint:fix": "yarn lint:js --fix"
   },
   "dependencies": {
-    "core-js": "^3.14.0",
+    "core-js": "^3.15.0",
     "nuxt": "^2.15.7",
     "vue-discord-message": "^5.0.3"
   },
