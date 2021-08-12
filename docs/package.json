@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "core-js": "^3.16.1",
-    "nuxt": "^2.15.7",
+    "nuxt": "^2.15.8",
     "vue-discord-message": "^5.0.3"
   },
   "devDependencies": {
