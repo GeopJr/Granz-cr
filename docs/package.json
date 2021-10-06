@@ -12,20 +12,20 @@
     "lint:fix": "yarn lint:js --fix"
   },
   "dependencies": {
-    "core-js": "^3.18.2",
-    "nuxt": "^2.15.8",
-    "vue-discord-message": "^5.0.3"
+    "core-js": "3.18.2",
+    "nuxt": "2.15.8",
+    "vue-discord-message": "5.0.3"
   },
   "devDependencies": {
-    "@nuxtjs/eslint-config": "^6.0.1",
-    "@nuxtjs/eslint-module": "^3.0.2",
-    "@nuxtjs/vuetify": "^1.12.1",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.32.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-nuxt": "^2.0.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^7.19.0",
-    "prettier": "^2.4.1"
+    "@nuxtjs/eslint-config": "6.0.1",
+    "@nuxtjs/eslint-module": "3.0.2",
+    "@nuxtjs/vuetify": "1.12.1",
+    "babel-eslint": "10.1.0",
+    "eslint": "7.32.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-nuxt": "2.0.0",
+    "eslint-plugin-prettier": "4.0.0",
+    "eslint-plugin-vue": "7.19.0",
+    "prettier": "2.4.1"
   }
 }
