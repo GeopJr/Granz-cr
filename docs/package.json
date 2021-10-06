@@ -25,7 +25,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-nuxt": "^2.0.0",
     "eslint-plugin-prettier": "^4.0.0",
-    "eslint-plugin-vue": "^7.18.0",
+    "eslint-plugin-vue": "^7.19.0",
     "prettier": "^2.4.1"
   }
 }
