@@ -9,7 +9,7 @@ jobs:
     if: "contains(github.event.head_commit.message, '[docs]')"
     steps:
       - uses: actions/checkout@v2.4.0
-      - uses: MeilCli/setup-crystal-action@v4.4.17
+      - uses: MeilCli/setup-crystal-action@v4.4.18
         with:
           crystal_version: 0.34.0
           shards_version: 0.10.0
