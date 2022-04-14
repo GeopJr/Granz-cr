@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-18.04
     if: "contains(github.event.head_commit.message, '[docs]')"
     steps:
-      - uses: actions/checkout@v3.0.0
+      - uses: actions/checkout@v3.0.1
       - uses: MeilCli/setup-crystal-action@v4.5.1
         with:
           crystal_version: 0.34.0
